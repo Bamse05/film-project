@@ -1,0 +1,15 @@
+# Ignore the specific materials folder
+project-material/
+
+# Ignore all ZIP files (to prevent accidental 5GB pushes)
+*.zip
+
+# Node.js dependencies
+node_modules/
+
+# Environment variables (for your database credentials)
+.env
+
+# Local database storage
+data/
+db/
