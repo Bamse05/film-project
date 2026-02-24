@@ -10,6 +10,9 @@ const dbPort = 27017;
 const dbServerUrl = "mongodb://" + dbHostname + ":" + dbPort + "";
 const dbClient = new MongoClient(dbServerUrl);
 const dbName = "tnm121-project";
+const dbCollectionActorinfo = "actorinfo";
+const dbCollectionBechdel = "bechdel";
+const dbCollectionImdb = "imdb";
 
 const server = http.createServer((req, res) => {
 
@@ -21,13 +24,14 @@ const server = http.createServer((req, res) => {
         console.log(req.method);
 
         switch (pathComponents[1]) {
-            case "":
+            case "imdb":
+                routeImdb(res, pathComponents);
                 break;
             default:
                 break;
         }
 
-    }else if (req.method == "OPTIONS"){
+    } else if (req.method == "OPTIONS"){
         // default preflight response: 204 (No Content); docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#successful_responses
         sendResponse(res, 204, null, null);
     }
@@ -40,8 +44,7 @@ server.listen(port, hostname, () => {
     console.log("The server is running and listening at\n" + serverUrl);
 });
 
-
-
+// USE THIS TO SEND RESPONSES
 function sendResponse(res, statusCode, contentType, data) {
     res.statusCode = statusCode;
     if (contentType != null) res.setHeader("Content-Type", contentType);
@@ -52,3 +55,41 @@ function sendResponse(res, statusCode, contentType, data) {
     if (data != null) res.end(data);
     else res.end();
 }
+
+// USE THIS TO SEND BASIC DB REQUESTS
+async function requestDBJSON(findQuery, dbCollectionName) {
+    dbClient.connect();
+    const db = dbClient.db(dbName);
+    const dbCollection = db.collection(dbCollectionName);
+
+    const artists = await dbCollection.find(findQuery).toArray();
+    const resultingJSON = JSON.stringify(artists);
+    await dbClient.close();
+
+    return resultingJSON;
+}
+
+// ------ ROUTING FUNCTIONS ------
+
+async function routeImdb(res, pathComponents) {
+    if (pathComponents[2] != null && pathComponents[2] != undefined &&
+        pathComponents[3] != null && pathComponents[3] != undefined) {
+        switch (pathComponents[2]) {
+            case "id":
+                routeImdbID(res, pathComponents[3]);
+                break;
+            default:
+                break;
+        }
+    } else {
+        sendResponse(res, 404, "text/plain", "Bad url");
+    }
+}
+
+async function routeImdbID(res, id) {
+    findQuery = { _id: {$eq: id}};
+
+    resultingJSON = await requestDBJSON(findQuery, dbCollectionImdb);
+    sendResponse(res, 200, "application/json", resultingJSON);
+}
+
