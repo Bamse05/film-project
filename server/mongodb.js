@@ -23,13 +23,7 @@ const server = http.createServer((req, res) => {
         console.log(pathComponents);
         console.log(req.method);
 
-        switch (pathComponents[1]) {
-            case "imdb":
-                routeImdb(res, pathComponents);
-                break;
-            default:
-                break;
-        }
+        route(res, pathComponents);
 
     } else if (req.method == "OPTIONS"){
         // default preflight response: 204 (No Content); docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#successful_responses
@@ -71,25 +65,50 @@ async function requestDBJSON(findQuery, dbCollectionName) {
 
 // ------ ROUTING FUNCTIONS ------
 
-async function routeImdb(res, pathComponents) {
-    if (pathComponents[2] != null && pathComponents[2] != undefined &&
-        pathComponents[3] != null && pathComponents[3] != undefined) {
+async function route(res, pathComponents) {
+    const dbCollectionName = pathComponents[1];
+
+    if (pathComponents[2] != null && pathComponents[2] != undefined && pathComponents != "") {
         switch (pathComponents[2]) {
+            case "list":
+                    getAllIDs(res, dbCollectionName);
+                    break;
             case "id":
-                routeImdbID(res, pathComponents[3]);
+                if (pathComponents[3] != null && pathComponents[3] != undefined) {
+                    routeByID(res, dbCollectionName, pathComponents[3]);
+                } else {
+                    sendResponse(res, 204, null, null);
+                }
                 break;
             default:
+                sendResponse(res, 204, null, null);
                 break;
         }
     } else {
-        sendResponse(res, 404, "text/plain", "Bad url");
+        sendResponse(res, 204, null, null);
     }
 }
 
-async function routeImdbID(res, id) {
-    findQuery = { _id: {$eq: id}};
+async function routeByID(res, dbCollectionName, id) {
+    dbClient.connect();
+    const db = dbClient.db(dbName);
+    const dbCollection = db.collection(dbCollectionName);
 
-    resultingJSON = await requestDBJSON(findQuery, dbCollectionImdb);
+    const result = await dbCollection.find({ _id: {$eq: id}}).toArray();
+    const resultingJSON = JSON.stringify(result);
+
     sendResponse(res, 200, "application/json", resultingJSON);
+    await dbClient.close();
 }
 
+async function getAllIDs(res, dbCollectionName) {
+    dbClient.connect();
+    const db = dbClient.db(dbName);
+    const dbCollection = db.collection(dbCollectionName);
+
+    const result = await dbCollection.find({}, { _id: 1 }).map(doc => doc._id).toArray();
+    const resultingJSON = JSON.stringify(result);
+
+    sendResponse(res, 200, "application/json", resultingJSON);
+    await dbClient.close();
+}
