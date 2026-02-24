@@ -67,18 +67,3 @@ async function reqIdList(dbCollection) {
 
 // =============================
 
-
-
-async function deletethis() {
-    data1 = await reqMovieData("tt0021739");
-    data2 = await reqActorData("nm0000194");
-    data3 = await reqIdList(dbCollectionImdb);
-    data4 = await reqIdList(dbCollectionActorinfo);
-
-    console.log(data1);
-    console.log(data2);
-    console.log(data3);
-    console.log(data4);
-}
-
-deletethis();
