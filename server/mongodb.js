@@ -76,6 +76,8 @@ async function route(res, pathComponents) {
             case "id":
                 if (pathComponents[3] != null && pathComponents[3] != undefined) {
                     routeByID(res, dbCollectionName, pathComponents[3]);
+                } else {
+                    sendResponse(res, 204, null, null);
                 }
                 break;
             default:
