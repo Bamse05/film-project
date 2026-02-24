@@ -66,25 +66,47 @@ async function requestDBJSON(findQuery, dbCollectionName) {
 // ------ ROUTING FUNCTIONS ------
 
 async function route(res, pathComponents) {
-    dbCollectionName = pathComponents[1];
+    const dbCollectionName = pathComponents[1];
 
-    if (pathComponents[2] != null && pathComponents[2] != undefined &&
-        pathComponents[3] != null && pathComponents[3] != undefined) {
+    if (pathComponents[2] != null && pathComponents[2] != undefined && pathComponents != "") {
         switch (pathComponents[2]) {
+            case "list":
+                    getAllIDs(res, dbCollectionName);
+                    break;
             case "id":
-                routeByID(res, dbCollectionName, pathComponents[3]);
+                if (pathComponents[3] != null && pathComponents[3] != undefined) {
+                    routeByID(res, dbCollectionName, pathComponents[3]);
+                }
                 break;
             default:
+                sendResponse(res, 204, null, null);
                 break;
         }
     } else {
-        sendResponse(res, 404, "text/plain", "Bad url");
+        sendResponse(res, 204, null, null);
     }
 }
 
-async function routeByID(res, collectionName, id) {
-    findQuery = { _id: {$eq: id}};
+async function routeByID(res, dbCollectionName, id) {
+    dbClient.connect();
+    const db = dbClient.db(dbName);
+    const dbCollection = db.collection(dbCollectionName);
 
-    resultingJSON = await requestDBJSON(findQuery, collectionName);
+    const result = await dbCollection.find({ _id: {$eq: id}}).toArray();
+    const resultingJSON = JSON.stringify(result);
+
     sendResponse(res, 200, "application/json", resultingJSON);
+    await dbClient.close();
+}
+
+async function getAllIDs(res, dbCollectionName) {
+    dbClient.connect();
+    const db = dbClient.db(dbName);
+    const dbCollection = db.collection(dbCollectionName);
+
+    const result = await dbCollection.find({}, { _id: 1 }).map(doc => doc._id).toArray();
+    const resultingJSON = JSON.stringify(result);
+
+    sendResponse(res, 200, "application/json", resultingJSON);
+    await dbClient.close();
 }
