@@ -23,13 +23,7 @@ const server = http.createServer((req, res) => {
         console.log(pathComponents);
         console.log(req.method);
 
-        switch (pathComponents[1]) {
-            case "imdb":
-                routeImdb(res, pathComponents);
-                break;
-            default:
-                break;
-        }
+        route(res, pathComponents);
 
     } else if (req.method == "OPTIONS"){
         // default preflight response: 204 (No Content); docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#successful_responses
@@ -71,12 +65,14 @@ async function requestDBJSON(findQuery, dbCollectionName) {
 
 // ------ ROUTING FUNCTIONS ------
 
-async function routeImdb(res, pathComponents) {
+async function route(res, pathComponents) {
+    dbCollectionName = pathComponents[1];
+
     if (pathComponents[2] != null && pathComponents[2] != undefined &&
         pathComponents[3] != null && pathComponents[3] != undefined) {
         switch (pathComponents[2]) {
             case "id":
-                routeImdbID(res, pathComponents[3]);
+                routeByID(res, dbCollectionName, pathComponents[3]);
                 break;
             default:
                 break;
@@ -86,10 +82,9 @@ async function routeImdb(res, pathComponents) {
     }
 }
 
-async function routeImdbID(res, id) {
+async function routeByID(res, collectionName, id) {
     findQuery = { _id: {$eq: id}};
 
-    resultingJSON = await requestDBJSON(findQuery, dbCollectionImdb);
+    resultingJSON = await requestDBJSON(findQuery, collectionName);
     sendResponse(res, 200, "application/json", resultingJSON);
 }
-
