@@ -1,5 +1,10 @@
 # Ignore the specific materials folder
 project-material/
+server/media/
+server/data-import/
+media/
+data-import/
+
 
 # Ignore all ZIP files (to prevent accidental 5GB pushes)
 *.zip
