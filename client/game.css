@@ -1,0 +1,101 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+header {
+    background-color: white;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.content {
+    background-color: white;
+    display: flex;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+.leftMovie {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    background-image: url("../project-material/media/100009.png");
+    background-size: cover;
+}
+
+.rightMovie {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    background-image: url("../project-material/media/100029.png");
+    background-size: cover;
+}
+
+.moviePoster {
+    width: 200px;
+    height: 200px;
+    background-color: violet;
+}
+
+.moviePoster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.movieinfo {
+    background-color: lightblue;
+    width: 240px;
+    margin: auto;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 150px;
+}
+
+.infoButton {
+    display: flex;
+    justify-content: right;
+    margin-top: 140px;
+}
+
+.center {
+    background-color: white;
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -60%);
+    border-radius: 8px;
+    width: 300px;
+    height: 400px;
+    z-index: 999;
+    padding: 20px;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 80px;
+}
+
+#startButton {
+    padding: 20px 10px;
+    font-size: 16px;
+    width: 200px;
+    border-radius: 4px;
+}
+
+#gamemodeButton {
+    padding: 10px 10px;
+    font-size: 16px;
+    width: 200px;
+    border-radius: 4px;
+}
