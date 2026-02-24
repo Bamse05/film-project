@@ -19,7 +19,7 @@ async function reqMovieData(id) {
 
     if (response.ok) {
         return response.json().then((jsonBody) => {
-            return jsonBody;
+            return jsonBody[0];
         })
     } else {
         console.log("Could not get data. Error code: " + response.status);
@@ -38,7 +38,7 @@ async function reqActorData(id) {
 
     if (response.ok) {
         return response.json().then((jsonBody) => {
-            return jsonBody;
+            return jsonBody[0];
         })
     } else {
         console.log("Could not get data. Error code: " + response.status);
@@ -66,3 +66,4 @@ async function reqIdList(dbCollection) {
 }
 
 // =============================
+
