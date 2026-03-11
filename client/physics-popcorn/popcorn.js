@@ -230,8 +230,6 @@ async function spawnPopcorn(amount = 1) {
   }
 }
 
-spawnPopcorn(100);
-
 async function popTheCorn() {
   for (let i = 0; i < bodies.length; i++) {
     const b = bodies[i];
