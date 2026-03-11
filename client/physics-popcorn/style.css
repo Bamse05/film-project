@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#popcorn-container {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+#c {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+#button-c {
+    position: absolute;
+    right: 5vw;
+    top: 5vh;
+    width: 20vw;
+    height: 10vh;
+    z-index: 20;
+}
+
+button {
+    height: 100%;
+    width: 100%;
+}
