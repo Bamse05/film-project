@@ -5,67 +5,95 @@
     overflow: hidden;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+h1,h2,h3,h4,h5,h6,p {
+    color: white;
+}
+
 header {
-    background-color: white;
+    background-color: rgb(26, 26, 26);
     width: 100%;
     text-align: center;
     padding: 20px 0;
+    border-bottom: 3px solid white;
+    z-index: 10;
 }
 
 .content {
-    background-color: white;
+    background-color: rgb(26, 26, 26);
+    flex: 1;
     display: flex;
-    position: relative;
+}
+
+.footer {
+    background-color: rgb(26, 26, 26);
+    width: 100%;
+    padding: 10px;
+    border-top: 3px solid white;
+    z-index: 10;
+}
+
+.filter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    overflow: hidden;
+    backdrop-filter: blur(6px);
 }
 
 .leftMovie {
+    position: relative;
     width: 50%;
     height: 100%;
-    overflow: hidden;
     background-image: url("../project-material/media/100009.png");
     background-size: cover;
+    border-right: 1.5px solid white;
 }
 
 .rightMovie {
+    position: relative;
     width: 50%;
     height: 100%;
-    overflow: hidden;
     background-image: url("../project-material/media/100029.png");
     background-size: cover;
+    border-left: 1.5px solid white;
 }
 
 .moviePoster {
     width: 200px;
     height: 200px;
-    background-color: violet;
+    background-color: rgb(26, 26, 26);
 }
 
 .moviePoster img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     border-radius: 6px;
 }
 
 .movieinfo {
-    background-color: lightblue;
+    background-color: rgb(26, 26, 26);
     width: 240px;
     margin: auto;
     border-radius: 8px;
     padding: 20px;
-    margin-top: 150px;
+    margin-top: 100px;
 }
 
 .infoButton {
     display: flex;
     justify-content: right;
-    margin-top: 140px;
+    margin-top: 150px;
 }
 
 .center {
-    background-color: white;
+    background-color: rgb(26, 26, 26);
     position: absolute;
     text-align: center;
     left: 50%;
@@ -74,8 +102,9 @@ header {
     border-radius: 8px;
     width: 300px;
     height: 400px;
-    z-index: 999;
+    z-index: 9;
     padding: 20px;
+    border: 3px solid white;
 }
 
 .buttonContainer {
@@ -87,10 +116,16 @@ header {
 }
 
 #startButton {
-    padding: 20px 10px;
-    font-size: 16px;
+    padding: 20px;
+    font-size: 24px;
     width: 200px;
     border-radius: 4px;
+    color: white;
+    background-color: green;
+}
+
+#startButton:hover {
+    background-color: rgb(5, 139, 5);
 }
 
 #gamemodeButton {
@@ -98,4 +133,9 @@ header {
     font-size: 16px;
     width: 200px;
     border-radius: 4px;
+    background-color: white;
+}
+
+#gamemodeButton:hover {
+    background-color: rgb(240, 240, 240);
 }
