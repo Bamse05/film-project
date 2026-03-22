@@ -1,119 +1,35 @@
-const serverUrl = "http://127.0.0.1:3000";
-
-const dbCollectionActorinfo = "actorinfo";
-const dbCollectionBechdel = "bechdel";
-const dbCollectionImdb = "imdb";
-
-const movieIdList = await reqIdList(dbCollectionImdb);
-
-// ============= DATA IMPORT =============
-
-async function reqMovieData(id) {
-    const response = await fetch(serverUrl + "/imdb/id/" + id, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: null
-    });
-
-    if (response.ok) {
-        return response.json().then((jsonBody) => {
-            return jsonBody[0];
-        })
-    } else {
-        console.log("Could not get data. Error code: " + response.status);
-        return null;
-    }
-}
-
-async function reqActorData(id) {
-    const response = await fetch(serverUrl + "/actorinfo/id/" + id, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: null
-    });
-
-    if (response.ok) {
-        return response.json().then((jsonBody) => {
-            return jsonBody[0];
-        })
-    } else {
-        console.log("Could not get data. Error code: " + response.status);
-        return null;
-    }
-}
-
-async function reqIdList(dbCollection) {
-    const response = await fetch(serverUrl + "/" + dbCollection + "/list", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: null
-    });
-
-    if (response.ok) {
-        return response.json().then((jsonBody) => {
-            return jsonBody;
-        })
-    } else {
-        console.log("Could not get data. Error code: " + response.status);
-        return null;
-    }
-}
-
-// =============================
-
-async function getRandomMovie() {
-    let movieNumber = Math.random(0, movieIdList.length - 1);
-    let movieInfo = reqMovieData(movieIdList[movieNumber]);
-    return movieInfo;
-}
-
-function buildMovieBox(movieBox, movieInfo) {
-
+async function getMovieInfo(movieId) {
+    // Endpoint to fetch the info for a movie
+    const response = await fetch("");
 }
 
 document.addEventListener("DOMContentLoaded", async function() {
     console.log("HTML DOM tree loaded, and ready for manipulation.");
 
-    const leftMovie = document.getElementById("leftMovieInfo");
-    let leftInfo = await getRandomMovie();
-    buildMovieBox(leftMovie, leftInfo);
-    // let leftMovieId = rightInfo.id;
-
-    const rightMovie = document.getElementById("rightMovieInfo");
-    let rightInfo = await getRandomMovie();
-    buildMovieBox(rightMovie, rightInfo);
-    // let rightMovieId = rightInfo.id;
-
-
-    // How to get id of each movie from the already retrieved movies data
+    movieInfo = await getMovieInfo();
 
     const leftInfoButton = document.getElementById("infoLeft");
     const rightInfoButton = document.getElementById("infoRight");
 
     const leftInfoContainer = document.createElement("div");
     leftInfoContainer.className = "infoBox";
-    const leftInfoInner = document.createElement("div");
-    leftInfoContainer.appendChild(leftInfoInner);
+    const leftInfo = document.createElement("div");
+    leftInfoContainer.appendChild(leftInfo);
 
     const rightInfoContainer = document.createElement("div");
     rightInfoContainer.className = "infoBox";
-    const rightInfoInner = document.createElement("div");
-    rightInfoContainer.appendChild(rightInfoInner);
+    const rightInfo = document.createElement("div");
+    rightInfoContainer.appendChild(rightInfo);
 
 
     leftInfoButton.addEventListener("click", () => {
         // Implement a function call to get the movie id to find the movie information
+        let movieId = null;
         if (leftInfoContainer.style.display === "block") {
             leftInfoContainer.style.display === "none";
         }
         else {
-            fillInfoBox(leftMovie, leftInfo, gameMode);
+            fillInfoBox(leftInfo, movieId, gameMode);
             // Display is set to "none" by default
             leftInfoContainer.style.display = "block";
         }
@@ -121,20 +37,12 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     rightInfoButton.addEventListener("click", () => {
         // Display is set to "none" by default
-        if (rightInfoContainer.style.display === "block") {
-            rightInfoContainer.style.display === "none";
-        }
-        else {
-            fillInfoBox(rightMovie, rightInfo, gameMode);
-            // Display is set to "none" by default
-            rightInfoContainer.style.display = "block";
-        }
+        rightInfoContainer.style.display = "block";
     });
 
 });
 
-// Function to fill the "More info" box
-function fillInfoBox(infoBox, movieInfo, gameMode) {
+function fillInfoBox(infoBox, movieId, gameMode) {
     // Placeholder to get info for the movie with the id movieId
     const movieInfo = getMovieInfo(movieId).json();
 
