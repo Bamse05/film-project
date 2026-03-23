@@ -92,9 +92,56 @@ async function reqMoviePoster(id) {
 
 // =============================
 
-function startGame(gamemode) {
+async function startGame(gamemode) {
     console.log(gamemode);
 
+}
+
+async function gameplayLoop(gameMode, leftMovieInfoBox, leftInfo, rightMovieInfoBox, rightInfo, leftMovie, rightMovie) {
+    let gameOver = false;
+    let score = 0;
+    while (!gameOver) {
+        leftInfo = rightInfo;
+        buildMovieBox(leftMovieInfoBox, rightInfo, gameMode, leftMovie);
+
+        rightInfo = await getRandomMovie();
+        buildMovieBox(rightMovieInfoBox, rightInfo, gameMode, rightMovie);
+
+        gameOver = await higherOrLower(gameMode, leftInfo, rightInfo);
+        if (gameOver) break;
+        score += 1;
+    }
+    return score;
+}
+
+async function higherOrLower(gameMode, leftInfo, rightInfo) {
+    let result = await guess();
+    switch (gameMode) {
+        case "releaseYear": {
+            if ((result === "h" && rightInfo.year >= leftInfo.year)
+                || (result === "l" && rightInfo.year <= leftInfo.year)) {
+                    return false;
+            }
+            return true;
+        }
+        case "rating": {
+            if ((result === "h" && rightInfo.rating >= leftInfo.rating)
+                || (result === "l" && rightInfo.rating <= leftInfo.rating)) {
+                    return false;
+            }
+            return true;
+        }
+        case "runtime": {
+            if ((result === "h" && rightInfo.runtime >= leftInfo.runtime)
+                || (result === "l" && rightInfo.runtime <= leftInfo.runtime)) {
+                    return false;
+            }
+            return true;
+        }
+        default: {
+            return true;
+        }
+    }
 }
 
 async function getRandomMovie() {
@@ -170,11 +217,16 @@ async function buildMovieBox(movieBox, movieInfo, gameMode, backgroundBox) {
 document.addEventListener("DOMContentLoaded", async function() {
     console.log("HTML DOM tree loaded, and ready for manipulation.");
 
+
+    // const startButton = document.createElement("button");
+    // startButton.id = "startButton";
+    // const gameMode = await startGame();
+
     loadLeaderboard();
     movieIdList = await getIdList(dbCollectionImdb);
-    
+
     // Make a function to select the gamemode from the "Change gamemode" button
-    const gameMode = "releaseYear"; // Placeholder
+    // const gameMode = "releaseYear"; // Placeholder
 
     const leftMovie = document.getElementById("leftMovie");
     let leftInfo = await getRandomMovie();
@@ -200,14 +252,14 @@ document.addEventListener("DOMContentLoaded", async function() {
     // leftInfoContainer.style.display === "none";
     const leftInfoInner = document.createElement("div");
     leftInfoContainer.appendChild(leftInfoInner);
-    leftContainer.appendChild(leftInfoContainer);
+    leftMovie.appendChild(leftInfoContainer);
 
     const rightInfoContainer = document.createElement("div");
     rightInfoContainer.className = "infoBox";
     // rightInfoContainer.style.display === "none";
     const rightInfoInner = document.createElement("div");
     rightInfoContainer.appendChild(rightInfoInner);
-    rightContainer.appendChild(rightInfoContainer);
+    rightMovie.appendChild(rightInfoContainer);
 
 
     leftInfoButton.addEventListener("click", () => {
@@ -216,7 +268,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             leftInfoContainer.style.display === "none";
         }
         else {
-            fillInfoBox(leftMovieInfoBox, leftInfo, gameMode);
+            fillInfoBox(leftInfoInner, leftInfo, gameMode);
             // Display is set to "none" by default
             leftInfoContainer.style.display = "block";
         }
@@ -228,7 +280,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             rightInfoContainer.style.display === "none";
         }
         else {
-            fillInfoBox(rightMovieInfoBox, rightInfo, gameMode);
+            fillInfoBox(rightInfoInner, rightInfo, gameMode);
             // Display is set to "none" by default
             rightInfoContainer.style.display = "block";
         }
@@ -359,7 +411,6 @@ async function loadLeaderboard() {
         const tbody = document.getElementById("leaderboardBody");
 
         // Clear existing rows (innerHTML is still okay here just for emptying the container quickly)
-        tbody.innerHTML = "";
 
         // Populate table using appendChild
         currentTopScores.forEach((entry, index) => {
