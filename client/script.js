@@ -4,6 +4,8 @@ const dbCollectionActorinfo = "actorinfo";
 const dbCollectionBechdel = "bechdel";
 const dbCollectionImdb = "imdb";
 
+const placeholderImgUrl = "../Images/PLACEHOLDER.jpg"
+
 let movieIdList = [];
 
 async function getIdList(dbCollectionImdb) {
@@ -101,10 +103,12 @@ async function getRandomMovie() {
     return movieInfo;
 }
 
-async function buildMovieBox(movieBox, movieInfo, gameMode) {
+async function buildMovieBox(movieBox, movieInfo, gameMode, backgroundBox) {
     let moviePoster = null;
     let movieTitle = null;
     let extraInfo = null;
+
+    console.log(backgroundBox);
 
     if (movieBox.id === "leftMovieInfo") {
         moviePoster = document.getElementById("leftPoster");
@@ -121,10 +125,13 @@ async function buildMovieBox(movieBox, movieInfo, gameMode) {
 
     // ADD A PLACEHOLDER IMAGE OR ERROR HANDLER FOR MISSING IMAGES
     let posterSrc = await reqMoviePoster(movieInfo.normalized_id);
-    // if (!posterSrc) {
-
-    // }
+    localImageUrl = "../project-material/media/" + movieInfo.normalized_id + ".png";
+    if (!posterSrc) {
+        posterSrc = placeholderImgUrl;
+        localImageUrl = placeholderImgUrl;
+    }
     moviePoster.src = posterSrc;
+    backgroundBox.style.backgroundImage = "url(" + localImageUrl + ")";
 
 
 
@@ -169,17 +176,18 @@ document.addEventListener("DOMContentLoaded", async function() {
     // Make a function to select the gamemode from the "Change gamemode" button
     const gameMode = "releaseYear"; // Placeholder
 
-    const leftContainer = document.getElementById("leftMovie");
-    const leftMovie = document.getElementById("leftMovieInfo");
+    const leftMovie = document.getElementById("leftMovie");
     let leftInfo = await getRandomMovie();
-    buildMovieBox(leftMovie, leftInfo, gameMode);
+    const leftMovieInfoBox = document.getElementById("leftMovieInfo");
+    buildMovieBox(leftMovieInfoBox, leftInfo, gameMode, leftMovie);
     // let leftMovieId = rightInfo.id;
 
-    const rightContainer = document.getElementById("rightMovie");
-    const rightMovie = document.getElementById("rightMovieInfo");
+    const rightMovie = document.getElementById("rightMovie");
+    const rightMovieInfoBox = document.getElementById("rightMovieInfo");
     let rightInfo = await getRandomMovie();
-    buildMovieBox(rightMovie, rightInfo, gameMode);
+    buildMovieBox(rightMovieInfoBox, rightInfo, gameMode, rightMovie);
     // let rightMovieId = rightInfo.id;
+
 
 
     // How to get id of each movie from the already retrieved movies data
@@ -208,7 +216,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             leftInfoContainer.style.display === "none";
         }
         else {
-            fillInfoBox(leftInfoContainer, leftInfo, gameMode);
+            fillInfoBox(leftMovieInfoBox, leftInfo, gameMode);
             // Display is set to "none" by default
             leftInfoContainer.style.display = "block";
         }
@@ -220,7 +228,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             rightInfoContainer.style.display === "none";
         }
         else {
-            fillInfoBox(rightInfoContainer, rightInfo, gameMode);
+            fillInfoBox(rightMovieInfoBox, rightInfo, gameMode);
             // Display is set to "none" by default
             rightInfoContainer.style.display = "block";
         }
@@ -349,9 +357,9 @@ async function loadLeaderboard() {
     if (response.ok) {
         currentTopScores = await response.json();
         const tbody = document.getElementById("leaderboardBody");
-        
+
         // Clear existing rows (innerHTML is still okay here just for emptying the container quickly)
-        tbody.innerHTML = ""; 
+        tbody.innerHTML = "";
 
         // Populate table using appendChild
         currentTopScores.forEach((entry, index) => {
