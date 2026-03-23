@@ -226,7 +226,7 @@ function fillInfoBox(infoBox, movieInfo, gameMode) {
     description.innerHTML = "Description:\n" + movieInfo.description;
     infoBox.appendChild(description);
 }
-var points = 0;
+/*var points = 0;
 var guess = true;
 function createButtons(){
     const HigherButton = document.createElement("div");
@@ -246,4 +246,4 @@ function createButtons(){
 function PLACEHOLDER_NAME_FOR_GUESS(guess) {
 
   
-}
+}*/
