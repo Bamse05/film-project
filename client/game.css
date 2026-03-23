@@ -52,11 +52,12 @@ header {
     z-index: -1;
 }
 
-.leftMovie {
+#leftMovie {
     width: 50%;
     height: 100%;
-    background-image: url("../project-material/media/100009.png");
+    background-image: url("");
     background-size: cover;
+    background-position: center;
     border-right: 2px solid gray;
     z-index: 3;
     display: flex;
@@ -65,12 +66,13 @@ header {
     flex-direction: column;
 }
 
-.rightMovie {
+#rightMovie {
     position: relative;
     width: 50%;
     height: 100%;
-    background-image: url("../project-material/media/100029.png");
+    background-image: url("");
     background-size: cover;
+    background-position: center;
     border-left: 2px solid gray;
     z-index: 3;
     display: flex;
@@ -100,6 +102,17 @@ header {
     border: 3px solid gray;
     padding: 20px;
     z-index: 2;
+}
+
+.infoBox {
+    display: none;
+    background-color: rgb(26, 26, 26);
+    width: 20rem;
+    border-radius: 8px;
+    border: 3px solid gray;
+    padding: 20px;
+    z-index: 2;
+    overflow-y: scroll;
 }
 
 .infoButtonLeft {
