@@ -117,24 +117,39 @@ async function buildMovieBox(movieBox, movieInfo, gameMode) {
         extraInfo = document.getElementById("rightSecondInfo");
     }
 
+
+
+    // ADD A PLACEHOLDER IMAGE OR ERROR HANDLER FOR MISSING IMAGES
     let posterSrc = await reqMoviePoster(movieInfo.normalized_id);
+    // if (!posterSrc) {
+
+    // }
     moviePoster.src = posterSrc;
+
+
+
 
     movieTitle.innerHTML = movieInfo.name;
 
     switch (gameMode) {
         case "releaseYear": {
-            extraInfo.innerHTML = "Rating: " + movieInfo.rating + "/n" + "Runtime: " + movieInfo.runtime;
+            extraInfo.innerHTML = "Rating: " + movieInfo.rating;
+            extraInfo.appendChild(document.createElement("br"));
+            extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
             break;
         }
 
         case "rating": {
-            extraInfo.innerHTML = "Release year: " + movieInfo.year + "/n" + "Runtime: " + movieInfo.runtime;
+            extraInfo.innerHTML = "Release year: " + movieInfo.year;
+            extraInfo.appendChild(document.createElement("br"));
+            extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
             break;
         }
 
         case "runtime": {
-            extraInfo.innerHTML = "Release year: " + movieInfo.year + "/n" + "Rating: " + movieInfo.rating;
+            extraInfo.innerHTML = "Release year: " + movieInfo.year;
+            extraInfo.appendChild(document.createElement("br"));
+            extraInfo.innerHTML += "rating: " + movieInfo.rating;
             break;
         }
         default: {
@@ -154,11 +169,13 @@ document.addEventListener("DOMContentLoaded", async function() {
     // Make a function to select the gamemode from the "Change gamemode" button
     const gameMode = "releaseYear"; // Placeholder
 
+    const leftContainer = document.getElementById("leftMovie");
     const leftMovie = document.getElementById("leftMovieInfo");
     let leftInfo = await getRandomMovie();
     buildMovieBox(leftMovie, leftInfo, gameMode);
     // let leftMovieId = rightInfo.id;
 
+    const rightContainer = document.getElementById("rightMovie");
     const rightMovie = document.getElementById("rightMovieInfo");
     let rightInfo = await getRandomMovie();
     buildMovieBox(rightMovie, rightInfo, gameMode);
@@ -172,13 +189,17 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     const leftInfoContainer = document.createElement("div");
     leftInfoContainer.className = "infoBox";
+    // leftInfoContainer.style.display === "none";
     const leftInfoInner = document.createElement("div");
     leftInfoContainer.appendChild(leftInfoInner);
+    leftContainer.appendChild(leftInfoContainer);
 
     const rightInfoContainer = document.createElement("div");
     rightInfoContainer.className = "infoBox";
+    // rightInfoContainer.style.display === "none";
     const rightInfoInner = document.createElement("div");
     rightInfoContainer.appendChild(rightInfoInner);
+    rightContainer.appendChild(rightInfoContainer);
 
 
     leftInfoButton.addEventListener("click", () => {
@@ -187,7 +208,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             leftInfoContainer.style.display === "none";
         }
         else {
-            fillInfoBox(leftMovie, leftInfo, gameMode);
+            fillInfoBox(leftInfoContainer, leftInfo, gameMode);
             // Display is set to "none" by default
             leftInfoContainer.style.display = "block";
         }
@@ -199,7 +220,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             rightInfoContainer.style.display === "none";
         }
         else {
-            fillInfoBox(rightMovie, rightInfo, gameMode);
+            fillInfoBox(rightInfoContainer, rightInfo, gameMode);
             // Display is set to "none" by default
             rightInfoContainer.style.display = "block";
         }
@@ -278,7 +299,7 @@ function fillInfoBox(infoBox, movieInfo, gameMode) {
     }
 
     const stars = document.createElement("p");
-    stars.className("infoStars");
+    stars.className = "infoStars";
     stars.innerHTML = "Stars: ";
     if (movieInfo.genre != null) {
         for (let i = 0; i < movieInfo.star.length; i++) {
