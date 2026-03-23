@@ -4,7 +4,7 @@ const dbCollectionActorinfo = "actorinfo";
 const dbCollectionBechdel = "bechdel";
 const dbCollectionImdb = "imdb";
 
-const movieIdList = await getIdList(dbCollectionImdb);
+const movieIdList = await reqIdList(dbCollectionImdb);
 
 // async function getIdList(dbCollectionImdb) {
 //     const idList = await reqIdList(dbCollectionImdb);
