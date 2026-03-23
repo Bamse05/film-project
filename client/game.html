@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <h1>Higher or Lower</h1>
+        <h1>Popcorn predictions</h1>
     </header>
     <div class="content">
         <div id="leftMovie">
@@ -41,11 +41,12 @@
             </div>
         </div>
         <div class="center">
-            <div class="gamemodeContainer">
-                <button onclick="startGame('Release year')">Release year</button>
-                <button onclick="startGame('Rating')">Rating</button>
-                <button onclick="startGame('Runtime')">Runtime</button>
-            </div>
+                <h2 id="gamemodeTitle">Choose gamemode</h2>
+                <div class="gamemodeContainer">
+                    <button onclick="startGame('Release year')" class="buttons">Release year</button>
+                    <button onclick="startGame('Rating')" class="buttons">Rating</button>
+                    <button onclick="startGame('Runtime')" class="buttons">Runtime</button>
+                </div>
         </div>
         <div id="popcorn-container">
             <canvas id="c" width="800" height="2000"></canvas>
