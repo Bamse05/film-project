@@ -1,11 +1,12 @@
 async function getMovieInfo(movieId) {
+    // Endpoint to fetch the info for a movie
     const response = await fetch("");
 }
 
 document.addEventListener("DOMContentLoaded", async function() {
     console.log("HTML DOM tree loaded, and ready for manipulation.");
 
-    leftInfo = await getMovieInfo();
+    movieInfo = await getMovieInfo();
 
     const leftInfoButton = document.getElementById("infoLeft");
     const rightInfoButton = document.getElementById("infoRight");
@@ -24,9 +25,14 @@ document.addEventListener("DOMContentLoaded", async function() {
     leftInfoButton.addEventListener("click", () => {
         // Implement a function call to get the movie id to find the movie information
         let movieId = null;
-        fillInfoBox(leftInfo, movieId, gameMode);
-        // Display is set to "none" by default
-        leftInfoContainer.style.display = "block";
+        if (leftInfoContainer.style.display === "block") {
+            leftInfoContainer.style.display === "none";
+        }
+        else {
+            fillInfoBox(leftInfo, movieId, gameMode);
+            // Display is set to "none" by default
+            leftInfoContainer.style.display = "block";
+        }
     });
 
     rightInfoButton.addEventListener("click", () => {
