@@ -359,7 +359,7 @@ async function loadLeaderboard() {
         const tbody = document.getElementById("leaderboardBody");
 
         // Clear existing rows (innerHTML is still okay here just for emptying the container quickly)
-        tbody.innerHTML = "";
+  
 
         // Populate table using appendChild
         currentTopScores.forEach((entry, index) => {
