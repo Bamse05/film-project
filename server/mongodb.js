@@ -14,6 +14,7 @@ const dbName = "tnm121-project";
 const dbCollectionActorinfo = "actorinfo";
 const dbCollectionBechdel = "bechdel";
 const dbCollectionImdb = "imdb";
+const dbCollectionLeaderboard = "leaderboard";
 
 const server = http.createServer((req, res) => {
 
@@ -25,10 +26,29 @@ const server = http.createServer((req, res) => {
         console.log(req.method);
 
         route(res, pathComponents);
+        if (pathComponents[1] === "leaderboard" && pathComponents[2] === "top") {
+            getTopLeaderboard(res);
+            return;
+        }
+        route(res, pathComponents);
 
     } else if (req.method == "OPTIONS"){
         // default preflight response: 204 (No Content); docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#successful_responses
         sendResponse(res, 204, null, null);
+    }
+    else if (req.method == "POST") {
+        if (pathComponents[1] === "leaderboard" && pathComponents[2] === "add") {
+            let body = '';
+            req.on('data', chunk => {
+                body += chunk.toString();
+            });
+            req.on('end', async () => {
+                const newScoreData = JSON.parse(body);
+                await addScoreToLeaderboard(res, newScoreData);
+            });
+        } else {
+             sendResponse(res, 404, "text/plain", "Not Found");
+        }
     }
     else {
         sendResponse(res, 200, "text/plain", "Node js server");
@@ -128,5 +148,31 @@ async function getAllIDs(res, dbCollectionName) {
     const resultingJSON = JSON.stringify(result);
 
     sendResponse(res, 200, "application/json", resultingJSON);
+    await dbClient.close();
+}
+
+async function getTopLeaderboard(res) {
+    dbClient.connect();
+    const db = dbClient.db(dbName);
+    const dbCollection = db.collection(dbCollectionLeaderboard);
+
+    // Sort by score descending (-1) and limit to top 10
+    const result = await dbCollection.find().sort({ score: -1 }).limit(10).toArray();
+    const resultingJSON = JSON.stringify(result);
+
+    sendResponse(res, 200, "application/json", resultingJSON);
+    await dbClient.close();
+}
+
+async function addScoreToLeaderboard(res, data) {
+    dbClient.connect();
+    const db = dbClient.db(dbName);
+    const dbCollection = db.collection(dbCollectionLeaderboard);
+
+    // Make sure score is stored as a number so sorting works properly
+    data.score = Number(data.score); 
+
+    await dbCollection.insertOne(data);
+    sendResponse(res, 201, "application/json", JSON.stringify({ message: "Score saved successfully" }));
     await dbClient.close();
 }

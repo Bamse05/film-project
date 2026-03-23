@@ -312,4 +312,45 @@ function createButtons(){
 function PLACEHOLDER_NAME_FOR_GUESS(guess) {
 
 
+}*/
+let currentTopScores = [];
+let pendingPlayerScore = 0;
+// Fetch top 10 scores from the server
+async function loadLeaderboard() {
+    const response = await fetch(serverUrl + "/leaderboard/top", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+    });
+
+    if (response.ok) {
+        currentTopScores = await response.json();
+        const tbody = document.getElementById("leaderboardBody");
+        
+        // Clear existing rows (innerHTML is still okay here just for emptying the container quickly)
+        tbody.innerHTML = ""; 
+
+        // Populate table using appendChild
+        currentTopScores.forEach((entry, index) => {
+            // 1. Create the table row
+            const tr = document.createElement("tr");
+
+            // 2. Create and fill the Rank cell
+            const rankTd = document.createElement("td");
+            rankTd.textContent = index + 1;
+            tr.appendChild(rankTd);
+
+            // 3. Create and fill the Name cell
+            const nameTd = document.createElement("td");
+            nameTd.textContent = entry.name;
+            tr.appendChild(nameTd);
+
+            // 4. Create and fill the Score cell
+            const scoreTd = document.createElement("td");
+            scoreTd.textContent = entry.score;
+            tr.appendChild(scoreTd);
+
+            // 5. Finally, append the finished row to the table body
+            tbody.appendChild(tr);
+        });
+    }
 }
