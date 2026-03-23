@@ -6,6 +6,7 @@
     <meta name="grupp 6">
     <title>Higher or Lower</title>
     <link rel="stylesheet" href="game.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <script src="script.js"></script>
 </head>
 <body>
@@ -14,8 +15,8 @@
     </header>
     <div class="content">
         <div class="leftMovie">
+            <div class="filter"></div>
             <div class="movieinfo" id="leftMovieInfo">
-                <div class="filter"></div>
                 <div class="moviePoster">
                     <img src="../project-material/media/100009.png" alt="Poster left" id="leftPoster">
                 </div>
@@ -27,8 +28,8 @@
             </div>
         </div>
         <div class="rightMovie">
+            <div class="filter"></div>
             <div class="movieinfo" id="rightMovieInfo">
-                <div class="filter"></div>
                 <div class="moviePoster">
                     <img src="../project-material/media/100029.png" alt="Poster right" id="rightPoster">
                 </div>
@@ -40,12 +41,10 @@
             </div>
         </div>
         <div class="center">
-            <h1>Higher or lower</h1>
-            <p>Select gamemode or start</p>
-            <h2>Highscore: 67</h2>
-            <div class="buttonContainer">
-                <button id="startButton">Start</button>
-                <button id="gamemodeButton">Change gamemode</button>
+            <div class="gamemodeContainer">
+                <button onclick="startGame('Release year')">Release year</button>
+                <button onclick="startGame('Rating')">Rating</button>
+                <button onclick="startGame('Runtime')">Runtime</button>
             </div>
         </div>
         <div id="popcorn-container">
