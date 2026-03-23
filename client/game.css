@@ -159,11 +159,10 @@ header {
     height: 100%;
     justify-content: center;
     z-index: 1001 !important;
+    pointer-events: none;
 }
 
 #c {
-    position: absolute;
-    top: 0;
-    bottom: 0;
     z-index: 1000 !important;
+    pointer-events: none;
 }
