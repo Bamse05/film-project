@@ -148,8 +148,9 @@ async function buildMovieBox(movieBox, movieInfo, gameMode) {
 document.addEventListener("DOMContentLoaded", async function() {
     console.log("HTML DOM tree loaded, and ready for manipulation.");
 
+    loadLeaderboard();
     movieIdList = await getIdList(dbCollectionImdb);
-
+    
     // Make a function to select the gamemode from the "Change gamemode" button
     const gameMode = "releaseYear"; // Placeholder
 
