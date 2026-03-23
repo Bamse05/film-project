@@ -9,7 +9,7 @@ body{
 }
 .navbar{
     min-height: 7.5vh;
-    height: 10vh;
+    height: 9vh;
     background-color: rgb(32, 30, 30);
     display: flex;
     flex-direction: row;
@@ -17,6 +17,7 @@ body{
     justify-content: center;
     gap: 10%;
     z-index: 1;
+    border-bottom: 2px solid white;
 }
 .navButton{
     background-color: rgb(104, 107, 110);
@@ -33,16 +34,13 @@ body{
 }
 .mainBody{
     height: auto;
-    background-color: rgb(74, 74, 85);
+    background: linear-gradient(to bottom, rgba(81, 80, 80, 0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(88, 85, 85, 0.4) 0%, rgba(0,0,0,0.40) 120%) #989898;
+    background-blend-mode: multiply,multiply;
     display: flex;
     flex-direction: row;
 }
-.content{
-    height: 82.5vh;
-    width: 500px;
-    flex: 1;
-}
 .footer{
+    border-top: 2px solid white;
     min-height: 7.5vh;
     background-color: rgb(32, 30, 30);
     z-index: 1;
@@ -52,29 +50,27 @@ body{
     flex-direction: column;
     width: 100%;
 }
-/* Update the timing from 5s to something longer like 15s so it doesn't fly by too fast */
+
 #left .reel-container {
-    animation: slideUp 30s linear infinite;
+    animation: slideUp 25s linear infinite;
 }
 
 #right .reel-container {
-    animation: slideDown 30s linear infinite;
+    animation: slideDown 25s linear infinite;
 }
 #left {
-    margin-left: 2rem; /* Pushes the left reel away from the left wall */
+    margin-left: 2rem;
 }
 
 #right {
-    margin-right: 1rem; /* Ensures the right reel has the exact same gap on the right wall */
+    margin-right: 1rem;
 }
 
-/* 503px multiplied by 3 unique strips = 1509px */
 @keyframes slideUp {
     from { transform: translateY(0); }
     to { transform: translateY(-1509px); }
 }
 
-/* For the right side to slide down, we start at the clone (-1509px) and animate to 0 */
 @keyframes slideDown {
     from { transform: translateY(-1509px); }
     to { transform: translateY(0); }
@@ -87,15 +83,12 @@ body{
     background-color: transparent;
 }
 
-/* 1. Modify your existing .reel-strip */
 .reel-strip {
-    position: relative; /* Acts as an anchor for absolute positioning */
+    position: relative;
     width: 100%;
     height: 503px; 
-    /* REMOVE the background-image properties from here */
 }
 
-/* 2. Add the new .reel-overlay class */
 .reel-overlay {
     position: absolute;
     top: 0;
@@ -105,21 +98,20 @@ body{
     background-image: url('../Images/Film_Reel2.png');
     background-repeat: repeat-y;
     background-size: contain;
-    z-index: 2; /* Forces the film reel on TOP of the posters */
-    pointer-events: none; /* Allows user to click the posters 'through' the reel */
+    z-index: 2;
+    pointer-events: none;
 }
 
 .poster-1 { 
-    top: 17px;    /* Distance from the top of the 503px strip */
-    height: 218px; /* Make the image taller to fill the space */
+    top: 17px;
+    height: 218px;
 }
 
 .poster-2 { 
-    top: 269px;   /* Distance from the top of the 503px strip */
+    top: 269px;
     height: 218px; 
 }
 
-/* Ensure your poster width/left values still look good */
 .movie-poster {
     position: absolute;
     z-index: 1;
@@ -166,4 +158,61 @@ body{
     border-radius: 5px;
     border: none;
     margin-right: 10px;
+}
+.content{
+    height: 82.5vh;
+    width: 500px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.infoContainer{
+    position:relative;
+    width: 500px;
+    background-color: rgb(32, 30, 30);
+    border: 3px;
+    border-color: aliceblue;
+    border-radius: 20px;
+    border-style: solid;
+    top: 0px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 60px 0px rgb(31, 31, 31);
+}
+.buttonContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;    
+    justify-content: center;
+    gap: 3%;
+}
+.infoButton{
+    margin:3% 0px 3% 0px;
+    background-color: rgb(104, 107, 110);
+    border: 3px;
+    border-color: white;
+    padding: 15px 35px;
+    font-size: 24px;
+    border-radius: 15px;
+    text-shadow: 2px 2px 10px black;
+    color: aliceblue;
+    border-style: solid;
+    font-weight: 900;
+    width: 150px;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Montserrat';
+}
+h1{
+    text-align: center;
+    color: white;
+    font-size: 50;
+    font-family: 'Montserrat';
+}
+p{
+    color: white;
+    text-align: center;
+    margin: -20 30 0 30;
+    font-family: 'Montserrat';
 }
