@@ -121,6 +121,9 @@ async function buildMovieBox(movieBox, movieInfo, gameMode, backgroundBox) {
         extraInfo = document.getElementById("rightSecondInfo");
     }
 
+
+
+    // ADD A PLACEHOLDER IMAGE OR ERROR HANDLER FOR MISSING IMAGES
     let posterSrc = await reqMoviePoster(movieInfo.normalized_id);
     localImageUrl = "../project-material/media/" + movieInfo.normalized_id + ".png";
     if (!posterSrc) {
@@ -130,21 +133,30 @@ async function buildMovieBox(movieBox, movieInfo, gameMode, backgroundBox) {
     moviePoster.src = posterSrc;
     backgroundBox.style.backgroundImage = "url(" + localImageUrl + ")";
 
+
+
+
     movieTitle.innerHTML = movieInfo.name;
 
     switch (gameMode) {
         case "releaseYear": {
-            extraInfo.innerHTML = "Rating: " + movieInfo.rating + "/n" + "Runtime: " + movieInfo.runtime;
+            extraInfo.innerHTML = "Rating: " + movieInfo.rating;
+            extraInfo.appendChild(document.createElement("br"));
+            extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
             break;
         }
 
         case "rating": {
-            extraInfo.innerHTML = "Release year: " + movieInfo.year + "/n" + "Runtime: " + movieInfo.runtime;
+            extraInfo.innerHTML = "Release year: " + movieInfo.year;
+            extraInfo.appendChild(document.createElement("br"));
+            extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
             break;
         }
 
         case "runtime": {
-            extraInfo.innerHTML = "Release year: " + movieInfo.year + "/n" + "Rating: " + movieInfo.rating;
+            extraInfo.innerHTML = "Release year: " + movieInfo.year;
+            extraInfo.appendChild(document.createElement("br"));
+            extraInfo.innerHTML += "rating: " + movieInfo.rating;
             break;
         }
         default: {
@@ -184,13 +196,17 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     const leftInfoContainer = document.createElement("div");
     leftInfoContainer.className = "infoBox";
+    // leftInfoContainer.style.display === "none";
     const leftInfoInner = document.createElement("div");
     leftInfoContainer.appendChild(leftInfoInner);
+    leftContainer.appendChild(leftInfoContainer);
 
     const rightInfoContainer = document.createElement("div");
     rightInfoContainer.className = "infoBox";
+    // rightInfoContainer.style.display === "none";
     const rightInfoInner = document.createElement("div");
     rightInfoContainer.appendChild(rightInfoInner);
+    rightContainer.appendChild(rightInfoContainer);
 
 
     leftInfoButton.addEventListener("click", () => {
@@ -290,7 +306,7 @@ function fillInfoBox(infoBox, movieInfo, gameMode) {
     }
 
     const stars = document.createElement("p");
-    stars.className("infoStars");
+    stars.className = "infoStars";
     stars.innerHTML = "Stars: ";
     if (movieInfo.genre != null) {
         for (let i = 0; i < movieInfo.star.length; i++) {
@@ -307,7 +323,7 @@ function fillInfoBox(infoBox, movieInfo, gameMode) {
     description.innerHTML = "Description:\n" + movieInfo.description;
     infoBox.appendChild(description);
 }
-var points = 0;
+/*var points = 0;
 var guess = true;
 function createButtons(){
     const HigherButton = document.createElement("div");
@@ -327,4 +343,45 @@ function createButtons(){
 function PLACEHOLDER_NAME_FOR_GUESS(guess) {
 
 
+}*/
+let currentTopScores = [];
+let pendingPlayerScore = 0;
+// Fetch top 10 scores from the server
+async function loadLeaderboard() {
+    const response = await fetch(serverUrl + "/leaderboard/top", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+    });
+
+    if (response.ok) {
+        currentTopScores = await response.json();
+        const tbody = document.getElementById("leaderboardBody");
+
+        // Clear existing rows (innerHTML is still okay here just for emptying the container quickly)
+        tbody.innerHTML = "";
+
+        // Populate table using appendChild
+        currentTopScores.forEach((entry, index) => {
+            // 1. Create the table row
+            const tr = document.createElement("tr");
+
+            // 2. Create and fill the Rank cell
+            const rankTd = document.createElement("td");
+            rankTd.textContent = index + 1;
+            tr.appendChild(rankTd);
+
+            // 3. Create and fill the Name cell
+            const nameTd = document.createElement("td");
+            nameTd.textContent = entry.name;
+            tr.appendChild(nameTd);
+
+            // 4. Create and fill the Score cell
+            const scoreTd = document.createElement("td");
+            scoreTd.textContent = entry.score;
+            tr.appendChild(scoreTd);
+
+            // 5. Finally, append the finished row to the table body
+            tbody.appendChild(tr);
+        });
+    }
 }
