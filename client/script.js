@@ -376,9 +376,6 @@ async function loadLeaderboard() {
         currentTopScores = await response.json();
         const tbody = document.getElementById("leaderboardBody");
 
-        // Clear existing rows (innerHTML is still okay here just for emptying the container quickly)
-  
-
         // Populate table using appendChild
         currentTopScores.forEach((entry, index) => {
             // 1. Create the table row
