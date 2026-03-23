@@ -26,6 +26,13 @@ header {
     z-index: 1002 !important;
     border-bottom: 3px solid gray;
     z-index: 10;
+
+    transform: translateY(0);
+    transition: transform 1.5s ease-in;
+}
+
+header.visible {
+    transform: translateY(-20vh);
 }
 
 .content {
@@ -102,7 +109,14 @@ header {
     border: 3px solid gray;
     padding: 20px;
     z-index: 2;
+    opacity: 0;
+    transition: opacity 1.5s ease-in;
 }
+
+.movieinfo.visible {
+    opacity: 1;
+}
+
 
 .infoBox {
     display: none;
@@ -115,8 +129,17 @@ header {
     overflow-y: scroll;
 }
 
-.infoButtonLeft {
+.infoButton {
     display: flex;
+    opacity: 0;
+    transition: opacity 1.5s ease-out;
+}
+
+.infoButton.visible {
+    opacity: 1;
+}
+
+#infoButtonLeft {
     justify-content: left;
 }
 
@@ -127,8 +150,7 @@ header {
     color: gray;
 }
 
-.infoButtonRight {
-    display: flex;
+#infoButtonRight {
     justify-content: right;
 }
 
@@ -139,7 +161,7 @@ header {
     color: gray;
 }
 
-.center {
+#centerBox {
     background-color: rgb(26, 26, 26);
     position: absolute;
     text-align: center;
@@ -191,6 +213,13 @@ header {
     justify-content: center;
     z-index: 1001 !important;
     pointer-events: none;
+
+    transform: translateY(50vh);
+    transition: transform 1.5s ease-out;
+}
+
+#popcorn-container.visible {
+    transform: translateY(0);
 }
 
 #c {

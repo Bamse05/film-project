@@ -95,6 +95,24 @@ async function reqMoviePoster(id) {
 function startGame(gamemode) {
     console.log(gamemode);
 
+    gameStartAnimation();
+}
+
+
+function gameStartAnimation() {
+    fadeBoxes();
+    document.getElementById("popcorn-container").classList.add('visible');
+    document.querySelector("header").classList.add('visible');
+}
+
+function fadeBoxes() {
+    document.querySelectorAll('.movieinfo').forEach(elem => {
+        elem.classList.add('visible');
+    });
+
+    document.querySelectorAll('.infoButton').forEach(elem => {
+        elem.classList.add('visible');
+    });
 }
 
 async function getRandomMovie() {
