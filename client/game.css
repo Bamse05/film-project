@@ -52,11 +52,12 @@ header {
     z-index: -1;
 }
 
-.leftMovie {
+#leftMovie {
     width: 50%;
     height: 100%;
-    background-image: url("../project-material/media/100009.png");
+    background-image: url("");
     background-size: cover;
+    background-position: center;
     border-right: 2px solid gray;
     z-index: 3;
     display: flex;
@@ -65,12 +66,13 @@ header {
     flex-direction: column;
 }
 
-.rightMovie {
+#rightMovie {
     position: relative;
     width: 50%;
     height: 100%;
-    background-image: url("../project-material/media/100029.png");
+    background-image: url("");
     background-size: cover;
+    background-position: center;
     border-left: 2px solid gray;
     z-index: 3;
     display: flex;
