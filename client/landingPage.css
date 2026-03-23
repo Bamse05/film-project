@@ -37,11 +37,6 @@ body{
     display: flex;
     flex-direction: row;
 }
-.content{
-    height: 82.5vh;
-    width: 500px;
-    flex: 1;
-}
 .footer{
     min-height: 7.5vh;
     background-color: rgb(32, 30, 30);
@@ -52,29 +47,27 @@ body{
     flex-direction: column;
     width: 100%;
 }
-/* Update the timing from 5s to something longer like 15s so it doesn't fly by too fast */
+
 #left .reel-container {
-    animation: slideUp 30s linear infinite;
+    animation: slideUp 25s linear infinite;
 }
 
 #right .reel-container {
-    animation: slideDown 30s linear infinite;
+    animation: slideDown 25s linear infinite;
 }
 #left {
-    margin-left: 2rem; /* Pushes the left reel away from the left wall */
+    margin-left: 2rem;
 }
 
 #right {
-    margin-right: 1rem; /* Ensures the right reel has the exact same gap on the right wall */
+    margin-right: 1rem;
 }
 
-/* 503px multiplied by 3 unique strips = 1509px */
 @keyframes slideUp {
     from { transform: translateY(0); }
     to { transform: translateY(-1509px); }
 }
 
-/* For the right side to slide down, we start at the clone (-1509px) and animate to 0 */
 @keyframes slideDown {
     from { transform: translateY(-1509px); }
     to { transform: translateY(0); }
@@ -87,15 +80,12 @@ body{
     background-color: transparent;
 }
 
-/* 1. Modify your existing .reel-strip */
 .reel-strip {
-    position: relative; /* Acts as an anchor for absolute positioning */
+    position: relative;
     width: 100%;
     height: 503px; 
-    /* REMOVE the background-image properties from here */
 }
 
-/* 2. Add the new .reel-overlay class */
 .reel-overlay {
     position: absolute;
     top: 0;
@@ -105,21 +95,20 @@ body{
     background-image: url('../Images/Film_Reel2.png');
     background-repeat: repeat-y;
     background-size: contain;
-    z-index: 2; /* Forces the film reel on TOP of the posters */
-    pointer-events: none; /* Allows user to click the posters 'through' the reel */
+    z-index: 2;
+    pointer-events: none;
 }
 
 .poster-1 { 
-    top: 17px;    /* Distance from the top of the 503px strip */
-    height: 218px; /* Make the image taller to fill the space */
+    top: 17px;
+    height: 218px;
 }
 
 .poster-2 { 
-    top: 269px;   /* Distance from the top of the 503px strip */
+    top: 269px;
     height: 218px; 
 }
 
-/* Ensure your poster width/left values still look good */
 .movie-poster {
     position: absolute;
     z-index: 1;
@@ -130,4 +119,29 @@ body{
 .logo{
     width: 170px;
     height: 7.5vh;
+}
+.content{
+    height: 82.5vh;
+    width: 500px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.infoContainer{
+    position:relative;
+    width: 500px;
+    height: 600px;
+    background-color: rgb(32, 30, 30);
+    border: 3px;
+    border-color: aliceblue;
+    border-radius: 20px;
+    border-style: solid;
+    top: 0px;
+    display: flex;
+    flex-direction: column;
+}
+.buttonContainer{
+    display: flex;
+    flex-direction: row;
 }
