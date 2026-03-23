@@ -4,7 +4,9 @@ const dbCollectionActorinfo = "actorinfo";
 const dbCollectionBechdel = "bechdel";
 const dbCollectionImdb = "imdb";
 
+document.addEventListener("DOMContentLoaded", () => {
 
+});
 
 // ============= DATA IMPORT =============
 
@@ -46,7 +48,7 @@ async function reqActorData(id) {
     }
 }
 
-async function reqIdList(dbCollection) {
+async function reqIdList(dbCollection) { 
     const response = await fetch(serverUrl + "/" + dbCollection + "/list", {
         method: "GET",
         headers: {
@@ -65,5 +67,28 @@ async function reqIdList(dbCollection) {
     }
 }
 
+
+
 // =============================
 
+var points = 0;
+var guess = true;
+function createButtons(){
+    const HigherButton = document.createElement("div");
+    const LowerButton = document.createElement("div");
+
+    HigherButton.addEventListener("Click", () => {
+        guess = true;
+        PLACEHOLDER_NAME_FOR_GUESS(guess);
+    });
+
+    LowerButton.addEventListener("Click", () => {
+        guess = false;
+        PLACEHOLDER_NAME_FOR_GUESS(guess);
+    });
+}
+
+function PLACEHOLDER_NAME_FOR_GUESS(guess) {
+
+  
+}
