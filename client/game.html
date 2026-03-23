@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <h1>Higher or Lower</h1>
+        <h1>Popcorn predictions</h1>
     </header>
     <div class="content">
         <div id="leftMovie">
@@ -23,7 +23,7 @@
                 <h2 id="leftTitle">Tung tung sahur</h2>
                 <p id="leftSecondInfo">Release Year: 2067</p>
             </div>
-            <div class="infoButtonLeft">
+            <div class="infoButton" id="infoButtonLeft">
                 <button id="infoLeft">More info</button>
             </div>
         </div>
@@ -36,15 +36,15 @@
                 <h2 id="rightTitle">Arne alligator</h2>
                 <p id="rightSecondInfo">Release Year: 2067</p>
             </div>
-            <div class="infoButtonRight">
+            <div class="infoButton" id ="infoButtonRight">
                 <button id="infoRight">More info</button>
             </div>
         </div>
-        <div class="center">
+        <div id="centerBox">
             <div class="gamemodeContainer">
-                <button onclick="startGame('Release year')">Release year</button>
-                <button onclick="startGame('Rating')">Rating</button>
-                <button onclick="startGame('Runtime')">Runtime</button>
+                <button onclick="startGame('Release year')" class="buttons">Release year</button>
+                <button onclick="startGame('Rating')" class="buttons">Rating</button>
+                <button onclick="startGame('Runtime')" class="buttons">Runtime</button>
             </div>
         </div>
         <div id="popcorn-container">

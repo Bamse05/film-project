@@ -1,7 +1,7 @@
 body{
     margin: 0;
-  
-    overflow-x: hidden;
+      font-family: 'Montserrat';
+    overflow: hidden;
 }
 .container{
     display: flex;
@@ -126,18 +126,26 @@ body{
 .leaderboard-container {
     background-color: rgba(32, 30, 30, 0.8);
     border-radius: 15px;
-
-    padding: 20px;
+    padding: 10px;
     margin: 5rem;
-    width: 80%;
+    width: 60%;
     color: white;
     box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+ 
+}
+
+/* --- NEW WRAPPER STYLES --- */
+.table-wrapper {
+    max-height: 10rem;
+    overflow-y: auto; /* Makes ONLY the table scroll */
+    margin-top: 15px;
+    border-radius: 5px; /* Keeps the scrolling edges smooth */
 }
 
 #leaderboardTable {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+    margin-top: 0; /* Removed the margin from here so it sits flush in the wrapper */
 }
 
 #leaderboardTable th, #leaderboardTable td {
@@ -150,8 +158,30 @@ body{
 
 #leaderboardTable th {
     background-color: rgb(74, 74, 85);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    /* This shadow hides the 1px gap that browsers sometimes leave on sticky table headers */
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.5); 
+}
+/* Custom Scrollbar for the Leaderboard */
+.leaderboard-container::-webkit-scrollbar {
+    width: 8px;
 }
 
+.leaderboard-container::-webkit-scrollbar-track {
+    background: rgba(32, 30, 30, 0.5); 
+    border-radius: 10px;
+}
+
+.leaderboard-container::-webkit-scrollbar-thumb {
+    background: rgb(104, 107, 110); 
+    border-radius: 10px;
+}
+
+.leaderboard-container::-webkit-scrollbar-thumb:hover {
+    background: white; 
+}
 #playerName {
     padding: 10px;
     font-size: 16px;
@@ -169,6 +199,7 @@ body{
     justify-content: center;
 }
 .infoContainer{
+    padding-top: 5rem;
     position:relative;
     width: 500px;
     background-color: rgb(32, 30, 30);
@@ -182,6 +213,7 @@ body{
     box-shadow: 0px 0px 60px 0px rgb(31, 31, 31);
 }
 .buttonContainer{
+    padding-top: 2rem;
     display: flex;
     flex-direction: row;
     align-items: center;    
