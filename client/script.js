@@ -101,8 +101,13 @@ function startGame(gamemode) {
 
 function gameStartAnimation() {
     fadeBoxes();
+
     document.getElementById("popcorn-container").classList.add('visible');
     document.querySelector("header").classList.add('visible');
+    document.getElementById("centerBox").classList.add('visible');
+
+    document.getElementById("gamemodeContainer").style.display = "none";
+    document.getElementById("higherLowerContainer").style.display = "flex";
 }
 
 function fadeBoxes() {
@@ -190,7 +195,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     loadLeaderboard();
     movieIdList = await getIdList(dbCollectionImdb);
-    
+
     // Make a function to select the gamemode from the "Change gamemode" button
     const gameMode = "releaseYear"; // Placeholder
 
@@ -377,7 +382,7 @@ async function loadLeaderboard() {
         const tbody = document.getElementById("leaderboardBody");
 
         // Clear existing rows (innerHTML is still okay here just for emptying the container quickly)
-  
+
 
         // Populate table using appendChild
         currentTopScores.forEach((entry, index) => {

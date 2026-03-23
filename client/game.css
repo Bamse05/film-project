@@ -164,25 +164,66 @@ header.visible {
 #centerBox {
     background-color: rgb(26, 26, 26);
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    gap: 2em;
+
     text-align: center;
     left: 50%;
     top: 55%;
     transform: translate(-50%, -60%);
     border-radius: 8px;
-    width: 300px;
-    height: 400px;
+    width: auto;
     z-index: 9;
-    padding: 20px;
+    padding: 2em;
     border: 3px solid gray;
+
+    transition: transform 1.5s ease-out;
 }
 
-.gamemodeContainer {
+#centerBox.visible {
+    transform: translate(-50%, -82%);
+}
+
+#gamemodeContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 30px;
-    margin-top: 80px;
+}
+
+#higherLowerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.guess {
+    width: 14vw;
+    height: 14vh;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bolder;
+}
+
+#higher {
+    background-color: #03a456;
+    border-radius: 8px 8px 0px 0px;
+}
+
+#lower {
+    background-color: #ab1a1a;
+    border-radius: 0px 0px 8px 8px;
+}
+
+.guess:hover {
+    opacity: 0.9;
 }
 
 .buttons {

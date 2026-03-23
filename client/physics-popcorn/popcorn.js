@@ -99,9 +99,9 @@ class Hitbox {
 class Basket {
   constructor () {
     let width = canvas.width / 9;
-    let height = canvas.height / 1.5;
+    let height = canvas.height / 4;
     let x = canvas.width / 2 - (width / 2);
-    let y = canvas.height / 2 + (height / 2);
+    let y = canvas.height / 2 + (height);
 
     let cWidth = width / 10;
     let cHeight = height / 4;
@@ -170,7 +170,7 @@ function circRectCollision(c, B) {
   const r  = c.r;
 
   const rx = B.pos.x;
-  const ry = B.pos.y*1.03; // Gör så att popcornen sjunker in i hinken lite
+  const ry = B.pos.y*1.04; // Gör så att popcornen sjunker in i hinken lite
   const rw = B.width;
   const rh = B.height;
 
