@@ -63,6 +63,26 @@
                         <a href="" class="infoButton"><span>Leaderboard</span></a>
                     </div>
                 </div>
+                <div class="leaderboard-container">
+                    <h2 style="color: white; text-align: center;">Top 10 Highscores</h2>
+                    <table id="leaderboardTable">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody">
+                            </tbody>
+                    </table>
+                </div>
+
+                <div id="newScoreDiv" style="display: none; text-align: center; margin-top: 20px;">
+                    <h3 style="color: white;">New Highscore!</h3>
+                    <input type="text" id="playerName" placeholder="Enter your name">
+                    <button class="navButton" style="padding: 10px 20px; font-size: 16px;" onclick="submitNewScore()">Submit Score</button>
+                </div>
             </div>
             <div class="movieSideBar" id="right">
                 <div class="reel-container">
