@@ -188,8 +188,9 @@ async function buildMovieBox(movieBox, movieInfo, gameMode, backgroundBox) {
 document.addEventListener("DOMContentLoaded", async function() {
     console.log("HTML DOM tree loaded, and ready for manipulation.");
 
+    loadLeaderboard();
     movieIdList = await getIdList(dbCollectionImdb);
-
+    
     // Make a function to select the gamemode from the "Change gamemode" button
     const gameMode = "releaseYear"; // Placeholder
 
@@ -376,7 +377,7 @@ async function loadLeaderboard() {
         const tbody = document.getElementById("leaderboardBody");
 
         // Clear existing rows (innerHTML is still okay here just for emptying the container quickly)
-        tbody.innerHTML = "";
+  
 
         // Populate table using appendChild
         currentTopScores.forEach((entry, index) => {

@@ -16,6 +16,10 @@ const dbCollectionBechdel = "bechdel";
 const dbCollectionImdb = "imdb";
 const dbCollectionLeaderboard = "leaderboard";
 
+dbClient.connect()
+    .then(() => console.log("Connected to MongoDB successfully!"))
+    .catch(err => console.error("Failed to connect to MongoDB:", err));
+
 const server = http.createServer((req, res) => {
 
     const requestUrl = new URL(serverUrl + req.url);
@@ -25,7 +29,7 @@ const server = http.createServer((req, res) => {
         console.log(pathComponents);
         console.log(req.method);
 
-        route(res, pathComponents);
+        
         if (pathComponents[1] === "leaderboard" && pathComponents[2] === "top") {
             getTopLeaderboard(res);
             return;
@@ -73,13 +77,13 @@ function sendResponse(res, statusCode, contentType, data) {
 
 // USE THIS TO SEND BASIC DB REQUESTS
 async function requestDBJSON(findQuery, dbCollectionName) {
-    dbClient.connect();
+
     const db = dbClient.db(dbName);
     const dbCollection = db.collection(dbCollectionName);
 
     const artists = await dbCollection.find(findQuery).toArray();
     const resultingJSON = JSON.stringify(artists);
-    await dbClient.close();
+ 
 
     return resultingJSON;
 }
@@ -120,7 +124,7 @@ async function route(res, pathComponents) {
 }
 
 async function routeByID(res, dbCollectionName, id) {
-    dbClient.connect();
+
     const db = dbClient.db(dbName);
     const dbCollection = db.collection(dbCollectionName);
 
@@ -128,7 +132,7 @@ async function routeByID(res, dbCollectionName, id) {
     const resultingJSON = JSON.stringify(result);
 
     sendResponse(res, 200, "application/json", resultingJSON);
-    await dbClient.close();
+
 }
 
 async function routeByImage(res, id) {
@@ -145,7 +149,7 @@ async function routeByImage(res, id) {
 }
 
 async function getAllIDs(res, dbCollectionName) {
-    dbClient.connect();
+
     const db = dbClient.db(dbName);
     const dbCollection = db.collection(dbCollectionName);
 
@@ -153,11 +157,11 @@ async function getAllIDs(res, dbCollectionName) {
     const resultingJSON = JSON.stringify(result);
 
     sendResponse(res, 200, "application/json", resultingJSON);
-    await dbClient.close();
+ 
 }
 
 async function getTopLeaderboard(res) {
-    dbClient.connect();
+
     const db = dbClient.db(dbName);
     const dbCollection = db.collection(dbCollectionLeaderboard);
 
@@ -166,11 +170,11 @@ async function getTopLeaderboard(res) {
     const resultingJSON = JSON.stringify(result);
 
     sendResponse(res, 200, "application/json", resultingJSON);
-    await dbClient.close();
+  
 }
 
 async function addScoreToLeaderboard(res, data) {
-    dbClient.connect();
+
     const db = dbClient.db(dbName);
     const dbCollection = db.collection(dbCollectionLeaderboard);
 
@@ -179,5 +183,5 @@ async function addScoreToLeaderboard(res, data) {
 
     await dbCollection.insertOne(data);
     sendResponse(res, 201, "application/json", JSON.stringify({ message: "Score saved successfully" }));
-    await dbClient.close();
+
 }

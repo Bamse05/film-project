@@ -176,40 +176,34 @@ header.visible {
     border: 3px solid gray;
 }
 
-.buttonContainer {
+.gamemodeContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+    gap: 30px;
     margin-top: 80px;
 }
 
-#startButton {
-    padding: 20px;
-    font-size: 24px;
+.buttons {
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
     width: 200px;
-    border-radius: 4px;
+    height: 40px;
+    border-radius: 6px;
     color: white;
-    background-color: green;
-    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to bottom, #03a456 0%, #03a456 100%) no-repeat;
+    background-size: 0% 100%;
+    background-position: top;
+    background-color: #ab1a1a;
+    transition: background-size 300ms ease-in;
 }
 
-#startButton:hover {
-    background-color: rgb(5, 139, 5);
+.buttons:hover {
+    background-size: 100% 100%;
+    background-position: top;
 }
 
-#gamemodeButton {
-    padding: 10px 10px;
-    font-size: 16px;
-    width: 200px;
-    border-radius: 4px;
-    background-color: white;
-    font-family: 'Montserrat', sans-serif;
-}
-
-#gamemodeButton:hover {
-    background-color: rgb(240, 240, 240);
-}
 
 #popcorn-container {
     position: absolute;
