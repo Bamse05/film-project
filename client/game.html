@@ -5,6 +5,8 @@
     <meta name="grupp 6">
     <title>Higher or Lower</title>
     <link rel="stylesheet" href="game.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <script src="script.js"></script>
 </head>
 <body>
     <header>
@@ -12,6 +14,7 @@
     </header>
     <div class="content">
         <div class="leftMovie">
+            <div class="filter"></div>
             <div class="movieinfo" id="leftMovieInfo">
                 <div class="moviePoster">
                     <img src="../project-material/media/100009.png" alt="Poster left" id="leftPoster">
@@ -19,11 +22,12 @@
                 <h2 id="leftTitle">Tung tung sahur</h2>
                 <p id="leftSecondInfo">Release Year: 2067</p>
             </div>
-            <div class="infoButton">
+            <div class="infoButtonLeft">
                 <button id="infoLeft">More info</button>
             </div>
         </div>
         <div class="rightMovie">
+            <div class="filter"></div>
             <div class="movieinfo" id="rightMovieInfo">
                 <div class="moviePoster">
                     <img src="../project-material/media/100029.png" alt="Poster right" id="rightPoster">
@@ -31,17 +35,15 @@
                 <h2 id="rightTitle">Arne alligator</h2>
                 <p id="rightSecondInfo">Release Year: 2067</p>
             </div>
-            <div class="infoButton">
+            <div class="infoButtonRight">
                 <button id="infoRight">More info</button>
             </div>
         </div>
         <div class="center">
-            <h1>Higher or lower</h1>
-            <p>Select gamemode or start</p>
-            <h2>Highscore: 67</h2>
-            <div class="buttonContainer">
-                <button id="startButton">Start</button>
-                <button id="gamemodeButton">Change gamemode</button>
+            <div class="gamemodeContainer">
+                <button onclick="startGame('Release year')">Release year</button>
+                <button onclick="startGame('Rating')">Rating</button>
+                <button onclick="startGame('Runtime')">Runtime</button>
             </div>
         </div>
         <div id="popcorn-container">
@@ -51,7 +53,6 @@
         <script src="./physics-popcorn/popcorn.js" defer></script>
     </div>
     <div class="footer">
-            <p>Crazy footer text</p>
     </div>
 </body>
 </html>

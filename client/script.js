@@ -4,7 +4,12 @@ const dbCollectionActorinfo = "actorinfo";
 const dbCollectionBechdel = "bechdel";
 const dbCollectionImdb = "imdb";
 
-const movieIdList = await reqIdList(dbCollectionImdb);
+let movieIdList = [];
+
+async function getIdList(dbCollectionImdb) {
+    const idList = await reqIdList(dbCollectionImdb);
+    return idList;
+}
 
 // ============= DATA IMPORT =============
 
@@ -65,29 +70,96 @@ async function reqIdList(dbCollection) {
     }
 }
 
+async function reqMoviePoster(id) {
+    const response = await fetch(serverUrl + "/imdb/image/" + id, {
+        method: "GET",
+        headers: {
+            "Content-Type": "image/png",
+        }
+    });
+
+    if (response.ok) {
+        return response.blob().then((blobBody) => {
+            const filePath = URL.createObjectURL(blobBody);
+            return filePath;
+        })
+    } else {
+        return null;
+    }
+}
+
 // =============================
 
+function startGame(gamemode) {
+    console.log(gamemode);
+}
+
 async function getRandomMovie() {
-    let movieNumber = Math.random(0, movieIdList.length - 1);
-    let movieInfo = reqMovieData(movieIdList[movieNumber]);
+    let movieNumber = Math.floor(Math.random() * movieIdList.length - 1);
+    let movieInfo = await reqMovieData(movieIdList[movieNumber]);
     return movieInfo;
 }
 
-function buildMovieBox(movieBox, movieInfo) {
+async function buildMovieBox(movieBox, movieInfo, gameMode) {
+    let moviePoster = null;
+    let movieTitle = null;
+    let extraInfo = null;
 
+    if (movieBox.id === "leftMovieInfo") {
+        moviePoster = document.getElementById("leftPoster");
+        movieTitle = document.getElementById("leftTitle");
+        extraInfo = document.getElementById("leftSecondInfo");
+    }
+    else if (movieBox.id === "rightMovieInfo") {
+        moviePoster = document.getElementById("rightPoster");
+        movieTitle = document.getElementById("rightTitle");
+        extraInfo = document.getElementById("rightSecondInfo");
+    }
+
+    let posterSrc = await reqMoviePoster(movieInfo.normalized_id);
+    moviePoster.src = posterSrc;
+
+    movieTitle.innerHTML = movieInfo.name;
+
+    switch (gameMode) {
+        case "releaseYear": {
+            extraInfo.innerHTML = "Rating: " + movieInfo.rating + "/n" + "Runtime: " + movieInfo.runtime;
+            break;
+        }
+
+        case "rating": {
+            extraInfo.innerHTML = "Release year: " + movieInfo.year + "/n" + "Runtime: " + movieInfo.runtime;
+            break;
+        }
+
+        case "runtime": {
+            extraInfo.innerHTML = "Release year: " + movieInfo.year + "/n" + "Rating: " + movieInfo.rating;
+            break;
+        }
+        default: {
+            // Release year is set as default game mode
+            extraInfo.innerHTML = "Rating: " + movieInfo.rating + "/n" + "Runtime: " + movieInfo.runtime;
+            break;
+        }
+    }
 }
 
 document.addEventListener("DOMContentLoaded", async function() {
     console.log("HTML DOM tree loaded, and ready for manipulation.");
 
+    movieIdList = await getIdList(dbCollectionImdb);
+
+    // Make a function to select the gamemode from the "Change gamemode" button
+    const gameMode = "releaseYear"; // Placeholder
+
     const leftMovie = document.getElementById("leftMovieInfo");
     let leftInfo = await getRandomMovie();
-    buildMovieBox(leftMovie, leftInfo);
+    buildMovieBox(leftMovie, leftInfo, gameMode);
     // let leftMovieId = rightInfo.id;
 
     const rightMovie = document.getElementById("rightMovieInfo");
     let rightInfo = await getRandomMovie();
-    buildMovieBox(rightMovie, rightInfo);
+    buildMovieBox(rightMovie, rightInfo, gameMode);
     // let rightMovieId = rightInfo.id;
 
 
@@ -136,7 +208,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 // Function to fill the "More info" box
 function fillInfoBox(infoBox, movieInfo, gameMode) {
     // Placeholder to get info for the movie with the id movieId
-    const movieInfo = getMovieInfo(movieId).json();
+    // const movieInfo = getMovieInfo(movieId).json();
 
     const headline = document.createElement("h2");
     headline.className = "infoHeadline";
@@ -220,4 +292,25 @@ function fillInfoBox(infoBox, movieInfo, gameMode) {
     description.className = "infoDescription";
     description.innerHTML = "Description:\n" + movieInfo.description;
     infoBox.appendChild(description);
+}
+var points = 0;
+var guess = true;
+function createButtons(){
+    const HigherButton = document.createElement("div");
+    const LowerButton = document.createElement("div");
+
+    HigherButton.addEventListener("Click", () => {
+        guess = true;
+        PLACEHOLDER_NAME_FOR_GUESS(guess);
+    });
+
+    LowerButton.addEventListener("Click", () => {
+        guess = false;
+        PLACEHOLDER_NAME_FOR_GUESS(guess);
+    });
+}
+
+function PLACEHOLDER_NAME_FOR_GUESS(guess) {
+
+
 }

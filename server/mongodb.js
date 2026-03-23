@@ -1,5 +1,6 @@
 const http = require("node:http");
 const MongoClient = require("mongodb").MongoClient;
+const fs = require("fs");
 
 const hostname = "127.0.0.1";
 const port = 3000;
@@ -76,7 +77,16 @@ async function route(res, pathComponents) {
             case "id":
                 if (pathComponents[3] != null && pathComponents[3] != undefined) {
                     routeByID(res, dbCollectionName, pathComponents[3]);
-                } else {
+                }
+                else {
+                    sendResponse(res, 204, null, null);
+                }
+                break;
+            case "image":
+                if (pathComponents[3] != null && pathComponents[3] != undefined) {
+                    routeByImage(res, pathComponents[3]);
+                }
+                else {
                     sendResponse(res, 204, null, null);
                 }
                 break;
@@ -99,6 +109,19 @@ async function routeByID(res, dbCollectionName, id) {
 
     sendResponse(res, 200, "application/json", resultingJSON);
     await dbClient.close();
+}
+
+async function routeByImage(res, id) {
+    const mediaFolder = "../project-material/media/";
+    const imagePath = mediaFolder + id + ".png";
+    fs.readFile(imagePath, (err, data) => {
+        if (err) {
+            sendResponse(res, 404, "text/plain", "An error occured when reading the image file");
+        }
+        else {
+            sendResponse(res, 200, "image/png", data);
+        }
+    });
 }
 
 async function getAllIDs(res, dbCollectionName) {

@@ -13,6 +13,7 @@ body {
 
 h1,h2,h3,h4,h5,h6,p {
     color: white;
+    font-family: 'Montserrat', sans-serif;
 }
 
 header {
@@ -21,9 +22,9 @@ header {
     background-color: rgb(26, 26, 26);
     width: 100%;
     text-align: center;
-    padding: 20px 0;
+    padding: 10px;
     z-index: 1002 !important;
-    border-bottom: 3px solid white;
+    border-bottom: 3px solid gray;
     z-index: 10;
 }
 
@@ -36,8 +37,7 @@ header {
 .footer {
     background-color: rgb(26, 26, 26);
     width: 100%;
-    padding: 10px;
-    border-top: 3px solid white;
+    border-top: 3px solid gray;
     z-index: 10;
 }
 
@@ -48,15 +48,21 @@ header {
     width: 100%;
     height: 100%;
     backdrop-filter: blur(6px);
+    filter: brightness(50%);
+    z-index: -1;
 }
 
 .leftMovie {
-    position: relative;
     width: 50%;
     height: 100%;
     background-image: url("../project-material/media/100009.png");
     background-size: cover;
-    border-right: 1.5px solid white;
+    border-right: 2px solid gray;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .rightMovie {
@@ -65,34 +71,59 @@ header {
     height: 100%;
     background-image: url("../project-material/media/100029.png");
     background-size: cover;
-    border-left: 1.5px solid white;
+    border-left: 2px solid gray;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .moviePoster {
     width: 200px;
     height: 200px;
     background-color: rgb(26, 26, 26);
+    z-index: 2;
 }
 
 .moviePoster img {
     width: 100%;
     height: 100%;
     border-radius: 6px;
+    z-index: 2;
 }
 
 .movieinfo {
     background-color: rgb(26, 26, 26);
     width: 240px;
-    margin: auto;
     border-radius: 8px;
+    border: 3px solid gray;
     padding: 20px;
-    margin-top: 100px;
+    z-index: 2;
 }
 
-.infoButton {
+.infoButtonLeft {
+    display: flex;
+    justify-content: left;
+}
+
+#infoLeft {
+    font-size: 20px;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.244);
+    color: gray;
+}
+
+.infoButtonRight {
     display: flex;
     justify-content: right;
-    margin-top: 150px;
+}
+
+#infoRight {
+    font-size: 20px;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.244);
+    color: gray;
 }
 
 .center {
@@ -100,14 +131,14 @@ header {
     position: absolute;
     text-align: center;
     left: 50%;
-    top: 50%;
+    top: 55%;
     transform: translate(-50%, -60%);
     border-radius: 8px;
     width: 300px;
     height: 400px;
     z-index: 9;
     padding: 20px;
-    border: 3px solid white;
+    border: 3px solid gray;
 }
 
 .buttonContainer {
@@ -125,6 +156,7 @@ header {
     border-radius: 4px;
     color: white;
     background-color: green;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #startButton:hover {
@@ -137,6 +169,7 @@ header {
     width: 200px;
     border-radius: 4px;
     background-color: white;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #gamemodeButton:hover {
@@ -150,11 +183,10 @@ header {
     height: 100%;
     justify-content: center;
     z-index: 1001 !important;
+    pointer-events: none;
 }
 
 #c {
-    position: absolute;
-    top: 0;
-    bottom: 0;
     z-index: 1000 !important;
+    pointer-events: none;
 }
