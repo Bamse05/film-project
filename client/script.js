@@ -191,7 +191,7 @@ async function buildMovieBox(movieBox, movieInfo, gameMode, backgroundBox) {
         extraInfo = document.getElementById("rightSecondInfo");
     }
 
-
+    
 
     // ADD A PLACEHOLDER IMAGE OR ERROR HANDLER FOR MISSING IMAGES
     let posterSrc = await reqMoviePoster(movieInfo.normalized_id);
@@ -459,4 +459,36 @@ async function loadLeaderboard() {
             tbody.appendChild(tr);
         });
     }
+}
+// --- NEW CURTAIN ANIMATION LOGIC ---
+
+// --- NEW CURTAIN ANIMATION LOGIC ---
+
+// --- NEW CURTAIN ANIMATION LOGIC ---
+
+function playGame(event) {
+    event.preventDefault();
+
+    // Hide the landing page UI
+    document.getElementById('left').style.display = 'none';
+    document.getElementById('right').style.display = 'none';
+    document.getElementById('center-content').style.display = 'none';
+    document.getElementById('mainBody').style.background = 'none';
+
+    // Show the GIF container
+    const animContainer = document.getElementById('curtain-animation-container');
+    animContainer.style.display = 'block';
+    animContainer.style.opacity = '1'; 
+
+    // Force the GIF to start from frame 1
+    const gifImage = document.getElementById('curtain-gif');
+    gifImage.src = '../Images/curtaingif.gif?t=' + new Date().getTime();
+
+    // The total time your sped-up GIF takes to play (e.g., 1200ms)
+    const totalGifTime = 3000; 
+
+    // Navigate to the game page the exact moment the GIF finishes!
+    setTimeout(() => {
+        window.location.href = "game.html";
+    }, totalGifTime); 
 }
