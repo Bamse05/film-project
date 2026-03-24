@@ -17,7 +17,7 @@
     <div class="content">
         <div class="movieBox" id="leftMovie">
             <div class="filter"></div>
-            <p>SCORE: 0</p>
+            <p id="score" >SCORE: 0</p>
             <div class="movieinfo" id="leftMovieInfo">
                 <div class="moviePoster">
                     <img src="../project-material/media/114214.png" alt="Poster left" id="leftPoster">
@@ -31,7 +31,7 @@
         </div>
         <div class="movieBox" id="rightMovie">
             <div class="filter"></div>
-            <p>HIGHSCORE: 0</p>
+            <p id="highscore">HIGHSCORE: 0</p>
             <div class="movieinfo" id="rightMovieInfo">
                 <div class="moviePoster">
                     <img src="../project-material/media/100029.png" alt="Poster right" id="rightPoster">
@@ -51,6 +51,7 @@
                 <button onclick="startGame('runtime')" class="buttons">Runtime</button>
             </div>
             <div id="higherLowerContainer">
+                <h3 id="selectedGamemode"></h3>
                 <button onclick="guessHigherOrLower('h')" class="guess" id="higher">HIGHER</button>
                 <button onclick="guessHigherOrLower('l')" class="guess" id="lower">LOWER</button>
             </div>
