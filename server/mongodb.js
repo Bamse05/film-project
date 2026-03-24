@@ -11,9 +11,6 @@ const dbPort = 27017;
 const dbServerUrl = "mongodb://" + dbHostname + ":" + dbPort + "";
 const dbClient = new MongoClient(dbServerUrl);
 const dbName = "tnm121-project";
-const dbCollectionActorinfo = "actorinfo";
-const dbCollectionBechdel = "bechdel";
-const dbCollectionImdb = "imdb";
 const dbCollectionLeaderboard = "leaderboard";
 
 dbClient.connect()
