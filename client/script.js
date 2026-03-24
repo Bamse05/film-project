@@ -100,6 +100,22 @@ async function reqMoviePoster(id) {
 
 async function startGame(selectedGamemode) {
     gamemode = selectedGamemode;
+    gamemodeHeader = document.getElementById("selectedGamemode");
+    switch (gamemode) {
+        case "releaseYear":
+            gamemodeHeader.textContent = "Release year";
+            break;
+        case "rating":
+            gamemodeHeader.textContent = "Rating";
+            break;
+        case "runtime":
+            gamemodeHeader.textContent = "Runcar snowpen";
+            break;
+        default:
+            break;
+    }
+
+    await createMovieBoxes();
 
     gameStartAnimation();
 }
@@ -113,6 +129,9 @@ function gameStartAnimation() {
 
     document.getElementById("gamemodeContainer").style.display = "none";
     document.getElementById("higherLowerContainer").style.display = "flex";
+
+    document.getElementById("score").classList.add('visible');
+    document.getElementById("highscore").classList.add('visible');
 }
 
 function fadeBoxes() {
@@ -126,20 +145,17 @@ function fadeBoxes() {
 }
 
 function guessHigherOrLower(guess) {
-    console.log(guess);
-
-    console.log(higherOrLower(guess));
-
     let guessedRight = higherOrLower(guess);
 
     if (guessedRight) {
         currentScore++
-        spawnPopcorn(1);
+        spawnPopcorn(calculatePopcornAmount(currentScore));
+        updateScore();
+        nextRound();
     } else {
         //BOMBA SLUTA SPELET
         popTheCorn();
     }
-
 }
 
 function higherOrLower(guess) {
@@ -147,27 +163,50 @@ function higherOrLower(guess) {
         case "releaseYear": {
             if ((guess === "h" && currentMovie.year >= previousMovie.year)
                 || (guess === "l" && currentMovie.year <= previousMovie.year)) {
-                    return false;
+                    return true;
             }
-            return true;
+            return false;
         }
         case "rating": {
             if ((guess === "h" && currentMovie.rating >= previousMovie.rating)
                 || (guess === "l" && currentMovie.rating <= previousMovie.rating)) {
-                    return false;
+                    return true;
             }
-            return true;
+            return false;
         }
         case "runtime": {
             if ((guess === "h" && currentMovie.runtime >= previousMovie.runtime)
                 || (guess === "l" && currentMovie.runtime <= previousMovie.runtime)) {
-                    return false;
+                    return true;
             }
-            return true;
+            return false;
         }
         default: {
             return true;
         }
+    }
+}
+
+async function nextRound() {
+    previousMovie = currentMovie;
+    currentMovie = nextMovie;
+    nextMovie = await getRandomMovie();
+
+    await createMovieBoxes();
+
+}
+
+function calculatePopcornAmount(score) {
+    if (score <= 3) {
+        return 1;
+    } else if (score <= 5) {
+        return 2;
+    } else if (score <= 7) {
+        return 3;
+    } else if (score <= 10) {
+        return 4;
+    } else {
+        return 5;
     }
 }
 
@@ -194,12 +233,15 @@ async function getRandomMovie() {
     return movieInfo;
 }
 
-async function buildMovieBox(movieBox, movieInfo, gamemode, backgroundBox) {
+function updateScore() {
+    scoreElem = document.getElementById("score")
+    scoreElem.textContent = "SCORE: " + currentScore;
+}
+
+async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
     let moviePoster = null;
     let movieTitle = null;
     let extraInfo = null;
-
-    console.log(backgroundBox);
 
     if (movieBox.id === "leftMovieInfo") {
         moviePoster = document.getElementById("leftPoster");
@@ -212,18 +254,12 @@ async function buildMovieBox(movieBox, movieInfo, gamemode, backgroundBox) {
         extraInfo = document.getElementById("rightSecondInfo");
     }
 
-    // ADD A PLACEHOLDER IMAGE OR ERROR HANDLER FOR MISSING IMAGES
     let posterSrc = await reqMoviePoster(movieInfo.normalized_id);
-    localImageUrl = "../project-material/media/" + movieInfo.normalized_id + ".png";
     if (!posterSrc) {
         posterSrc = placeholderImgUrl;
-        localImageUrl = placeholderImgUrl;
     }
     moviePoster.src = posterSrc;
-    backgroundBox.style.backgroundImage = "url(" + localImageUrl + ")";
-
-
-
+    backgroundBox.style.backgroundImage = "url(" + posterSrc + ")";
 
     movieTitle.innerHTML = movieInfo.name;
 
@@ -256,26 +292,16 @@ async function buildMovieBox(movieBox, movieInfo, gamemode, backgroundBox) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", async function() {
-    console.log("HTML DOM tree loaded, and ready for manipulation.");
-
-    movieIdList = await reqIdList(dbCollectionImdb);
-
-    previousMovie = await getRandomMovie();
-    currentMovie = await getRandomMovie();
-    nextMovie = await getRandomMovie();
-
-    console.log(previousMovie);
-
+async function createMovieBoxes () {
     const leftMovie = document.getElementById("leftMovie");
     let leftInfo = previousMovie;
     const leftMovieInfoBox = document.getElementById("leftMovieInfo");
-    await buildMovieBox(leftMovieInfoBox, leftInfo, gamemode, leftMovie);
+    buildMovieBox(leftMovieInfoBox, leftInfo, leftMovie);
 
     const rightMovie = document.getElementById("rightMovie");
     const rightMovieInfoBox = document.getElementById("rightMovieInfo");
     let rightInfo = currentMovie;
-    await buildMovieBox(rightMovieInfoBox, rightInfo, gamemode, rightMovie);
+    buildMovieBox(rightMovieInfoBox, rightInfo, rightMovie);
 
     // How to get id of each movie from the already retrieved movies data
 
@@ -321,6 +347,26 @@ document.addEventListener("DOMContentLoaded", async function() {
             rightInfoContainer.style.display = "block";
         }
     });
+}
+
+document.addEventListener("DOMContentLoaded", async function() {
+    console.log("HTML DOM tree loaded, and ready for manipulation.");
+
+    movieIdList = await reqIdList(dbCollectionImdb);
+
+    previousMovie = await getRandomMovie();
+    currentMovie = await getRandomMovie();
+    nextMovie = await getRandomMovie();
+
+    const leftMovieInfoBox = document.getElementById("leftMovie");
+    let leftPosterSrc = await reqMoviePoster(previousMovie.normalized_id);
+    if (!leftPosterSrc) { leftPosterSrc = placeholderImgUrl; }
+    leftMovieInfoBox.style.backgroundImage = "url(" + leftPosterSrc + ")";
+
+    const rightMovieInfoBox = document.getElementById("rightMovie");
+    let rightPosterSrc = await reqMoviePoster(currentMovie.normalized_id);
+    if (!rightPosterSrc) { rightPosterSrc = placeholderImgUrl; }
+    rightMovieInfoBox.style.backgroundImage = "url(" + rightPosterSrc + ")";
 
     document.body.classList.add("fade-in");
 

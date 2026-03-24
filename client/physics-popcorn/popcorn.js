@@ -234,7 +234,7 @@ async function popTheCorn() {
   for (let i = 0; i < bodies.length; i++) {
     const b = bodies[i];
     if (b.popped == false) {
-      await pause(410 * Math.exp((-0.16) * i) + 20);
+      await pause(410 * Math.exp((-0.16) * i) + 10);
       b.r *= 2;
       b.pos.y += b.r;
       b.img = popImg
