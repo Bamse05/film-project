@@ -4,7 +4,7 @@ body#landing-page-body {
     overflow: hidden;
     
     /* --- NEW: Background is the still curtain! --- */
-    background-image: url("../Images/curtainStill.png"); 
+    background-image: url("../server/Images/curtainStill.png"); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -106,7 +106,7 @@ body#landing-page-body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../Images/Film_Reel2.png');
+    background-image: url('../server/Images/Film_Reel2.png');
     background-repeat: repeat-y;
     background-size: contain;
     z-index: 2;
