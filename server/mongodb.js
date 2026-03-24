@@ -29,7 +29,7 @@ const server = http.createServer((req, res) => {
         console.log(pathComponents);
         console.log(req.method);
 
-        
+
         if (pathComponents[1] === "leaderboard" && pathComponents[2] === "top") {
             getTopLeaderboard(res);
             return;
@@ -83,7 +83,7 @@ async function requestDBJSON(findQuery, dbCollectionName) {
 
     const artists = await dbCollection.find(findQuery).toArray();
     const resultingJSON = JSON.stringify(artists);
- 
+
 
     return resultingJSON;
 }
@@ -136,7 +136,7 @@ async function routeByID(res, dbCollectionName, id) {
 }
 
 async function routeByImage(res, id) {
-    const mediaFolder = "../project-material/media/";
+    const mediaFolder = "./media/";
     const imagePath = mediaFolder + id + ".png";
     fs.readFile(imagePath, (err, data) => {
         if (err) {
@@ -157,7 +157,7 @@ async function getAllIDs(res, dbCollectionName) {
     const resultingJSON = JSON.stringify(result);
 
     sendResponse(res, 200, "application/json", resultingJSON);
- 
+
 }
 
 async function getTopLeaderboard(res) {
@@ -170,7 +170,7 @@ async function getTopLeaderboard(res) {
     const resultingJSON = JSON.stringify(result);
 
     sendResponse(res, 200, "application/json", resultingJSON);
-  
+
 }
 
 async function addScoreToLeaderboard(res, data) {
@@ -179,7 +179,7 @@ async function addScoreToLeaderboard(res, data) {
     const dbCollection = db.collection(dbCollectionLeaderboard);
 
     // Make sure score is stored as a number so sorting works properly
-    data.score = Number(data.score); 
+    data.score = Number(data.score);
 
     await dbCollection.insertOne(data);
     sendResponse(res, 201, "application/json", JSON.stringify({ message: "Score saved successfully" }));
