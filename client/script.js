@@ -240,7 +240,7 @@ async function buildMovieBox(movieBox, movieInfo, gameMode, backgroundBox) {
 document.addEventListener("DOMContentLoaded", async function() {
     console.log("HTML DOM tree loaded, and ready for manipulation.");
 
-
+    await randomizeReelPosters();
     // const startButton = document.createElement("button");
     // startButton.id = "startButton";
     // const gameMode = await startGame();
@@ -458,5 +458,48 @@ async function loadLeaderboard() {
             // 5. Finally, append the finished row to the table body
             tbody.appendChild(tr);
         });
+    }
+}
+async function randomizeReelPosters() {
+    const sidebars = document.querySelectorAll('.movieSideBar');
+    if (sidebars.length === 0) return;
+
+    try {
+        const response = await fetch(serverUrl + "/imdb/list");
+        if (!response.ok) throw new Error("Could not fetch ID list");
+        const idList = await response.json();
+
+        for (const sidebar of sidebars) {
+            const posters = sidebar.querySelectorAll('.movie-poster');
+            
+            for (let i = 0; i < 6; i++) {
+                if (posters[i]) {
+                    const randomIndex = Math.floor(Math.random() * idList.length);
+                    const randomMovieId = idList[randomIndex]; 
+
+                    const movieInfo = await reqMovieData(randomMovieId);
+
+                    if (movieInfo && movieInfo.normalized_id) {
+                        posters[i].src = serverUrl + "/imdb/image/" + movieInfo.normalized_id;
+                    }
+
+                    posters[i].onerror = function() {
+                        this.src = placeholderImgUrl;
+                    };
+                }
+            }
+
+            setTimeout(() => {
+                for (let j = 0; j < 4; j++) {
+                    if (posters[j] && posters[j + 6]) {
+                        posters[j + 6].src = posters[j].src;
+                        // Ensure the clones also have the placeholder fallback
+                        posters[j + 6].onerror = function() { this.src = placeholderImgUrl; };
+                    }
+                }
+            }, 500); 
+        }
+    } catch (error) {
+        console.error("Failed to randomize posters:", error);
     }
 }
