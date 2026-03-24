@@ -40,7 +40,7 @@ body#landing-page-body {
     font-weight: 900;
 }
 .mainBody{
-    height: 82.5vh; /* Lock height to fit between navbar and footer perfectly */
+    height: 83.5vh; /* Lock height to fit between navbar and footer perfectly */
     position: relative; /* Essential for the absolute GIF container */
     
     /* Replaced CinemaStage.jpg with a dark transparent overlay 
@@ -63,11 +63,11 @@ body#landing-page-body {
 }
 
 #left .reel-container {
-    animation: slideUp 5s linear infinite;
+    animation: slideUp 25s linear infinite;
 }
 
 #right .reel-container {
-    animation: slideDown 5s linear infinite;
+    animation: slideDown 25s linear infinite;
 }
 #left {
     margin-left: 2rem;
