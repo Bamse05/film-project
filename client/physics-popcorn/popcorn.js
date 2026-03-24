@@ -170,7 +170,7 @@ function circRectCollision(c, B) {
   const r  = c.r;
 
   const rx = B.pos.x;
-  const ry = B.pos.y*1.04; // Gör så att popcornen sjunker in i hinken lite
+  const ry = B.pos.y*1.03; // Gör så att popcornen sjunker in i hinken lite
   const rw = B.width;
   const rh = B.height;
 

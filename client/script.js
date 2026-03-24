@@ -13,6 +13,14 @@ async function getIdList(dbCollectionImdb) {
     return idList;
 }
 
+let gamemode;
+
+let previousMovie;
+let currentMovie;
+let nextMovie;
+
+let currentScore = 0;
+
 // ============= DATA IMPORT =============
 
 async function reqMovieData(id) {
@@ -92,12 +100,11 @@ async function reqMoviePoster(id) {
 
 // =============================
 
-async function startGame(gamemode) {
-    console.log(gamemode);
+async function startGame(selectedGamemode) {
+    gamemode = selectedGamemode;
 
     gameStartAnimation();
 }
-
 
 function gameStartAnimation() {
     fadeBoxes();
@@ -120,43 +127,42 @@ function fadeBoxes() {
     });
 }
 
-async function gameplayLoop(gameMode, leftMovieInfoBox, leftInfo, rightMovieInfoBox, rightInfo, leftMovie, rightMovie) {
-    let gameOver = false;
-    let score = 0;
-    while (!gameOver) {
-        leftInfo = rightInfo;
-        buildMovieBox(leftMovieInfoBox, rightInfo, gameMode, leftMovie);
+function guessHigherOrLower(guess) {
+    console.log(guess);
 
-        rightInfo = await getRandomMovie();
-        buildMovieBox(rightMovieInfoBox, rightInfo, gameMode, rightMovie);
+    console.log(higherOrLower(guess));
 
-        gameOver = await higherOrLower(gameMode, leftInfo, rightInfo);
-        if (gameOver) break;
-        score += 1;
+    let guessedRight = higherOrLower(guess);
+
+    if (guessedRight) {
+        currentScore++
+        spawnPopcorn(1);
+    } else {
+        //BOMBA SLUTA SPELET
+        popTheCorn();
     }
-    return score;
+
 }
 
-async function higherOrLower(gameMode, leftInfo, rightInfo) {
-    let result = await guess();
-    switch (gameMode) {
+function higherOrLower(guess) {
+    switch (gamemode) {
         case "releaseYear": {
-            if ((result === "h" && rightInfo.year >= leftInfo.year)
-                || (result === "l" && rightInfo.year <= leftInfo.year)) {
+            if ((guess === "h" && currentMovie.year >= previousMovie.year)
+                || (guess === "l" && currentMovie.year <= previousMovie.year)) {
                     return false;
             }
             return true;
         }
         case "rating": {
-            if ((result === "h" && rightInfo.rating >= leftInfo.rating)
-                || (result === "l" && rightInfo.rating <= leftInfo.rating)) {
+            if ((guess === "h" && currentMovie.rating >= previousMovie.rating)
+                || (guess === "l" && currentMovie.rating <= previousMovie.rating)) {
                     return false;
             }
             return true;
         }
         case "runtime": {
-            if ((result === "h" && rightInfo.runtime >= leftInfo.runtime)
-                || (result === "l" && rightInfo.runtime <= leftInfo.runtime)) {
+            if ((guess === "h" && currentMovie.runtime >= previousMovie.runtime)
+                || (guess === "l" && currentMovie.runtime <= previousMovie.runtime)) {
                     return false;
             }
             return true;
@@ -167,13 +173,30 @@ async function higherOrLower(gameMode, leftInfo, rightInfo) {
     }
 }
 
+async function gameplayLoop(gamemode, leftMovieInfoBox, leftInfo, rightMovieInfoBox, rightInfo, leftMovie, rightMovie) {
+    let gameOver = false;
+    let score = 0;
+    while (!gameOver) {
+        leftInfo = rightInfo;
+        buildMovieBox(leftMovieInfoBox, rightInfo, gamemode, leftMovie);
+
+        rightInfo = await getRandomMovie();
+        buildMovieBox(rightMovieInfoBox, rightInfo, gamemode, rightMovie);
+
+        gameOver = await higherOrLower(gamemode, leftInfo, rightInfo);
+        if (gameOver) break;
+        score += 1;
+    }
+    return score;
+}
+
 async function getRandomMovie() {
     let movieNumber = Math.floor(Math.random() * movieIdList.length - 1);
     let movieInfo = await reqMovieData(movieIdList[movieNumber]);
     return movieInfo;
 }
 
-async function buildMovieBox(movieBox, movieInfo, gameMode, backgroundBox) {
+async function buildMovieBox(movieBox, movieInfo, gamemode, backgroundBox) {
     let moviePoster = null;
     let movieTitle = null;
     let extraInfo = null;
@@ -191,8 +214,6 @@ async function buildMovieBox(movieBox, movieInfo, gameMode, backgroundBox) {
         extraInfo = document.getElementById("rightSecondInfo");
     }
 
-    
-
     // ADD A PLACEHOLDER IMAGE OR ERROR HANDLER FOR MISSING IMAGES
     let posterSrc = await reqMoviePoster(movieInfo.normalized_id);
     localImageUrl = "../project-material/media/" + movieInfo.normalized_id + ".png";
@@ -208,7 +229,7 @@ async function buildMovieBox(movieBox, movieInfo, gameMode, backgroundBox) {
 
     movieTitle.innerHTML = movieInfo.name;
 
-    switch (gameMode) {
+    switch (gamemode) {
         case "releaseYear": {
             extraInfo.innerHTML = "Rating: " + movieInfo.rating;
             extraInfo.appendChild(document.createElement("br"));
@@ -240,30 +261,23 @@ async function buildMovieBox(movieBox, movieInfo, gameMode, backgroundBox) {
 document.addEventListener("DOMContentLoaded", async function() {
     console.log("HTML DOM tree loaded, and ready for manipulation.");
 
-    await randomizeReelPosters();
-    // const startButton = document.createElement("button");
-    // startButton.id = "startButton";
-    // const gameMode = await startGame();
+    movieIdList = await reqIdList(dbCollectionImdb);
 
-    loadLeaderboard();
-    movieIdList = await getIdList(dbCollectionImdb);
+    previousMovie = await getRandomMovie();
+    currentMovie = await getRandomMovie();
+    nextMovie = await getRandomMovie();
 
-    // Make a function to select the gamemode from the "Change gamemode" button
-    // const gameMode = "releaseYear"; // Placeholder
+    console.log(previousMovie);
 
     const leftMovie = document.getElementById("leftMovie");
-    let leftInfo = await getRandomMovie();
+    let leftInfo = previousMovie;
     const leftMovieInfoBox = document.getElementById("leftMovieInfo");
-    buildMovieBox(leftMovieInfoBox, leftInfo, gameMode, leftMovie);
-    // let leftMovieId = rightInfo.id;
+    await buildMovieBox(leftMovieInfoBox, leftInfo, gamemode, leftMovie);
 
     const rightMovie = document.getElementById("rightMovie");
     const rightMovieInfoBox = document.getElementById("rightMovieInfo");
-    let rightInfo = await getRandomMovie();
-    buildMovieBox(rightMovieInfoBox, rightInfo, gameMode, rightMovie);
-    // let rightMovieId = rightInfo.id;
-
-
+    let rightInfo = currentMovie;
+    await buildMovieBox(rightMovieInfoBox, rightInfo, gamemode, rightMovie);
 
     // How to get id of each movie from the already retrieved movies data
 
@@ -291,7 +305,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             leftInfoContainer.style.display === "none";
         }
         else {
-            fillInfoBox(leftInfoInner, leftInfo, gameMode);
+            fillInfoBox(leftInfoInner, leftInfo, gamemode);
             // Display is set to "none" by default
             leftInfoContainer.style.display = "block";
         }
@@ -299,20 +313,23 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     rightInfoButton.addEventListener("click", () => {
         // Display is set to "none" by default
+
         if (rightInfoContainer.style.display === "block") {
             rightInfoContainer.style.display === "none";
         }
         else {
-            fillInfoBox(rightInfoInner, rightInfo, gameMode);
+            fillInfoBox(rightInfoInner, rightInfo, gamemode);
             // Display is set to "none" by default
             rightInfoContainer.style.display = "block";
         }
     });
 
+    document.body.classList.add("fade-in");
+
 });
 
 // Function to fill the "More info" box
-function fillInfoBox(infoBox, movieInfo, gameMode) {
+function fillInfoBox(infoBox, movieInfo, gamemode) {
     // Placeholder to get info for the movie with the id movieId
     // const movieInfo = getMovieInfo(movieId).json();
 
@@ -326,7 +343,7 @@ function fillInfoBox(infoBox, movieInfo, gameMode) {
     director.innerHTML = "Director: " + movieInfo.director;
     infoBox.appendChild(director);
 
-    switch (gameMode) {
+    switch (gamemode) {
         case "year": {
             const rating = document.createElement("p");
             rating.className = "infoRating";
@@ -399,6 +416,12 @@ function fillInfoBox(infoBox, movieInfo, gameMode) {
     description.innerHTML = "Description:\n" + movieInfo.description;
     infoBox.appendChild(description);
 }
+
+
+
+
+
+
 /*var points = 0;
 var guess = true;
 function createButtons(){
@@ -471,11 +494,11 @@ async function randomizeReelPosters() {
 
         for (const sidebar of sidebars) {
             const posters = sidebar.querySelectorAll('.movie-poster');
-            
+
             for (let i = 0; i < 6; i++) {
                 if (posters[i]) {
                     const randomIndex = Math.floor(Math.random() * idList.length);
-                    const randomMovieId = idList[randomIndex]; 
+                    const randomMovieId = idList[randomIndex];
 
                     const movieInfo = await reqMovieData(randomMovieId);
 
@@ -497,7 +520,7 @@ async function randomizeReelPosters() {
                         posters[j + 6].onerror = function() { this.src = placeholderImgUrl; };
                     }
                 }
-            }, 500); 
+            }, 500);
         }
     } catch (error) {
         console.error("Failed to randomize posters:", error);
@@ -521,17 +544,17 @@ function playGame(event) {
     // Show the GIF container
     const animContainer = document.getElementById('curtain-animation-container');
     animContainer.style.display = 'block';
-    animContainer.style.opacity = '1'; 
+    animContainer.style.opacity = '1';
 
     // Force the GIF to start from frame 1
     const gifImage = document.getElementById('curtain-gif');
     gifImage.src = '../Images/curtaingif.gif?t=' + new Date().getTime();
 
     // The total time your sped-up GIF takes to play (e.g., 1200ms)
-    const totalGifTime = 3000; 
+    const totalGifTime = 3000;
 
     // Navigate to the game page the exact moment the GIF finishes!
     setTimeout(() => {
         window.location.href = "game.html";
-    }, totalGifTime); 
+    }, totalGifTime);
 }

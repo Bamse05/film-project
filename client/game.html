@@ -7,15 +7,17 @@
     <title>Higher or Lower</title>
     <link rel="stylesheet" href="game.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <script src="script.js"></script>
+    <script src="./physics-popcorn/popcorn.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
         <h1>Popcorn predictions</h1>
     </header>
     <div class="content">
-        <div id="leftMovie">
+        <div class="movieBox" id="leftMovie">
             <div class="filter"></div>
+            <p>SCORE: 0</p>
             <div class="movieinfo" id="leftMovieInfo">
                 <div class="moviePoster">
                     <img src="../project-material/media/114214.png" alt="Poster left" id="leftPoster">
@@ -27,8 +29,9 @@
                 <button id="infoLeft">More info</button>
             </div>
         </div>
-        <div id="rightMovie">
+        <div class="movieBox" id="rightMovie">
             <div class="filter"></div>
+            <p>HIGHSCORE: 0</p>
             <div class="movieinfo" id="rightMovieInfo">
                 <div class="moviePoster">
                     <img src="../project-material/media/100029.png" alt="Poster right" id="rightPoster">
@@ -43,20 +46,18 @@
         <div id="centerBox">
             <div id="gamemodeContainer">
                 <h3>SELECT GAMEMODE</h3>
-                <button onclick="startGame('Release year')" class="buttons">Release year</button>
-                <button onclick="startGame('Rating')" class="buttons">Rating</button>
-                <button onclick="startGame('Runtime')" class="buttons">Runtime</button>
+                <button onclick="startGame('releaseYear')" class="buttons">Release year</button>
+                <button onclick="startGame('rating')" class="buttons">Rating</button>
+                <button onclick="startGame('runtime')" class="buttons">Runtime</button>
             </div>
             <div id="higherLowerContainer">
-                <button onclick="guess('h')" class="guess" id="higher">HIGHER</button>
-                <button onclick="guess('l')" class="guess" id="lower">LOWER</button>
+                <button onclick="guessHigherOrLower('h')" class="guess" id="higher">HIGHER</button>
+                <button onclick="guessHigherOrLower('l')" class="guess" id="lower">LOWER</button>
             </div>
         </div>
         <div id="popcorn-container">
             <canvas id="c" width="800" height="2000"></canvas>
         </div>
-
-        <script src="./physics-popcorn/popcorn.js" defer></script>
     </div>
     <div class="footer">
     </div>
