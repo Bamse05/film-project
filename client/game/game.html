@@ -1,67 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="grupp 6">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="grupp 6" />
     <title>Higher or Lower</title>
-    <link rel="stylesheet" href="game.css">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" href="game.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
     <script src="./physics-popcorn/popcorn.js" defer></script>
     <script src="../dataImport.js" defer></script>
     <script src="./game.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>Popcorn predictions</h1>
+      <h1>Popcorn predictions</h1>
     </header>
     <div class="content">
-        <div class="movieBox" id="leftMovie">
-            <div class="filter"></div>
-            <p id="score" >SCORE: 0</p>
-            <div class="movieinfo" id="leftMovieInfo">
-                <div class="moviePoster">
-                    <img src="" alt="Poster left" id="leftPoster">
-                </div>
-                <h2 id="leftTitle"></h2>
-                <p id="leftSecondInfo"></p>
-            </div>
-            <div class="infoButton" id="infoButtonLeft">
-                <button id="infoLeft">More info</button>
-            </div>
+      <div class="movieBox" id="leftMovie">
+        <div class="filter"></div>
+        <p id="score">SCORE: 0</p>
+        <div class="movieinfo" id="leftMovieInfo">
+          <div class="moviePoster">
+            <img src="" alt="Poster left" id="leftPoster" />
+          </div>
+          <h2 id="leftTitle"></h2>
+          <p id="leftSecondInfo"></p>
         </div>
-        <div class="movieBox" id="rightMovie">
-            <div class="filter"></div>
-            <p id="highscore">HIGHSCORE: 0</p>
-            <div class="movieinfo" id="rightMovieInfo">
-                <div class="moviePoster">
-                    <img src="" alt="Poster right" id="rightPoster">
-                </div>
-                <h2 id="rightTitle"></h2>
-                <p id="rightSecondInfo"></p>
-            </div>
-            <div class="infoButton" id ="infoButtonRight">
-                <button id="infoRight">More info</button>
-            </div>
+        <div class="infoButton" id="infoButtonLeft">
+          <button id="infoLeft">More info</button>
         </div>
-        <div id="centerBox">
-            <div id="gamemodeContainer">
-                <h3>SELECT GAMEMODE</h3>
-                <button onclick="startGame('releaseYear')" class="buttons">Release year</button>
-                <button onclick="startGame('rating')" class="buttons">Rating</button>
-                <button onclick="startGame('runtime')" class="buttons">Runtime</button>
-            </div>
-            <div id="higherLowerContainer">
-                <h3 id="selectedGamemode"></h3>
-                <button onclick="guessHigherOrLower('h')" class="guess" id="higher">HIGHER</button>
-                <button onclick="guessHigherOrLower('l')" class="guess" id="lower">LOWER</button>
-            </div>
+      </div>
+      <div class="movieBox" id="rightMovie">
+        <div class="filter"></div>
+        <p id="highscore">HIGHSCORE: 0</p>
+        <div class="movieinfo" id="rightMovieInfo">
+          <div class="moviePoster">
+            <img src="" alt="Poster right" id="rightPoster" />
+          </div>
+          <h2 id="rightTitle"></h2>
+          <p id="rightSecondInfo"></p>
         </div>
-        <div id="popcorn-container">
-            <canvas id="c" width="800" height="2000"></canvas>
+        <div class="infoButton" id="infoButtonRight">
+          <button id="infoRight">More info</button>
         </div>
+      </div>
+      <div id="centerBox">
+        <div id="gamemodeContainer">
+          <h3>SELECT GAMEMODE</h3>
+          <button onclick="startGame('releaseYear')" class="buttons">
+            Release year
+          </button>
+          <button onclick="startGame('rating')" class="buttons">Rating</button>
+          <button onclick="startGame('runtime')" class="buttons">
+            Runtime
+          </button>
+        </div>
+        <div id="higherLowerContainer">
+          <h3 id="selectedGamemode"></h3>
+          <button onclick="guessHigherOrLower('h')" class="guess" id="higher">
+            HIGHER
+          </button>
+          <button onclick="guessHigherOrLower('l')" class="guess" id="lower">
+            LOWER
+          </button>
+        </div>
+      </div>
+      <div id="popcorn-container">
+        <canvas id="c" width="800" height="2000"></canvas>
+      </div>
     </div>
-    <div class="footer">
-    </div>
-</body>
+    <div class="footer"></div>
+  </body>
 </html>

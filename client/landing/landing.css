@@ -1,283 +1,291 @@
 body#landing-page-body {
-    margin: 0;
-      font-family: 'Montserrat';
-    overflow: hidden;
+  margin: 0;
+  font-family: "Montserrat";
+  overflow: hidden;
 
-    /* --- NEW: Background is the still curtain! --- */
-    background-image: url("../../server/Images/curtainStill.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+  /* --- NEW: Background is the still curtain! --- */
+  background-image: url("../../server/Images/curtainStill.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
-.container{
-    display: flex;
-    flex-direction: column;
+.container {
+  display: flex;
+  flex-direction: column;
 }
-.navbar{
-    min-height: 7.5vh;
-    height: 9vh;
-    background-color: rgb(32, 30, 30);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 10%;
-    z-index: 1;
-    border-bottom: 2px solid white;
+.navbar {
+  min-height: 7.5vh;
+  height: 9vh;
+  background-color: rgb(32, 30, 30);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+  z-index: 1;
+  border-bottom: 2px solid white;
 }
-.navButton{
-    background-color: rgb(104, 107, 110);
-    border: 3px;
-    border-color: white;
-    padding: 15px 35px;
-    font-size: 24px;
-    border-radius: 15px;
-    text-shadow: 2px 2px 10px black;
-    color: aliceblue;
-    border-style: solid;
-    text-decoration: none;
-    font-weight: 900;
+.navButton {
+  background-color: rgb(104, 107, 110);
+  border: 3px;
+  border-color: white;
+  padding: 15px 35px;
+  font-size: 24px;
+  border-radius: 15px;
+  text-shadow: 2px 2px 10px black;
+  color: aliceblue;
+  border-style: solid;
+  text-decoration: none;
+  font-weight: 900;
 }
-.mainBody{
-    height: 83.5vh; /* Lock height to fit between navbar and footer perfectly */
-    position: relative; /* Essential for the absolute GIF container */
+.mainBody {
+  height: 83.5vh; /* Lock height to fit between navbar and footer perfectly */
+  position: relative; /* Essential for the absolute GIF container */
 
-    /* Replaced CinemaStage.jpg with a dark transparent overlay
+  /* Replaced CinemaStage.jpg with a dark transparent overlay
        so your still curtain background shows through nicely */
-    background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.4);
 
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
-.footer{
-    border-top: 2px solid white;
-    min-height: 7.5vh;
-    background-color: rgb(32, 30, 30);
-    z-index: 1;
+.footer {
+  border-top: 2px solid white;
+  min-height: 7.5vh;
+  background-color: rgb(32, 30, 30);
+  z-index: 1;
 }
 .reel-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 #left .reel-container {
-    animation: slideUp 25s linear infinite;
+  animation: slideUp 25s linear infinite;
 }
 
 #right .reel-container {
-    animation: slideDown 25s linear infinite;
+  animation: slideDown 25s linear infinite;
 }
 #left {
-    margin-left: 2rem;
+  margin-left: 2rem;
 }
 
 #right {
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
 
 @keyframes slideUp {
-    from { transform: translateY(0); }
-    to { transform: translateY(-1509px); }
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-1509px);
+  }
 }
 
 @keyframes slideDown {
-    from { transform: translateY(-1509px); }
-    to { transform: translateY(0); }
+  from {
+    transform: translateY(-1509px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 .movieSideBar {
-    height: 83.5vh;
-    width: 17.5rem;
-    overflow: hidden;
-    position: relative;
-    background-color: transparent;
+  height: 83.5vh;
+  width: 17.5rem;
+  overflow: hidden;
+  position: relative;
+  background-color: transparent;
 }
 
 .reel-strip {
-    position: relative;
-    width: 100%;
-    height: 503px;
+  position: relative;
+  width: 100%;
+  height: 503px;
 }
 
 .reel-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('../../server/Images/Film_Reel2.png');
-    background-repeat: repeat-y;
-    background-size: contain;
-    z-index: 2;
-    pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../server/Images/Film_Reel2.png");
+  background-repeat: repeat-y;
+  background-size: contain;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .poster-1 {
-    top: 17px;
-    height: 218px;
+  top: 17px;
+  height: 218px;
 }
 
 .poster-2 {
-    top: 269px;
-    height: 218px;
+  top: 269px;
+  height: 218px;
 }
 
 .movie-poster {
-    position: absolute;
-    z-index: 1;
-    width: 172px;
-    left: 15%;
-    object-fit: cover;
+  position: absolute;
+  z-index: 1;
+  width: 172px;
+  left: 15%;
+  object-fit: cover;
 }
-.logo{
-    width: 170px;
-    height: 7.5vh;
+.logo {
+  width: 170px;
+  height: 7.5vh;
 }
 .leaderboard-container {
-    background-color: rgba(32, 30, 30, 0.8);
-    border-radius: 15px;
-    padding: 20px;
-    margin: 20px auto;
-    width: 80%;
-    color: white;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
-
+  background-color: rgba(32, 30, 30, 0.8);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 80%;
+  color: white;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
 }
 
 .table-wrapper {
-    max-height: 40vh; /* Limits table height to ~40% of the screen */
-    overflow-y: auto; /* Makes ONLY the table scroll */
-    margin-top: 15px;
-    border-radius: 5px; /* Keeps the scrolling edges smooth */
+  max-height: 40vh; /* Limits table height to ~40% of the screen */
+  overflow-y: auto; /* Makes ONLY the table scroll */
+  margin-top: 15px;
+  border-radius: 5px; /* Keeps the scrolling edges smooth */
 }
 
 #leaderboardTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 0; /* Remove top margin so it sits flush in the wrapper */
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0; /* Remove top margin so it sits flush in the wrapper */
 }
 
-#leaderboardTable th, #leaderboardTable td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid rgb(104, 107, 110);
-    font-size: 1.2rem;
-    font-weight: bold;
+#leaderboardTable th,
+#leaderboardTable td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid rgb(104, 107, 110);
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 #leaderboardTable th {
-    background-color: rgb(74, 74, 85);
-    position: sticky;
-    top: 0; /* Pins header to the top of the SCROLLABLE container */
-    z-index: 2; /* Keeps header on top of scrolling rows */
-    /* NEW: Shadow hides transparent border bleed glitch */
-    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.5);
+  background-color: rgb(74, 74, 85);
+  position: sticky;
+  top: 0; /* Pins header to the top of the SCROLLABLE container */
+  z-index: 2; /* Keeps header on top of scrolling rows */
+  /* NEW: Shadow hides transparent border bleed glitch */
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.5);
 }
 /* Custom Scrollbar for the Leaderboard */
 .table-wrapper::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 .table-wrapper::-webkit-scrollbar-track {
-    background: rgba(32, 30, 30, 0.5);
-    border-radius: 10px;
+  background: rgba(32, 30, 30, 0.5);
+  border-radius: 10px;
 }
 
 .table-wrapper::-webkit-scrollbar-thumb {
-    background: rgb(104, 107, 110);
-    border-radius: 10px;
+  background: rgb(104, 107, 110);
+  border-radius: 10px;
 }
 
 .table-wrapper::-webkit-scrollbar-thumb:hover {
-    background: white;
+  background: white;
 }
 #playerName {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
-    margin-right: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  margin-right: 10px;
 }
-.content{
-    height: 83.5vh;
-    width: 500px;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+.content {
+  height: 83.5vh;
+  width: 500px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
-.infoContainer{
-    padding-top: 5rem;
-    position:relative;
-    width: 500px;
-    background-color: rgb(32, 30, 30);
-    border: 3px;
-    border-color: aliceblue;
-    border-radius: 20px;
-    border-style: solid;
-    top: 0px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0px 0px 60px 0px rgb(31, 31, 31);
+.infoContainer {
+  padding-top: 5rem;
+  position: relative;
+  width: 500px;
+  background-color: rgb(32, 30, 30);
+  border: 3px;
+  border-color: aliceblue;
+  border-radius: 20px;
+  border-style: solid;
+  top: 0px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 60px 0px rgb(31, 31, 31);
 }
-.buttonContainer{
-    padding-top: 2rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 3%;
+.buttonContainer {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
 }
-.infoButton{
-    margin:3% 0px 3% 0px;
-    background-color: rgb(104, 107, 110);
-    border: 3px;
-    border-color: white;
-    padding: 15px 35px;
-    font-size: 24px;
-    border-radius: 15px;
-    text-shadow: 2px 2px 10px black;
-    color: aliceblue;
-    border-style: solid;
-    font-weight: 900;
-    width: 150px;
-    text-align: center;
-    text-decoration: none;
-    font-family: 'Montserrat';
+.infoButton {
+  margin: 3% 0px 3% 0px;
+  background-color: rgb(104, 107, 110);
+  border: 3px;
+  border-color: white;
+  padding: 15px 35px;
+  font-size: 24px;
+  border-radius: 15px;
+  text-shadow: 2px 2px 10px black;
+  color: aliceblue;
+  border-style: solid;
+  font-weight: 900;
+  width: 150px;
+  text-align: center;
+  text-decoration: none;
+  font-family: "Montserrat";
 }
-h1{
-    text-align: center;
-    color: white;
-    font-size: 50px;
-    font-family: 'Montserrat';
+h1 {
+  text-align: center;
+  color: white;
+  font-size: 50px;
+  font-family: "Montserrat";
 }
-p{
-    color: white;
-    text-align: center;
-    margin: -20px 30px 10px 30px;
-    font-family: 'Montserrat';
+p {
+  color: white;
+  text-align: center;
+  margin: -20px 30px 10px 30px;
+  font-family: "Montserrat";
 }
 
 /* --- NEW: The GIF Animation Layer --- */
 /* --- NEW: The GIF Animation Layer --- */
 #curtain-animation-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-    background-color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: black;
 
-    /* ADDED FADE PROPERTIES */
-    opacity: 1;
-    transition: opacity 0.6s ease-in-out; /* This makes it fade smoothly over 0.6 seconds */
+  /* ADDED FADE PROPERTIES */
+  opacity: 1;
+  transition: opacity 0.6s ease-in-out; /* This makes it fade smoothly over 0.6 seconds */
 }
 
 #curtain-gif {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

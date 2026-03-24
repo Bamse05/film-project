@@ -5,364 +5,376 @@ let nextMovie;
 let currentScore = 0;
 
 async function startGame(selectedGamemode) {
-    gamemode = selectedGamemode;
-    gamemodeHeader = document.getElementById("selectedGamemode");
-    switch (gamemode) {
-        case "releaseYear":
-            gamemodeHeader.textContent = "Release year";
-            break;
-        case "rating":
-            gamemodeHeader.textContent = "Rating";
-            break;
-        case "runtime":
-            gamemodeHeader.textContent = "Runcar snowpen";
-            break;
-        default:
-            break;
-    }
+  gamemode = selectedGamemode;
+  gamemodeHeader = document.getElementById("selectedGamemode");
+  switch (gamemode) {
+    case "releaseYear":
+      gamemodeHeader.textContent = "Release year";
+      break;
+    case "rating":
+      gamemodeHeader.textContent = "Rating";
+      break;
+    case "runtime":
+      gamemodeHeader.textContent = "Runcar snowpen";
+      break;
+    default:
+      break;
+  }
 
-    await createMovieBoxes();
+  await createMovieBoxes();
 
-    gameStartAnimation();
+  gameStartAnimation();
 }
 
 function gameStartAnimation() {
-    fadeBoxes();
+  fadeBoxes();
 
-    document.getElementById("popcorn-container").classList.add('visible');
-    document.querySelector("header").classList.add('visible');
-    document.getElementById("centerBox").classList.add('visible');
+  document.getElementById("popcorn-container").classList.add("visible");
+  document.querySelector("header").classList.add("visible");
+  document.getElementById("centerBox").classList.add("visible");
 
-    document.getElementById("gamemodeContainer").style.display = "none";
-    document.getElementById("higherLowerContainer").style.display = "flex";
+  document.getElementById("gamemodeContainer").style.display = "none";
+  document.getElementById("higherLowerContainer").style.display = "flex";
 
-    document.getElementById("score").classList.add('visible');
-    document.getElementById("highscore").classList.add('visible');
+  document.getElementById("score").classList.add("visible");
+  document.getElementById("highscore").classList.add("visible");
 }
 
 function fadeBoxes() {
-    document.querySelectorAll('.movieinfo').forEach(elem => {
-        elem.classList.add('visible');
-    });
+  document.querySelectorAll(".movieinfo").forEach((elem) => {
+    elem.classList.add("visible");
+  });
 
-    document.querySelectorAll('.infoButton').forEach(elem => {
-        elem.classList.add('visible');
-    });
+  document.querySelectorAll(".infoButton").forEach((elem) => {
+    elem.classList.add("visible");
+  });
 }
 
 function guessHigherOrLower(guess) {
-    let guessedRight = higherOrLower(guess);
+  let guessedRight = higherOrLower(guess);
 
-    if (guessedRight) {
-        currentScore++
-        spawnPopcorn(calculatePopcornAmount(currentScore));
-        updateScore();
-        nextRound();
-    } else {
-        //BOMBA SLUTA SPELET
-        popTheCorn();
-    }
+  if (guessedRight) {
+    currentScore++;
+    spawnPopcorn(calculatePopcornAmount(currentScore));
+    updateScore();
+    nextRound();
+  } else {
+    //BOMBA SLUTA SPELET
+    popTheCorn();
+  }
 }
 
 function higherOrLower(guess) {
-    switch (gamemode) {
-        case "releaseYear": {
-            if ((guess === "h" && currentMovie.year >= previousMovie.year)
-                || (guess === "l" && currentMovie.year <= previousMovie.year)) {
-                    return true;
-            }
-            return false;
-        }
-        case "rating": {
-            if ((guess === "h" && currentMovie.rating >= previousMovie.rating)
-                || (guess === "l" && currentMovie.rating <= previousMovie.rating)) {
-                    return true;
-            }
-            return false;
-        }
-        case "runtime": {
-            if ((guess === "h" && currentMovie.runtime >= previousMovie.runtime)
-                || (guess === "l" && currentMovie.runtime <= previousMovie.runtime)) {
-                    return true;
-            }
-            return false;
-        }
-        default: {
-            return true;
-        }
+  switch (gamemode) {
+    case "releaseYear": {
+      if (
+        (guess === "h" && currentMovie.year >= previousMovie.year) ||
+        (guess === "l" && currentMovie.year <= previousMovie.year)
+      ) {
+        return true;
+      }
+      return false;
     }
+    case "rating": {
+      if (
+        (guess === "h" && currentMovie.rating >= previousMovie.rating) ||
+        (guess === "l" && currentMovie.rating <= previousMovie.rating)
+      ) {
+        return true;
+      }
+      return false;
+    }
+    case "runtime": {
+      if (
+        (guess === "h" && currentMovie.runtime >= previousMovie.runtime) ||
+        (guess === "l" && currentMovie.runtime <= previousMovie.runtime)
+      ) {
+        return true;
+      }
+      return false;
+    }
+    default: {
+      return true;
+    }
+  }
 }
 
 async function nextRound() {
-    previousMovie = currentMovie;
-    currentMovie = nextMovie;
-    nextMovie = await getRandomMovie();
+  previousMovie = currentMovie;
+  currentMovie = nextMovie;
+  nextMovie = await getRandomMovie();
 
-    await createMovieBoxes();
-
+  await createMovieBoxes();
 }
 
 function calculatePopcornAmount(score) {
-    if (score <= 3) {
-        return 1;
-    } else if (score <= 5) {
-        return 2;
-    } else if (score <= 7) {
-        return 3;
-    } else if (score <= 10) {
-        return 4;
-    } else {
-        return 5;
-    }
+  if (score <= 3) {
+    return 1;
+  } else if (score <= 5) {
+    return 2;
+  } else if (score <= 7) {
+    return 3;
+  } else if (score <= 10) {
+    return 4;
+  } else {
+    return 5;
+  }
 }
 
-async function gameplayLoop(gamemode, leftMovieInfoBox, leftInfo, rightMovieInfoBox, rightInfo, leftMovie, rightMovie) {
-    let gameOver = false;
-    let score = 0;
-    while (!gameOver) {
-        leftInfo = rightInfo;
-        buildMovieBox(leftMovieInfoBox, rightInfo, gamemode, leftMovie);
+async function gameplayLoop(
+  gamemode,
+  leftMovieInfoBox,
+  leftInfo,
+  rightMovieInfoBox,
+  rightInfo,
+  leftMovie,
+  rightMovie,
+) {
+  let gameOver = false;
+  let score = 0;
+  while (!gameOver) {
+    leftInfo = rightInfo;
+    buildMovieBox(leftMovieInfoBox, rightInfo, gamemode, leftMovie);
 
-        rightInfo = await getRandomMovie();
-        buildMovieBox(rightMovieInfoBox, rightInfo, gamemode, rightMovie);
+    rightInfo = await getRandomMovie();
+    buildMovieBox(rightMovieInfoBox, rightInfo, gamemode, rightMovie);
 
-        gameOver = await higherOrLower(gamemode, leftInfo, rightInfo);
-        if (gameOver) break;
-        score += 1;
-    }
-    return score;
+    gameOver = await higherOrLower(gamemode, leftInfo, rightInfo);
+    if (gameOver) break;
+    score += 1;
+  }
+  return score;
 }
 
 async function getRandomMovie() {
-    let movieNumber = Math.floor(Math.random() * movieIdList.length - 1);
-    let movieInfo = await reqMovieData(movieIdList[movieNumber]);
-    return movieInfo;
+  let movieNumber = Math.floor(Math.random() * movieIdList.length - 1);
+  let movieInfo = await reqMovieData(movieIdList[movieNumber]);
+  return movieInfo;
 }
 
 function updateScore() {
-    scoreElem = document.getElementById("score")
-    scoreElem.textContent = "SCORE: " + currentScore;
+  scoreElem = document.getElementById("score");
+  scoreElem.textContent = "SCORE: " + currentScore;
 }
 
 async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
-    let moviePoster = null;
-    let movieTitle = null;
-    let extraInfo = null;
+  let moviePoster = null;
+  let movieTitle = null;
+  let extraInfo = null;
 
-    if (movieBox.id === "leftMovieInfo") {
-        moviePoster = document.getElementById("leftPoster");
-        movieTitle = document.getElementById("leftTitle");
-        extraInfo = document.getElementById("leftSecondInfo");
+  if (movieBox.id === "leftMovieInfo") {
+    moviePoster = document.getElementById("leftPoster");
+    movieTitle = document.getElementById("leftTitle");
+    extraInfo = document.getElementById("leftSecondInfo");
+  } else if (movieBox.id === "rightMovieInfo") {
+    moviePoster = document.getElementById("rightPoster");
+    movieTitle = document.getElementById("rightTitle");
+    extraInfo = document.getElementById("rightSecondInfo");
+  }
+
+  let posterSrc = await reqMoviePoster(movieInfo.normalized_id);
+  if (!posterSrc) {
+    posterSrc = placeholderImgUrl;
+  }
+  moviePoster.src = posterSrc;
+  backgroundBox.style.backgroundImage = "url(" + posterSrc + ")";
+
+  movieTitle.innerHTML = movieInfo.name;
+
+  switch (gamemode) {
+    case "releaseYear": {
+      extraInfo.innerHTML = "Rating: " + movieInfo.rating;
+      extraInfo.appendChild(document.createElement("br"));
+      extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
+      break;
     }
-    else if (movieBox.id === "rightMovieInfo") {
-        moviePoster = document.getElementById("rightPoster");
-        movieTitle = document.getElementById("rightTitle");
-        extraInfo = document.getElementById("rightSecondInfo");
+
+    case "rating": {
+      extraInfo.innerHTML = "Release year: " + movieInfo.year;
+      extraInfo.appendChild(document.createElement("br"));
+      extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
+      break;
     }
 
-    let posterSrc = await reqMoviePoster(movieInfo.normalized_id);
-    if (!posterSrc) {
-        posterSrc = placeholderImgUrl;
+    case "runtime": {
+      extraInfo.innerHTML = "Release year: " + movieInfo.year;
+      extraInfo.appendChild(document.createElement("br"));
+      extraInfo.innerHTML += "rating: " + movieInfo.rating;
+      break;
     }
-    moviePoster.src = posterSrc;
-    backgroundBox.style.backgroundImage = "url(" + posterSrc + ")";
-
-    movieTitle.innerHTML = movieInfo.name;
-
-    switch (gamemode) {
-        case "releaseYear": {
-            extraInfo.innerHTML = "Rating: " + movieInfo.rating;
-            extraInfo.appendChild(document.createElement("br"));
-            extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
-            break;
-        }
-
-        case "rating": {
-            extraInfo.innerHTML = "Release year: " + movieInfo.year;
-            extraInfo.appendChild(document.createElement("br"));
-            extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
-            break;
-        }
-
-        case "runtime": {
-            extraInfo.innerHTML = "Release year: " + movieInfo.year;
-            extraInfo.appendChild(document.createElement("br"));
-            extraInfo.innerHTML += "rating: " + movieInfo.rating;
-            break;
-        }
-        default: {
-            // Release year is set as default game mode
-            extraInfo.innerHTML = "Rating: " + movieInfo.rating + "/n" + "Runtime: " + movieInfo.runtime;
-            break;
-        }
+    default: {
+      // Release year is set as default game mode
+      extraInfo.innerHTML =
+        "Rating: " + movieInfo.rating + "/n" + "Runtime: " + movieInfo.runtime;
+      break;
     }
+  }
 }
 
-async function createMovieBoxes () {
-    const leftMovie = document.getElementById("leftMovie");
-    let leftInfo = previousMovie;
-    const leftMovieInfoBox = document.getElementById("leftMovieInfo");
-    buildMovieBox(leftMovieInfoBox, leftInfo, leftMovie);
+async function createMovieBoxes() {
+  const leftMovie = document.getElementById("leftMovie");
+  let leftInfo = previousMovie;
+  const leftMovieInfoBox = document.getElementById("leftMovieInfo");
+  buildMovieBox(leftMovieInfoBox, leftInfo, leftMovie);
 
-    const rightMovie = document.getElementById("rightMovie");
-    const rightMovieInfoBox = document.getElementById("rightMovieInfo");
-    let rightInfo = currentMovie;
-    buildMovieBox(rightMovieInfoBox, rightInfo, rightMovie);
+  const rightMovie = document.getElementById("rightMovie");
+  const rightMovieInfoBox = document.getElementById("rightMovieInfo");
+  let rightInfo = currentMovie;
+  buildMovieBox(rightMovieInfoBox, rightInfo, rightMovie);
 
-    // How to get id of each movie from the already retrieved movies data
+  // How to get id of each movie from the already retrieved movies data
 
-    const leftInfoButton = document.getElementById("infoLeft");
-    const rightInfoButton = document.getElementById("infoRight");
+  const leftInfoButton = document.getElementById("infoLeft");
+  const rightInfoButton = document.getElementById("infoRight");
 
-    const leftInfoContainer = document.createElement("div");
-    leftInfoContainer.className = "infoBox";
-    // leftInfoContainer.style.display === "none";
-    const leftInfoInner = document.createElement("div");
-    leftInfoContainer.appendChild(leftInfoInner);
-    leftMovie.appendChild(leftInfoContainer);
+  const leftInfoContainer = document.createElement("div");
+  leftInfoContainer.className = "infoBox";
+  // leftInfoContainer.style.display === "none";
+  const leftInfoInner = document.createElement("div");
+  leftInfoContainer.appendChild(leftInfoInner);
+  leftMovie.appendChild(leftInfoContainer);
 
-    const rightInfoContainer = document.createElement("div");
-    rightInfoContainer.className = "infoBox";
-    // rightInfoContainer.style.display === "none";
-    const rightInfoInner = document.createElement("div");
-    rightInfoContainer.appendChild(rightInfoInner);
-    rightMovie.appendChild(rightInfoContainer);
+  const rightInfoContainer = document.createElement("div");
+  rightInfoContainer.className = "infoBox";
+  // rightInfoContainer.style.display === "none";
+  const rightInfoInner = document.createElement("div");
+  rightInfoContainer.appendChild(rightInfoInner);
+  rightMovie.appendChild(rightInfoContainer);
 
+  leftInfoButton.addEventListener("click", () => {
+    // Implement a function call to get the movie id to find the movie information
+    if (leftInfoContainer.style.display === "block") {
+      leftInfoContainer.style.display === "none";
+    } else {
+      fillInfoBox(leftInfoInner, leftInfo, gamemode);
+      // Display is set to "none" by default
+      leftInfoContainer.style.display = "block";
+    }
+  });
 
-    leftInfoButton.addEventListener("click", () => {
-        // Implement a function call to get the movie id to find the movie information
-        if (leftInfoContainer.style.display === "block") {
-            leftInfoContainer.style.display === "none";
-        }
-        else {
-            fillInfoBox(leftInfoInner, leftInfo, gamemode);
-            // Display is set to "none" by default
-            leftInfoContainer.style.display = "block";
-        }
-    });
+  rightInfoButton.addEventListener("click", () => {
+    // Display is set to "none" by default
 
-    rightInfoButton.addEventListener("click", () => {
-        // Display is set to "none" by default
-
-        if (rightInfoContainer.style.display === "block") {
-            rightInfoContainer.style.display === "none";
-        }
-        else {
-            fillInfoBox(rightInfoInner, rightInfo, gamemode);
-            // Display is set to "none" by default
-            rightInfoContainer.style.display = "block";
-        }
-    });
+    if (rightInfoContainer.style.display === "block") {
+      rightInfoContainer.style.display === "none";
+    } else {
+      fillInfoBox(rightInfoInner, rightInfo, gamemode);
+      // Display is set to "none" by default
+      rightInfoContainer.style.display = "block";
+    }
+  });
 }
 
-document.addEventListener("DOMContentLoaded", async function() {
-    console.log("HTML DOM tree loaded, and ready for manipulation.");
+document.addEventListener("DOMContentLoaded", async function () {
+  console.log("HTML DOM tree loaded, and ready for manipulation.");
 
-    movieIdList = await reqIdList(dbCollectionImdb);
+  movieIdList = await reqIdList(dbCollectionImdb);
 
-    previousMovie = await getRandomMovie();
-    currentMovie = await getRandomMovie();
-    nextMovie = await getRandomMovie();
+  previousMovie = await getRandomMovie();
+  currentMovie = await getRandomMovie();
+  nextMovie = await getRandomMovie();
 
-    const leftMovieInfoBox = document.getElementById("leftMovie");
-    let leftPosterSrc = await reqMoviePoster(previousMovie.normalized_id);
-    if (!leftPosterSrc) { leftPosterSrc = placeholderImgUrl; }
-    leftMovieInfoBox.style.backgroundImage = "url(" + leftPosterSrc + ")";
+  const leftMovieInfoBox = document.getElementById("leftMovie");
+  let leftPosterSrc = await reqMoviePoster(previousMovie.normalized_id);
+  if (!leftPosterSrc) {
+    leftPosterSrc = placeholderImgUrl;
+  }
+  leftMovieInfoBox.style.backgroundImage = "url(" + leftPosterSrc + ")";
 
-    const rightMovieInfoBox = document.getElementById("rightMovie");
-    let rightPosterSrc = await reqMoviePoster(currentMovie.normalized_id);
-    if (!rightPosterSrc) { rightPosterSrc = placeholderImgUrl; }
-    rightMovieInfoBox.style.backgroundImage = "url(" + rightPosterSrc + ")";
+  const rightMovieInfoBox = document.getElementById("rightMovie");
+  let rightPosterSrc = await reqMoviePoster(currentMovie.normalized_id);
+  if (!rightPosterSrc) {
+    rightPosterSrc = placeholderImgUrl;
+  }
+  rightMovieInfoBox.style.backgroundImage = "url(" + rightPosterSrc + ")";
 
-    document.body.classList.add("fade-in");
-
+  document.body.classList.add("fade-in");
 });
 
 // Function to fill the "More info" box
 function fillInfoBox(infoBox, movieInfo, gamemode) {
-    // Placeholder to get info for the movie with the id movieId
-    // const movieInfo = getMovieInfo(movieId).json();
+  // Placeholder to get info for the movie with the id movieId
+  // const movieInfo = getMovieInfo(movieId).json();
 
-    const headline = document.createElement("h2");
-    headline.className = "infoHeadline";
-    headline.innerHTML = movieInfo.name;
-    infoBox.appendChild(headline);
+  const headline = document.createElement("h2");
+  headline.className = "infoHeadline";
+  headline.innerHTML = movieInfo.name;
+  infoBox.appendChild(headline);
 
-    const director = document.createElement("p");
-    director.className = "infoDirector";
-    director.innerHTML = "Director: " + movieInfo.director;
-    infoBox.appendChild(director);
+  const director = document.createElement("p");
+  director.className = "infoDirector";
+  director.innerHTML = "Director: " + movieInfo.director;
+  infoBox.appendChild(director);
 
-    switch (gamemode) {
-        case "year": {
-            const rating = document.createElement("p");
-            rating.className = "infoRating";
-            year.innerHTML = "Rating: " + movieInfo.rating;
-            infoBox.appendChild(rating);
+  switch (gamemode) {
+    case "year": {
+      const rating = document.createElement("p");
+      rating.className = "infoRating";
+      year.innerHTML = "Rating: " + movieInfo.rating;
+      infoBox.appendChild(rating);
 
-            const runtime = document.createElement("p");
-            runtime.className = "infoRuntime";
-            runtime.innerHTML = "Runtime: " + movieInfo.runtime;
-            infoBox.appendChild(runtime);
-            break;
-        }
-        case "rating": {
-            const year = document.createElement("p");
-            year.className = "infoYear";
-            year.innerHTML = "Release year: " + movieInfo.year;
-            infoBox.appendChild(year);
-
-            const runtime = document.createElement("p");
-            runtime.className = "infoRuntime";
-            runtime.innerHTML = "Runtime: " + movieInfo.runtime;
-            infoBox.appendChild(runtime);
-            break;
-        }
-        case "runtime": {
-            const year = document.createElement("p");
-            year.className = "infoYear";
-            year.innerHTML = "Release year: " + movieInfo.year;
-            infoBox.appendChild(year);
-
-            const rating = document.createElement("p");
-            rating.className = "infoRating";
-            year.innerHTML = "Rating: " + movieInfo.rating;
-            infoBox.appendChild(rating);
-            break;
-        }
-        default: {
-
-        }
+      const runtime = document.createElement("p");
+      runtime.className = "infoRuntime";
+      runtime.innerHTML = "Runtime: " + movieInfo.runtime;
+      infoBox.appendChild(runtime);
+      break;
     }
+    case "rating": {
+      const year = document.createElement("p");
+      year.className = "infoYear";
+      year.innerHTML = "Release year: " + movieInfo.year;
+      infoBox.appendChild(year);
 
-    const genre = document.createElement("p");
-    genre.className = "infoGenre";
-    genre.innerHTML = "Genre: ";
-    if (movieInfo.genre != null) {
-        for (let i = 0; i < movieInfo.genre.length; i++) {
-            genre.innerHTML += movieInfo.genre[i];
-            if (i != movieInfo.genre.length - 1) {
-                genre.innerHTML += ", ";
-            }
-        }
-        infoBox.appendChild(genre);
+      const runtime = document.createElement("p");
+      runtime.className = "infoRuntime";
+      runtime.innerHTML = "Runtime: " + movieInfo.runtime;
+      infoBox.appendChild(runtime);
+      break;
     }
+    case "runtime": {
+      const year = document.createElement("p");
+      year.className = "infoYear";
+      year.innerHTML = "Release year: " + movieInfo.year;
+      infoBox.appendChild(year);
 
-    const stars = document.createElement("p");
-    stars.className = "infoStars";
-    stars.innerHTML = "Stars: ";
-    if (movieInfo.genre != null) {
-        for (let i = 0; i < movieInfo.star.length; i++) {
-            stars.innerHTML += movieInfo.star[i];
-            if (i != movieInfo.star.length - 1) {
-                stars.innerHTML += ", ";
-            }
-        }
-        infoBox.appendChild(stars);
+      const rating = document.createElement("p");
+      rating.className = "infoRating";
+      year.innerHTML = "Rating: " + movieInfo.rating;
+      infoBox.appendChild(rating);
+      break;
     }
+    default: {
+    }
+  }
 
-    const description = document.createElement("p");
-    description.className = "infoDescription";
-    description.innerHTML = "Description:\n" + movieInfo.description;
-    infoBox.appendChild(description);
+  const genre = document.createElement("p");
+  genre.className = "infoGenre";
+  genre.innerHTML = "Genre: ";
+  if (movieInfo.genre != null) {
+    for (let i = 0; i < movieInfo.genre.length; i++) {
+      genre.innerHTML += movieInfo.genre[i];
+      if (i != movieInfo.genre.length - 1) {
+        genre.innerHTML += ", ";
+      }
+    }
+    infoBox.appendChild(genre);
+  }
+
+  const stars = document.createElement("p");
+  stars.className = "infoStars";
+  stars.innerHTML = "Stars: ";
+  if (movieInfo.genre != null) {
+    for (let i = 0; i < movieInfo.star.length; i++) {
+      stars.innerHTML += movieInfo.star[i];
+      if (i != movieInfo.star.length - 1) {
+        stars.innerHTML += ", ";
+      }
+    }
+    infoBox.appendChild(stars);
+  }
+
+  const description = document.createElement("p");
+  description.className = "infoDescription";
+  description.innerHTML = "Description:\n" + movieInfo.description;
+  infoBox.appendChild(description);
 }

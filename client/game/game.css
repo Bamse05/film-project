@@ -1,314 +1,322 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    background-color: black; /* Start with a black background to match the GIF */
-    opacity: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: black; /* Start with a black background to match the GIF */
+  opacity: 0;
 }
 
-
 body.fade-in {
-    animation: fadeInPage 1s ease-in-out forwards;
+  animation: fadeInPage 1s ease-in-out forwards;
 }
 
 @keyframes fadeInPage {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-h1,h2,h3,h4,h5,h6,p {
-    color: white;
-    font-family: 'Montserrat', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: white;
+  font-family: "Montserrat", sans-serif;
 }
 
 header {
-    position: absolute;
-    top: 0;
-    background-color: rgb(26, 26, 26);
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-    z-index: 1002 !important;
-    border-bottom: 3px solid gray;
-    z-index: 10;
+  position: absolute;
+  top: 0;
+  background-color: rgb(26, 26, 26);
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  z-index: 1002 !important;
+  border-bottom: 3px solid gray;
+  z-index: 10;
 
-    transform: translateY(0);
-    transition: transform 1.5s ease-in;
+  transform: translateY(0);
+  transition: transform 1.5s ease-in;
 }
 
 button {
-    border: none;
+  border: none;
 }
 
 header.visible {
-    transform: translateY(-10vh);
+  transform: translateY(-10vh);
 }
 
 .content {
-    background-color: rgb(26, 26, 26);
-    flex: 1;
-    display: flex;
+  background-color: rgb(26, 26, 26);
+  flex: 1;
+  display: flex;
 }
 
 .footer {
-    background-color: rgb(26, 26, 26);
-    width: 100%;
-    border-top: 3px solid gray;
-    z-index: 10;
+  background-color: rgb(26, 26, 26);
+  width: 100%;
+  border-top: 3px solid gray;
+  z-index: 10;
 }
 
 .filter {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(6px);
-    filter: brightness(50%);
-    z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  filter: brightness(50%);
+  z-index: -1;
 }
 
 .movieBox {
-    position: relative;
-    width: 50%;
-    height: 100%;
-    background-image: url("");
-    background-size: cover;
-    background-position: center;
-    z-index: 3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background-image: url("");
+  background-size: cover;
+  background-position: center;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
 }
 
 #score {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
 
-    transform: translateY(4rem);
-    transition: transform 1.5s ease-in;
+  transform: translateY(4rem);
+  transition: transform 1.5s ease-in;
 }
 
 #score.visible {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 #highscore {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 
-    transform: translateY(4rem);
-    transition: transform 1.5s ease-in;
+  transform: translateY(4rem);
+  transition: transform 1.5s ease-in;
 }
 
 #highscore.visible {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 #rightMovie {
-    border-left: 2px solid gray;
+  border-left: 2px solid gray;
 }
 
 #leftMovie {
-    border-right: 2px solid gray;
+  border-right: 2px solid gray;
 }
 
 .moviePoster {
-    width: 200px;
-    height: 200px;
-    background-color: rgb(26, 26, 26);
-    z-index: 2;
+  width: 200px;
+  height: 200px;
+  background-color: rgb(26, 26, 26);
+  z-index: 2;
 }
 
 .moviePoster img {
-    width: 100%;
-    height: 100%;
-    border-radius: 6px;
-    z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  z-index: 2;
 }
 
 .movieinfo {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    background-color: rgb(26, 26, 26);
-    width: 240px;
-    border-radius: 8px;
-    border: 3px solid gray;
-    padding: 20px;
-    z-index: 2;
-    opacity: 0;
-    transition: opacity 1.5s ease-in;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: rgb(26, 26, 26);
+  width: 240px;
+  border-radius: 8px;
+  border: 3px solid gray;
+  padding: 20px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 1.5s ease-in;
 }
 
 .movieinfo.visible {
-    opacity: 1;
+  opacity: 1;
 }
 
 .infoBox {
-    display: none;
-    background-color: rgb(26, 26, 26);
-    width: 20rem;
-    border-radius: 8px;
-    border: 3px solid gray;
-    padding: 20px;
-    z-index: 2;
-    overflow-y: scroll;
+  display: none;
+  background-color: rgb(26, 26, 26);
+  width: 20rem;
+  border-radius: 8px;
+  border: 3px solid gray;
+  padding: 20px;
+  z-index: 2;
+  overflow-y: scroll;
 }
 
 .infoButton {
-    display: flex;
-    opacity: 0;
+  display: flex;
+  opacity: 0;
 
-    transition: opacity 1.5s ease-out;
+  transition: opacity 1.5s ease-out;
 }
 
 .infoButton.visible {
-    opacity: 1;
+  opacity: 1;
 }
 
 #infoButtonLeft {
-    justify-content: left;
+  justify-content: left;
 }
 
 #infoLeft {
-    font-size: 20px;
-    border-radius: 6px;
-    background-color: rgba(0, 0, 0, 0.244);
-    padding: 0.5rem;
-    color: gray;
+  font-size: 20px;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.244);
+  padding: 0.5rem;
+  color: gray;
 }
 
 #infoButtonRight {
-    justify-content: right;
+  justify-content: right;
 }
 
 #infoRight {
-    font-size: 20px;
-    border-radius: 6px;
-    background-color: rgba(0, 0, 0, 0.244);
-    padding: 0.5rem;
-    color: gray;
+  font-size: 20px;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.244);
+  padding: 0.5rem;
+  color: gray;
 }
 
 #centerBox {
-    background-color: rgb(26, 26, 26);
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    gap: 2em;
+  background-color: rgb(26, 26, 26);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  gap: 2em;
 
-    text-align: center;
-    left: 50%;
-    top: 55%;
-    transform: translate(-50%, -60%);
-    border-radius: 8px;
-    width: auto;
-    z-index: 9;
-    padding: 2em;
-    border: 3px solid gray;
+  text-align: center;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -60%);
+  border-radius: 8px;
+  width: auto;
+  z-index: 9;
+  padding: 2em;
+  border: 3px solid gray;
 
-    transition: transform 1.5s ease-out;
+  transition: transform 1.5s ease-out;
 }
 
 #centerBox.visible {
-    transform: translate(-50%, -82%);
+  transform: translate(-50%, -82%);
 }
 
 #selectedGamemode {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 #gamemodeContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
 }
 
 #higherLowerContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    display: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: none;
 }
 
 .guess {
-    width: 10vw;
-    height: 14vh;
-    border: none;
-    color: white;
-    font-size: 1.2em;
-    font-weight: bolder;
+  width: 10vw;
+  height: 14vh;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bolder;
 }
 
 #higher {
-    background-color: #03a456;
-    border-radius: 8px 8px 0px 0px;
+  background-color: #03a456;
+  border-radius: 8px 8px 0px 0px;
 }
 
 #lower {
-    background-color: #ab1a1a;
-    border-radius: 0px 0px 8px 8px;
+  background-color: #ab1a1a;
+  border-radius: 0px 0px 8px 8px;
 }
 
 .guess:hover {
-    opacity: 0.9;
+  opacity: 0.9;
 }
 
 .buttons {
-    font-size: 20px;
-    font-family: 'Montserrat', sans-serif;
-    width: 200px;
-    height: 40px;
-    border-radius: 6px;
-    color: white;
-    background: linear-gradient(to bottom, #03a456 0%, #03a456 100%) no-repeat;
-    background-size: 0% 100%;
-    background-position: top;
-    background-color: #ab1a1a;
-    transition: background-size 300ms ease-in;
+  font-size: 20px;
+  font-family: "Montserrat", sans-serif;
+  width: 200px;
+  height: 40px;
+  border-radius: 6px;
+  color: white;
+  background: linear-gradient(to bottom, #03a456 0%, #03a456 100%) no-repeat;
+  background-size: 0% 100%;
+  background-position: top;
+  background-color: #ab1a1a;
+  transition: background-size 300ms ease-in;
 }
 
 .buttons:hover {
-    background-size: 100% 100%;
-    background-position: top;
+  background-size: 100% 100%;
+  background-position: top;
 }
 
-
 #popcorn-container {
-    position: absolute;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    z-index: 1001 !important;
-    pointer-events: none;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  z-index: 1001 !important;
+  pointer-events: none;
 
-    transform: translateY(50vh);
-    transition: transform 1.5s ease-out;
+  transform: translateY(50vh);
+  transition: transform 1.5s ease-out;
 }
 
 #popcorn-container.visible {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 #c {
-    z-index: 1000 !important;
-    pointer-events: none;
+  z-index: 1000 !important;
+  pointer-events: none;
 }

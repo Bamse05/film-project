@@ -1,129 +1,230 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Chatt">
-    <link rel="stylesheet" href="landing.css">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Chatt" />
+    <link rel="stylesheet" href="landing.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
     <script src="../dataImport.js" defer></script>
     <script src="./landing.js"></script>
     <title>Landing page</title>
-</head>
-<body id="landing-page-body">
+  </head>
+  <body id="landing-page-body">
     <div class="container">
-        <div class="navbar">
-
+      <div class="navbar"></div>
+      <div class="mainBody" id="mainBody">
+        <div
+          id="curtain-animation-container"
+          style="
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 10;
+          "
+        >
+          <img
+            id="curtain-gif"
+            src=""
+            alt="Curtain Opening"
+            style="width: 100%; height: 100%; object-fit: cover"
+          />
         </div>
-        <div class="mainBody" id="mainBody">
 
-            <div id="curtain-animation-container" style="display: none; width: 100%; height: 100%; position: absolute; left: 0; top: 0; z-index: 10;">
-                <img id="curtain-gif" src="" alt="Curtain Opening" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="movieSideBar" id="left">
+          <div class="reel-container">
+            <div class="reel-strip">
+              <img
+                src="../../server/Images/rasmus.jpeg"
+                id="movie1"
+                class="movie-poster poster-1"
+              />
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/backtofuture.mpw_500x749.jpg?v=1762467212"
+                id="movie2"
+                class="movie-poster poster-2"
+              />
+              <div class="reel-overlay"></div>
             </div>
 
-            <div class="movieSideBar" id="left">
-                <div class="reel-container">
-
-                    <div class="reel-strip">
-                        <img src="../../server/Images/rasmus.jpeg" id="movie1" class="movie-poster poster-1">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/backtofuture.mpw_500x749.jpg?v=1762467212" id="movie2" class="movie-poster poster-2">
-                        <div class="reel-overlay"></div>
-                    </div>
-
-                    <div class="reel-strip">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/jurassicpark.mpw_500x749.jpg?v=1762464743" id="movie3" class="movie-poster poster-1">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/darkknight.building.24x36_20e90057-f673-4cc3-9ce7-7b0d3eeb7d83_500x749.jpg?v=1762974221" id="movie4" class="movie-poster poster-2">
-                        <div class="reel-overlay"></div>
-                    </div>
-
-                    <div class="reel-strip">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/products/6cd691e19fffbe57b353cb120deaeb8f_8489d7bf-24ba-4848-9d0f-11f20cb35025_500x749.jpg?v=1762461207" id="movie5" class="movie-poster poster-1">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/products/609df06d7c2b5fb3125f16a7e4e34152_592ed277-d9d9-4400-af4b-f793370e5f54_500x749.jpg?v=1762481171" id="movie6" class="movie-poster poster-2">
-                        <div class="reel-overlay"></div>
-                    </div>
-
-                    <div class="reel-strip">
-                        <img src="../../server/Images/rasmus.jpeg" id="movie7" class="movie-poster poster-1">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/backtofuture.mpw_500x749.jpg?v=1762467212" id="movie8" class="movie-poster poster-2">
-                        <div class="reel-overlay"></div>
-                    </div>
-
-                    <div class="reel-strip">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/jurassicpark.mpw_500x749.jpg?v=1762464743" id="movie9" class="movie-poster poster-1">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/Goodfellas.mpw.116119_500x749.jpg?v=1762964954" id="movie10" class="movie-poster poster-2">
-                        <div class="reel-overlay"></div>
-                    </div>
-
-                </div>
+            <div class="reel-strip">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/jurassicpark.mpw_500x749.jpg?v=1762464743"
+                id="movie3"
+                class="movie-poster poster-1"
+              />
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/darkknight.building.24x36_20e90057-f673-4cc3-9ce7-7b0d3eeb7d83_500x749.jpg?v=1762974221"
+                id="movie4"
+                class="movie-poster poster-2"
+              />
+              <div class="reel-overlay"></div>
             </div>
-            <div class="content" id="center-content">
-                <div class="infoContainer">
-                    <h1>Popcorn Predictions</h1>
-                    <p>This is a higher or lower game</p>
-                    <div class="buttonContainer">
-                        <a href="#" class="infoButton" onclick="playGame(event)"><span>Play</span></a>
-                    </div>
-                </div>
-                <div class="leaderboard-container">
-                    <h2 style="color: white; text-align: center;">Top 10 Highscores</h2>
-                    <div class="table-wrapper">
-                    <table id="leaderboardTable">
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Name</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody id="leaderboardBody">
-                            </tbody>
-                    </table>
-                </div>
-                </div>
-                <div id="newScoreDiv" style="display: none; text-align: center; margin-top: 20px;">
-                    <h3 style="color: white;">New Highscore!</h3>
-                    <input type="text" id="playerName" placeholder="Enter your name">
-                    <button class="navButton" style="padding: 10px 20px; font-size: 16px;" onclick="submitNewScore()">Submit Score</button>
-                </div>
+
+            <div class="reel-strip">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/products/6cd691e19fffbe57b353cb120deaeb8f_8489d7bf-24ba-4848-9d0f-11f20cb35025_500x749.jpg?v=1762461207"
+                id="movie5"
+                class="movie-poster poster-1"
+              />
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/products/609df06d7c2b5fb3125f16a7e4e34152_592ed277-d9d9-4400-af4b-f793370e5f54_500x749.jpg?v=1762481171"
+                id="movie6"
+                class="movie-poster poster-2"
+              />
+              <div class="reel-overlay"></div>
             </div>
-            <div class="movieSideBar" id="right">
-                <div class="reel-container">
 
-                    <div class="reel-strip">
-                        <img src="../../server/Images/rasmus.jpeg" id="movie1" class="movie-poster poster-1">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/backtofuture.mpw_500x749.jpg?v=1762467212" id="movie2" class="movie-poster poster-2">
-                        <div class="reel-overlay"></div>
-                    </div>
-
-                    <div class="reel-strip">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/jurassicpark.mpw_500x749.jpg?v=1762464743" id="movie3" class="movie-poster poster-1">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/darkknight.building.24x36_20e90057-f673-4cc3-9ce7-7b0d3eeb7d83_500x749.jpg?v=1762974221" id="movie4" class="movie-poster poster-2">
-                        <div class="reel-overlay"></div>
-                    </div>
-
-                    <div class="reel-strip">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/products/6cd691e19fffbe57b353cb120deaeb8f_8489d7bf-24ba-4848-9d0f-11f20cb35025_500x749.jpg?v=1762461207" id="movie5" class="movie-poster poster-1">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/products/609df06d7c2b5fb3125f16a7e4e34152_592ed277-d9d9-4400-af4b-f793370e5f54_500x749.jpg?v=1762481171" id="movie6" class="movie-poster poster-2">
-                        <div class="reel-overlay"></div>
-                    </div>
-
-                    <div class="reel-strip">
-                        <img src="../../server/Images/rasmus.jpeg" id="movie7" class="movie-poster poster-1">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/backtofuture.mpw_500x749.jpg?v=1762467212" id="movie8" class="movie-poster poster-2">
-                        <div class="reel-overlay"></div>
-                    </div>
-
-                    <div class="reel-strip">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/jurassicpark.mpw_500x749.jpg?v=1762464743" id="movie9" class="movie-poster poster-1">
-                        <img src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/Goodfellas.mpw.116119_500x749.jpg?v=1762964954" id="movie10" class="movie-poster poster-2">
-                        <div class="reel-overlay"></div>
-                    </div>
-
-                </div>
+            <div class="reel-strip">
+              <img
+                src="../../server/Images/rasmus.jpeg"
+                id="movie7"
+                class="movie-poster poster-1"
+              />
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/backtofuture.mpw_500x749.jpg?v=1762467212"
+                id="movie8"
+                class="movie-poster poster-2"
+              />
+              <div class="reel-overlay"></div>
             </div>
+
+            <div class="reel-strip">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/jurassicpark.mpw_500x749.jpg?v=1762464743"
+                id="movie9"
+                class="movie-poster poster-1"
+              />
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/Goodfellas.mpw.116119_500x749.jpg?v=1762964954"
+                id="movie10"
+                class="movie-poster poster-2"
+              />
+              <div class="reel-overlay"></div>
+            </div>
+          </div>
         </div>
-        <div class="footer">
+        <div class="content" id="center-content">
+          <div class="infoContainer">
+            <h1>Popcorn Predictions</h1>
+            <p>This is a higher or lower game</p>
+            <div class="buttonContainer">
+              <a href="#" class="infoButton" onclick="playGame(event)"
+                ><span>Play</span></a
+              >
+            </div>
+          </div>
+          <div class="leaderboard-container">
+            <h2 style="color: white; text-align: center">Top 10 Highscores</h2>
+            <div class="table-wrapper">
+              <table id="leaderboardTable">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody id="leaderboardBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div
+            id="newScoreDiv"
+            style="display: none; text-align: center; margin-top: 20px"
+          >
+            <h3 style="color: white">New Highscore!</h3>
+            <input type="text" id="playerName" placeholder="Enter your name" />
+            <button
+              class="navButton"
+              style="padding: 10px 20px; font-size: 16px"
+              onclick="submitNewScore()"
+            >
+              Submit Score
+            </button>
+          </div>
         </div>
+        <div class="movieSideBar" id="right">
+          <div class="reel-container">
+            <div class="reel-strip">
+              <img
+                src="../../server/Images/rasmus.jpeg"
+                id="movie1"
+                class="movie-poster poster-1"
+              />
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/backtofuture.mpw_500x749.jpg?v=1762467212"
+                id="movie2"
+                class="movie-poster poster-2"
+              />
+              <div class="reel-overlay"></div>
+            </div>
+
+            <div class="reel-strip">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/jurassicpark.mpw_500x749.jpg?v=1762464743"
+                id="movie3"
+                class="movie-poster poster-1"
+              />
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/darkknight.building.24x36_20e90057-f673-4cc3-9ce7-7b0d3eeb7d83_500x749.jpg?v=1762974221"
+                id="movie4"
+                class="movie-poster poster-2"
+              />
+              <div class="reel-overlay"></div>
+            </div>
+
+            <div class="reel-strip">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/products/6cd691e19fffbe57b353cb120deaeb8f_8489d7bf-24ba-4848-9d0f-11f20cb35025_500x749.jpg?v=1762461207"
+                id="movie5"
+                class="movie-poster poster-1"
+              />
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/products/609df06d7c2b5fb3125f16a7e4e34152_592ed277-d9d9-4400-af4b-f793370e5f54_500x749.jpg?v=1762481171"
+                id="movie6"
+                class="movie-poster poster-2"
+              />
+              <div class="reel-overlay"></div>
+            </div>
+
+            <div class="reel-strip">
+              <img
+                src="../../server/Images/rasmus.jpeg"
+                id="movie7"
+                class="movie-poster poster-1"
+              />
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/backtofuture.mpw_500x749.jpg?v=1762467212"
+                id="movie8"
+                class="movie-poster poster-2"
+              />
+              <div class="reel-overlay"></div>
+            </div>
+
+            <div class="reel-strip">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/jurassicpark.mpw_500x749.jpg?v=1762464743"
+                id="movie9"
+                class="movie-poster poster-1"
+              />
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/3728/3618/files/Goodfellas.mpw.116119_500x749.jpg?v=1762964954"
+                id="movie10"
+                class="movie-poster poster-2"
+              />
+              <div class="reel-overlay"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer"></div>
     </div>
-</body>
+  </body>
 </html>
