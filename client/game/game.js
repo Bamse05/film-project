@@ -59,11 +59,100 @@ function guessHigherOrLower(guess) {
     updateScore();
     nextRound();
   } else {
-    //BOMBA SLUTA SPELET
-    popTheCorn();
+    // BOMBA SLUTA SPELET
+    if (typeof popTheCorn === 'function') popTheCorn();
+    handleGameOver(); // <-- New function call
+  }
+}
+// --- NEW GAME OVER AND LEADERBOARD LOGIC ---
+
+async function handleGameOver() {
+  // Hide the guess buttons and show game over container
+  document.getElementById("higherLowerContainer").style.display = "none";
+  const gameOverContainer = document.getElementById("gameOverContainer");
+  gameOverContainer.style.display = "flex";
+  
+  // Display the final score
+  document.getElementById("finalScoreText").textContent = "Your Score: " + currentScore;
+  
+  // Check leaderboard
+  try {
+    const response = await fetch("http://127.0.0.1:3000/leaderboard/top");
+    if (response.ok) {
+      const topScores = await response.json();
+      let isTop10 = false;
+      
+      // If there are less than 10 scores, they automatically make the top 10
+      if (topScores.length < 10) {
+        isTop10 = true;
+      } else {
+        // Compare with the lowest score in the top 10 (last element since it's sorted descending)
+        const lowestTopScore = topScores[topScores.length - 1].score;
+        if (currentScore > lowestTopScore) {
+          isTop10 = true;
+        }
+      }
+
+      // Show leaderboard prompt if they qualify and actually got a score above 0
+      if (isTop10 && currentScore > 0) {
+        document.getElementById("leaderboardPrompt").style.display = "flex";
+      }
+    }
+  } catch (error) {
+    console.error("Could not fetch leaderboard", error);
   }
 }
 
+async function submitScore() {
+  const nameInput = document.getElementById("playerName");
+  const name = nameInput.value.trim() || "Anonymous";
+  
+  try {
+    await fetch("http://127.0.0.1:3000/leaderboard/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: name, score: currentScore })
+    });
+    
+    // Hide the prompt once submitted
+    document.getElementById("leaderboardPrompt").style.display = "none";
+    nameInput.value = "";
+
+  } catch (error) {
+    console.error("Failed to submit score", error);
+  }
+}
+
+async function resetGame() {
+  // Reset score
+  currentScore = 0;
+  updateScore();
+  
+  // Reset UI components
+  document.getElementById("gameOverContainer").style.display = "none";
+  document.getElementById("leaderboardPrompt").style.display = "none";
+  
+  // Bring back the gamemode container
+  document.getElementById("gamemodeContainer").style.display = "flex";
+  
+  // Hide the game elements (undoing gameStartAnimation)
+  document.getElementById("popcorn-container").classList.remove("visible");
+  document.querySelector("header").classList.remove("visible");
+  document.getElementById("centerBox").classList.remove("visible");
+  document.getElementById("score").classList.remove("visible");
+  document.getElementById("highscore").classList.remove("visible");
+  
+  document.querySelectorAll(".movieinfo").forEach((elem) => {
+    elem.classList.remove("visible");
+  });
+
+  document.querySelectorAll(".infoButton").forEach((elem) => {
+    elem.classList.remove("visible");
+  });
+  
+  // Cycle movies so you get fresh matchups for the next game
+  await nextRound();
+}
 function higherOrLower(guess) {
   switch (gamemode) {
     case "releaseYear": {
@@ -377,4 +466,7 @@ function fillInfoBox(infoBox, movieInfo, gamemode) {
   description.className = "infoDescription";
   description.innerHTML = "Description:\n" + movieInfo.description;
   infoBox.appendChild(description);
+}
+function goHome() {
+  window.location.href = "../landing/index.html";
 }

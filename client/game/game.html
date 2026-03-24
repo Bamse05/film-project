@@ -67,6 +67,27 @@
             LOWER
           </button>
         </div>
+        <div id="higherLowerContainer">
+          <h3 id="selectedGamemode"></h3>
+          <button onclick="guessHigherOrLower('h')" class="guess" id="higher">HIGHER</button>
+          <button onclick="guessHigherOrLower('l')" class="guess" id="lower">LOWER</button>
+        </div>
+
+        <div id="gameOverContainer" class="game-over-container">
+          <h3>GAME OVER</h3>
+          <p id="finalScoreText" class="final-score-text"></p>
+          
+          <div id="leaderboardPrompt" class="leaderboard-prompt">
+            <p class="new-highscore-text">New High Score!</p>
+            <input type="text" id="playerName" class="player-name-input" placeholder="Enter your name" maxlength="15" />
+            <button onclick="submitScore()" class="buttons submit-score-btn" id="submitBtn">Submit Score</button>
+          </div>
+
+          <div class="game-over-buttons">
+            <button onclick="resetGame()" class="buttons">Restart Game</button>
+            <button onclick="goHome()" class="buttons home-btn">Home</button>
+          </div>
+        </div>
       </div>
       <div id="popcorn-container">
         <canvas id="c" width="800" height="2000"></canvas>

@@ -320,3 +320,57 @@ header.visible {
   z-index: 1000 !important;
   pointer-events: none;
 }
+/* --- GAME OVER & LEADERBOARD STYLES --- */
+.game-over-container {
+  display: none; /* Toggled to 'flex' by JavaScript */
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.final-score-text {
+  font-size: 1.5rem;
+}
+
+.leaderboard-prompt {
+  display: none; /* Toggled to 'flex' by JavaScript */
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.new-highscore-text {
+  color: #03a456;
+  font-weight: bold;
+}
+
+.player-name-input {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  width: 200px;
+}
+
+.player-name-input:focus {
+  outline: 2px solid #03a456;
+}
+
+.submit-score-btn {
+  height: auto;
+  padding: 10px;
+}
+.game-over-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.home-btn {
+  background-color: #555;
+}
+
+.home-btn:hover {
+  opacity: 0.9;
+}

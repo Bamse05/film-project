@@ -1,3 +1,10 @@
+
+// Run these functions when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+  loadLeaderboard();
+  randomizeReelPosters();
+});
+
 let currentTopScores = [];
 let pendingPlayerScore = 0;
 // Fetch top 10 scores from the server
