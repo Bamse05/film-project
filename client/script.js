@@ -14,11 +14,9 @@ async function getIdList(dbCollectionImdb) {
 }
 
 let gamemode;
-
 let previousMovie;
 let currentMovie;
 let nextMovie;
-
 let currentScore = 0;
 
 // ============= DATA IMPORT =============
