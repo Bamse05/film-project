@@ -63,11 +63,11 @@ body#landing-page-body {
 }
 
 #left .reel-container {
-    animation: slideUp 25s linear infinite;
+    animation: slideUp 5s linear infinite;
 }
 
 #right .reel-container {
-    animation: slideDown 25s linear infinite;
+    animation: slideDown 5s linear infinite;
 }
 #left {
     margin-left: 2rem;
@@ -87,7 +87,7 @@ body#landing-page-body {
     to { transform: translateY(0); }
 }
 .movieSideBar {
-    height: 82.5vh;
+    height: 83.5vh;
     width: 17.5rem;
     overflow: hidden;
     position: relative;
@@ -200,7 +200,7 @@ body#landing-page-body {
     margin-right: 10px;
 }
 .content{
-    height: 82.5vh;
+    height: 83.5vh;
     width: 500px;
     flex: 1;
     display: flex;
