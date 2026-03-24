@@ -4,7 +4,7 @@ const dbCollectionActorinfo = "actorinfo";
 const dbCollectionBechdel = "bechdel";
 const dbCollectionImdb = "imdb";
 
-const placeholderImgUrl = "../server/Images/PLACEHOLDER.jpg"
+const placeholderImgUrl = ".../server/Images/PLACEHOLDER.jpg"
 
 let movieIdList = [];
 
@@ -592,7 +592,7 @@ function playGame(event) {
 
     // Force the GIF to start from frame 1
     const gifImage = document.getElementById('curtain-gif');
-    gifImage.src = '../server/Images/curtaingif.gif?t=' + new Date().getTime();
+    gifImage.src = '.../server/Images/curtaingif.gif?t=' + new Date().getTime();
 
     // The total time your sped-up GIF takes to play (e.g., 1200ms)
     const totalGifTime = 3000;
