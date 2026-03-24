@@ -1,10 +1,10 @@
 body#landing-page-body {
     margin: 0;
-      font-family: 'Montserrat'; 
+      font-family: 'Montserrat';
     overflow: hidden;
-    
+
     /* --- NEW: Background is the still curtain! --- */
-    background-image: url(".../server/Images/curtainStill.png"); 
+    background-image: url("../../server/Images/curtainStill.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -20,7 +20,7 @@ body#landing-page-body {
     background-color: rgb(32, 30, 30);
     display: flex;
     flex-direction: row;
-    align-items: center;    
+    align-items: center;
     justify-content: center;
     gap: 10%;
     z-index: 1;
@@ -42,11 +42,11 @@ body#landing-page-body {
 .mainBody{
     height: 83.5vh; /* Lock height to fit between navbar and footer perfectly */
     position: relative; /* Essential for the absolute GIF container */
-    
-    /* Replaced CinemaStage.jpg with a dark transparent overlay 
+
+    /* Replaced CinemaStage.jpg with a dark transparent overlay
        so your still curtain background shows through nicely */
-    background: rgba(0, 0, 0, 0.4); 
-    
+    background: rgba(0, 0, 0, 0.4);
+
     display: flex;
     flex-direction: row;
 }
@@ -97,7 +97,7 @@ body#landing-page-body {
 .reel-strip {
     position: relative;
     width: 100%;
-    height: 503px; 
+    height: 503px;
 }
 
 .reel-overlay {
@@ -106,28 +106,28 @@ body#landing-page-body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('.../server/Images/Film_Reel2.png');
+    background-image: url('../../server/Images/Film_Reel2.png');
     background-repeat: repeat-y;
     background-size: contain;
     z-index: 2;
     pointer-events: none;
 }
 
-.poster-1 { 
+.poster-1 {
     top: 17px;
     height: 218px;
 }
 
-.poster-2 { 
+.poster-2 {
     top: 269px;
-    height: 218px; 
+    height: 218px;
 }
 
 .movie-poster {
     position: absolute;
     z-index: 1;
-    width: 172px; 
-    left: 15%;  
+    width: 172px;
+    left: 15%;
     object-fit: cover;
 }
 .logo{
@@ -142,7 +142,7 @@ body#landing-page-body {
     width: 80%;
     color: white;
     box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
-   
+
 }
 
 .table-wrapper {
@@ -172,7 +172,7 @@ body#landing-page-body {
     top: 0; /* Pins header to the top of the SCROLLABLE container */
     z-index: 2; /* Keeps header on top of scrolling rows */
     /* NEW: Shadow hides transparent border bleed glitch */
-    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.5); 
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.5);
 }
 /* Custom Scrollbar for the Leaderboard */
 .table-wrapper::-webkit-scrollbar {
@@ -180,17 +180,17 @@ body#landing-page-body {
 }
 
 .table-wrapper::-webkit-scrollbar-track {
-    background: rgba(32, 30, 30, 0.5); 
+    background: rgba(32, 30, 30, 0.5);
     border-radius: 10px;
 }
 
 .table-wrapper::-webkit-scrollbar-thumb {
-    background: rgb(104, 107, 110); 
+    background: rgb(104, 107, 110);
     border-radius: 10px;
 }
 
 .table-wrapper::-webkit-scrollbar-thumb:hover {
-    background: white; 
+    background: white;
 }
 #playerName {
     padding: 10px;
@@ -226,7 +226,7 @@ body#landing-page-body {
     padding-top: 2rem;
     display: flex;
     flex-direction: row;
-    align-items: center;    
+    align-items: center;
     justify-content: center;
     gap: 3%;
 }
@@ -269,10 +269,10 @@ p{
     width: 100%;
     height: 100%;
     z-index: 10;
-    background-color: black; 
-    
+    background-color: black;
+
     /* ADDED FADE PROPERTIES */
-    opacity: 1; 
+    opacity: 1;
     transition: opacity 0.6s ease-in-out; /* This makes it fade smoothly over 0.6 seconds */
 }
 
