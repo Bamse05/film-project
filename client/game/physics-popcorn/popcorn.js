@@ -203,9 +203,9 @@ function circRectCollision(c, B) {
 const canvas = document.getElementById("c");
 const ctx = canvas.getContext("2d");
 
-const popImg = loadImage("../server/Images/popcorn.png");
-const ballImg = loadImage("../server/Images/kernel.png");
-const basketImg = loadImage("../server/Images/basket.png");
+const popImg = loadImage("../../server/Images/popcorn.png");
+const ballImg = loadImage("../../server/Images/kernel.png");
+const basketImg = loadImage("../../server/Images/basket.png");
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
