@@ -4,7 +4,7 @@ const dbCollectionActorinfo = "actorinfo";
 const dbCollectionBechdel = "bechdel";
 const dbCollectionImdb = "imdb";
 
-const placeholderImgUrl = ".../server/Images/PLACEHOLDER.jpg";
+const placeholderImgUrl = "../../server/Images/PLACEHOLDER.jpg";
 
 let movieIdList = [];
 
