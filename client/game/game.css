@@ -112,19 +112,6 @@ header.visible {
   transform: translateY(0);
 }
 
-#highscore {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-
-  transform: translateY(4rem);
-  transition: transform 1.5s ease-in;
-}
-
-#highscore.visible {
-  transform: translateY(0);
-}
-
 #rightMovie {
   border-left: 2px solid gray;
 }
@@ -278,6 +265,10 @@ header.visible {
 
 .guess:hover {
   opacity: 0.9;
+}
+
+.guess:active {
+  opacity: 0.8;
 }
 
 .buttons {
