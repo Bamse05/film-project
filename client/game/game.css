@@ -54,6 +54,7 @@ header {
 
 button {
   border: none;
+  cursor:pointer;
 }
 
 header.visible {
