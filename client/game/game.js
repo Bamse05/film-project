@@ -305,24 +305,27 @@ async function createMovieBoxes() {
 
   const leftInfoContainer = document.createElement("div");
   leftInfoContainer.className = "infoBox";
-  // leftInfoContainer.style.display === "none";
+  leftInfoContainer.style.display === "none";
   const leftInfoInner = document.createElement("div");
   leftInfoContainer.appendChild(leftInfoInner);
   leftMovie.appendChild(leftInfoContainer);
 
   const rightInfoContainer = document.createElement("div");
   rightInfoContainer.className = "infoBox";
-  // rightInfoContainer.style.display === "none";
+  rightInfoContainer.style.display === "none";
   const rightInfoInner = document.createElement("div");
   rightInfoContainer.appendChild(rightInfoInner);
   rightMovie.appendChild(rightInfoContainer);
 
+  fillInfoBox(leftInfoInner, leftInfo, gamemode);
+  fillInfoBox(rightInfoInner, rightInfo, gamemode);
+
   leftInfoButton.addEventListener("click", () => {
     // Implement a function call to get the movie id to find the movie information
+
     if (leftInfoContainer.style.display === "block") {
-      leftInfoContainer.style.display === "none";
+      leftInfoContainer.style.display = "none";
     } else {
-      fillInfoBox(leftInfoInner, leftInfo, gamemode);
       // Display is set to "none" by default
       leftInfoContainer.style.display = "block";
     }
@@ -332,11 +335,11 @@ async function createMovieBoxes() {
     // Display is set to "none" by default
 
     if (rightInfoContainer.style.display === "block") {
-      rightInfoContainer.style.display === "none";
+      rightInfoContainer.style.display = "none";
     } else {
-      fillInfoBox(rightInfoInner, rightInfo, gamemode);
       // Display is set to "none" by default
       rightInfoContainer.style.display = "block";
+
     }
   });
 }
