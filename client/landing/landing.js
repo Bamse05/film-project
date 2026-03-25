@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   loadLeaderboard();
   randomizeReelPosters();
 });
-
 let currentTopScores = [];
 let pendingPlayerScore = 0;
 // Fetch top 10 scores from the server
