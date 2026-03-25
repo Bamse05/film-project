@@ -243,6 +243,10 @@ async function popTheCorn() {
   }
 }
 
+async function removeTheCorn() {
+  bodies = [];
+}
+
 function pause(milliseconds) {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
