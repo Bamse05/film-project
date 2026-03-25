@@ -160,6 +160,7 @@ async function resetGame() {
   // Cycle movies so you get fresh matchups for the next game
   await nextRound();
 }
+
 function higherOrLower(guess) {
   switch (gamemode) {
     case "releaseYear": {
@@ -221,31 +222,6 @@ function calculatePopcornAmount(score) {
   } else {
     return 8;
   }
-}
-
-async function gameplayLoop(
-  gamemode,
-  leftMovieInfoBox,
-  leftInfo,
-  rightMovieInfoBox,
-  rightInfo,
-  leftMovie,
-  rightMovie,
-) {
-  let gameOver = false;
-  let score = 0;
-  while (!gameOver) {
-    leftInfo = rightInfo;
-    buildMovieBox(leftMovieInfoBox, rightInfo, gamemode, leftMovie);
-
-    rightInfo = await getRandomMovie();
-    buildMovieBox(rightMovieInfoBox, rightInfo, gamemode, rightMovie);
-
-    gameOver = await higherOrLower(gamemode, leftInfo, rightInfo);
-    if (gameOver) break;
-    score += 1;
-  }
-  return score;
 }
 
 async function getRandomMovie() {
