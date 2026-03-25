@@ -224,7 +224,6 @@ basketImg.onload = () => {
 }
 
 async function spawnPopcorn(amount = 1) {
-  amount *= 50;
   for (let i = 0; i < amount; i++) {
     bodies.push(new Popcorn(-i*10));
     await pause(60 * Math.exp((-0.7) * i) + 40);
@@ -236,7 +235,7 @@ async function popTheCorn() {
     const b = bodies[i];
     if (b.popped == false) {
       await pause(410 * Math.exp((-0.16) * i) + 10);
-      b.r *= 2;
+      b.r *= 2.5;
       b.pos.y += b.r;
       b.img = popImg
       b.popped = true;

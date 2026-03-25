@@ -3,9 +3,11 @@ let previousMovie;
 let currentMovie;
 let nextMovie;
 let currentScore = 0;
+let isGameOver = false;
 
 async function startGame(selectedGamemode) {
   removeTheCorn();
+  isGameOver = false;
 
   gamemode = selectedGamemode;
   gamemodeHeader = document.getElementById("selectedGamemode");
@@ -52,6 +54,7 @@ function fadeBoxes() {
 }
 
 function guessHigherOrLower(guess) {
+  if (isGameOver) return;
   let guessedRight = higherOrLower(guess);
 
   if (guessedRight) {
@@ -61,6 +64,7 @@ function guessHigherOrLower(guess) {
     nextRound();
   } else {
     // BOMBA SLUTA SPELET
+    isGameOver = true;
     handleGameOver(); // <-- New function call
   }
 }
@@ -208,8 +212,14 @@ function calculatePopcornAmount(score) {
     return 3;
   } else if (score <= 5) {
     return 4;
-  } else {
+  } else if (score <= 8) {
     return 5;
+  } else if (score <= 10) {
+    return 6;
+  } else if (score <= 15) {
+    return 7;
+  } else {
+    return 8;
   }
 }
 
@@ -285,8 +295,7 @@ async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
       extraInfo.innerHTML = "Release year: " + movieInfo.year;
       extraInfo.appendChild(document.createElement("br"));
       extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
-      extraInfo.appendChild(document.createElement("br"));
-      extraInfo.innerHTML += "Rating: " + movieInfo.rating;
+      //extraInfo.appendChild(document.createElement("br")); extraInfo.innerHTML += "Rating: " + movieInfo.rating;
       break;
     }
 
