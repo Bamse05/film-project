@@ -247,6 +247,10 @@ async function removeTheCorn() {
   bodies = [];
 }
 
+function getPopcornAmount() {
+  return bodies.length;
+}
+
 function pause(milliseconds) {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }

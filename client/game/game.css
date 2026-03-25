@@ -323,6 +323,11 @@ header.visible {
   font-size: 1.5rem;
 }
 
+.corns-popped-text {
+  font-size: 1rem;
+  margin-top: -1rem;
+}
+
 .leaderboard-prompt {
   display: none; /* Toggled to 'flex' by JavaScript */
   flex-direction: column;

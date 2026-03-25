@@ -76,6 +76,7 @@ async function handleGameOver() {
 
   // Display the final score
   document.getElementById("finalScoreText").textContent = "Your Score: " + currentScore;
+  document.getElementById("cornsPoppedText").textContent = "Corns popped: " + getPopcornAmount();
 
   // Check leaderboard
   try {
@@ -198,13 +199,13 @@ async function nextRound() {
 }
 
 function calculatePopcornAmount(score) {
-  if (score <= 3) {
+  if (score <= 1) {
     return 1;
-  } else if (score <= 5) {
+  } else if (score <= 2) {
     return 2;
-  } else if (score <= 7) {
+  } else if (score <= 3) {
     return 3;
-  } else if (score <= 10) {
+  } else if (score <= 5) {
     return 4;
   } else {
     return 5;
