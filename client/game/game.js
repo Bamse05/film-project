@@ -208,8 +208,14 @@ function calculatePopcornAmount(score) {
     return 3;
   } else if (score <= 5) {
     return 4;
-  } else {
+  } else if (score <= 8) {
     return 5;
+  } else if (score <= 10) {
+    return 6;
+  } else if (score <= 15) {
+    return 7;
+  } else {
+    return 8;
   }
 }
 
