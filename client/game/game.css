@@ -112,19 +112,6 @@ header.visible {
   transform: translateY(0);
 }
 
-#highscore {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-
-  transform: translateY(4rem);
-  transition: transform 1.5s ease-in;
-}
-
-#highscore.visible {
-  transform: translateY(0);
-}
-
 #rightMovie {
   border-left: 2px solid gray;
 }
@@ -280,6 +267,10 @@ header.visible {
   opacity: 0.9;
 }
 
+.guess:active {
+  opacity: 0.8;
+}
+
 .buttons {
   font-size: 20px;
   font-family: "Montserrat", sans-serif;
@@ -332,6 +323,11 @@ header.visible {
   font-size: 1.5rem;
 }
 
+.corns-popped-text {
+  font-size: 1rem;
+  margin-top: -1rem;
+}
+
 .leaderboard-prompt {
   display: none; /* Toggled to 'flex' by JavaScript */
   flex-direction: column;
@@ -363,6 +359,7 @@ header.visible {
 }
 .game-over-buttons {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   margin-top: 1rem;
 }

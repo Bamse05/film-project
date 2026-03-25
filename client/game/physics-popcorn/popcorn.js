@@ -224,6 +224,7 @@ basketImg.onload = () => {
 }
 
 async function spawnPopcorn(amount = 1) {
+  amount *= 50;
   for (let i = 0; i < amount; i++) {
     bodies.push(new Popcorn(-i*10));
     await pause(60 * Math.exp((-0.7) * i) + 40);
@@ -241,6 +242,14 @@ async function popTheCorn() {
       b.popped = true;
     }
   }
+}
+
+async function removeTheCorn() {
+  bodies = [];
+}
+
+function getPopcornAmount() {
+  return bodies.length;
 }
 
 function pause(milliseconds) {

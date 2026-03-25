@@ -21,7 +21,7 @@
     <div class="content">
       <div class="movieBox" id="leftMovie">
         <div class="filter"></div>
-        <p id="score">SCORE: 0</p>
+        <h2 id="score">SCORE: 0</h2>
         <div class="movieinfo" id="leftMovieInfo">
           <div class="moviePoster">
             <img src="" alt="Poster left" id="leftPoster" />
@@ -35,7 +35,6 @@
       </div>
       <div class="movieBox" id="rightMovie">
         <div class="filter"></div>
-        <p id="highscore">HIGHSCORE: 0</p>
         <div class="movieinfo" id="rightMovieInfo">
           <div class="moviePoster">
             <img src="" alt="Poster right" id="rightPoster" />
@@ -50,23 +49,11 @@
       <div id="centerBox">
         <div id="gamemodeContainer">
           <h3>SELECT GAMEMODE</h3>
-          <button onclick="startGame('releaseYear')" class="buttons">
-            Release year
-          </button>
           <button onclick="startGame('rating')" class="buttons">Rating</button>
-          <button onclick="startGame('runtime')" class="buttons">
-            Runtime
-          </button>
+          <button onclick="startGame('releaseYear')" class="buttons">Release year</button>
+          <button onclick="startGame('runtime')" class="buttons">Runtime</button>
         </div>
-        <div id="higherLowerContainer">
-          <h3 id="selectedGamemode"></h3>
-          <button onclick="guessHigherOrLower('h')" class="guess" id="higher">
-            HIGHER
-          </button>
-          <button onclick="guessHigherOrLower('l')" class="guess" id="lower">
-            LOWER
-          </button>
-        </div>
+
         <div id="higherLowerContainer">
           <h3 id="selectedGamemode"></h3>
           <button onclick="guessHigherOrLower('h')" class="guess" id="higher">HIGHER</button>
@@ -76,7 +63,8 @@
         <div id="gameOverContainer" class="game-over-container">
           <h3>GAME OVER</h3>
           <p id="finalScoreText" class="final-score-text"></p>
-          
+          <p id="cornsPoppedText" class="corns-popped-text"></p>
+
           <div id="leaderboardPrompt" class="leaderboard-prompt">
             <p class="new-highscore-text">New High Score!</p>
             <input type="text" id="playerName" class="player-name-input" placeholder="Enter your name" maxlength="15" />

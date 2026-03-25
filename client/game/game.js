@@ -5,6 +5,8 @@ let nextMovie;
 let currentScore = 0;
 
 async function startGame(selectedGamemode) {
+  removeTheCorn();
+
   gamemode = selectedGamemode;
   gamemodeHeader = document.getElementById("selectedGamemode");
   switch (gamemode) {
@@ -37,7 +39,6 @@ function gameStartAnimation() {
   document.getElementById("higherLowerContainer").style.display = "flex";
 
   document.getElementById("score").classList.add("visible");
-  document.getElementById("highscore").classList.add("visible");
 }
 
 function fadeBoxes() {
@@ -60,28 +61,31 @@ function guessHigherOrLower(guess) {
     nextRound();
   } else {
     // BOMBA SLUTA SPELET
-    if (typeof popTheCorn === 'function') popTheCorn();
     handleGameOver(); // <-- New function call
   }
 }
+
 // --- NEW GAME OVER AND LEADERBOARD LOGIC ---
 
 async function handleGameOver() {
   // Hide the guess buttons and show game over container
+  await popTheCorn();
+
   document.getElementById("higherLowerContainer").style.display = "none";
   const gameOverContainer = document.getElementById("gameOverContainer");
   gameOverContainer.style.display = "flex";
-  
+
   // Display the final score
   document.getElementById("finalScoreText").textContent = "Your Score: " + currentScore;
-  
+  document.getElementById("cornsPoppedText").textContent = "Corns popped: " + getPopcornAmount();
+
   // Check leaderboard
   try {
     const response = await fetch("http://127.0.0.1:3000/leaderboard/top");
     if (response.ok) {
       const topScores = await response.json();
       let isTop10 = false;
-      
+
       // If there are less than 10 scores, they automatically make the top 10
       if (topScores.length < 10) {
         isTop10 = true;
@@ -106,14 +110,14 @@ async function handleGameOver() {
 async function submitScore() {
   const nameInput = document.getElementById("playerName");
   const name = nameInput.value.trim() || "Anonymous";
-  
+
   try {
     await fetch("http://127.0.0.1:3000/leaderboard/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: name, score: currentScore })
     });
-    
+
     // Hide the prompt once submitted
     document.getElementById("leaderboardPrompt").style.display = "none";
     nameInput.value = "";
@@ -127,21 +131,20 @@ async function resetGame() {
   // Reset score
   currentScore = 0;
   updateScore();
-  
+
   // Reset UI components
   document.getElementById("gameOverContainer").style.display = "none";
   document.getElementById("leaderboardPrompt").style.display = "none";
-  
+
   // Bring back the gamemode container
   document.getElementById("gamemodeContainer").style.display = "flex";
-  
+
   // Hide the game elements (undoing gameStartAnimation)
   document.getElementById("popcorn-container").classList.remove("visible");
   document.querySelector("header").classList.remove("visible");
   document.getElementById("centerBox").classList.remove("visible");
   document.getElementById("score").classList.remove("visible");
-  document.getElementById("highscore").classList.remove("visible");
-  
+
   document.querySelectorAll(".movieinfo").forEach((elem) => {
     elem.classList.remove("visible");
   });
@@ -149,7 +152,7 @@ async function resetGame() {
   document.querySelectorAll(".infoButton").forEach((elem) => {
     elem.classList.remove("visible");
   });
-  
+
   // Cycle movies so you get fresh matchups for the next game
   await nextRound();
 }
@@ -197,13 +200,13 @@ async function nextRound() {
 }
 
 function calculatePopcornAmount(score) {
-  if (score <= 3) {
+  if (score <= 1) {
     return 1;
-  } else if (score <= 5) {
+  } else if (score <= 2) {
     return 2;
-  } else if (score <= 7) {
+  } else if (score <= 3) {
     return 3;
-  } else if (score <= 10) {
+  } else if (score <= 5) {
     return 4;
   } else {
     return 5;
@@ -282,6 +285,8 @@ async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
       extraInfo.innerHTML = "Release year: " + movieInfo.year;
       extraInfo.appendChild(document.createElement("br"));
       extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
+      extraInfo.appendChild(document.createElement("br"));
+      extraInfo.innerHTML += "Rating: " + movieInfo.rating;
       break;
     }
 
@@ -292,9 +297,6 @@ async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
       break;
     }
     default: {
-      // Release year is set as default game mode
-      extraInfo.innerHTML =
-        "Rating: " + movieInfo.rating + "/n" + "Runtime: " + movieInfo.runtime;
       break;
     }
   }
