@@ -61,7 +61,6 @@ function guessHigherOrLower(guess) {
     nextRound();
   } else {
     // BOMBA SLUTA SPELET
-    if (typeof popTheCorn === 'function') popTheCorn();
     handleGameOver(); // <-- New function call
   }
 }
@@ -70,6 +69,8 @@ function guessHigherOrLower(guess) {
 
 async function handleGameOver() {
   // Hide the guess buttons and show game over container
+  await popTheCorn();
+
   document.getElementById("higherLowerContainer").style.display = "none";
   const gameOverContainer = document.getElementById("gameOverContainer");
   gameOverContainer.style.display = "flex";
@@ -284,6 +285,8 @@ async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
       extraInfo.innerHTML = "Release year: " + movieInfo.year;
       extraInfo.appendChild(document.createElement("br"));
       extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
+      extraInfo.appendChild(document.createElement("br"));
+      extraInfo.innerHTML += "Rating: " + movieInfo.rating;
       break;
     }
 
@@ -294,9 +297,6 @@ async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
       break;
     }
     default: {
-      // Release year is set as default game mode
-      extraInfo.innerHTML =
-        "Rating: " + movieInfo.rating + "/n" + "Runtime: " + movieInfo.runtime;
       break;
     }
   }
