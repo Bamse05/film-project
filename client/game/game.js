@@ -285,8 +285,7 @@ async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
       extraInfo.innerHTML = "Release year: " + movieInfo.year;
       extraInfo.appendChild(document.createElement("br"));
       extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
-      extraInfo.appendChild(document.createElement("br"));
-      extraInfo.innerHTML += "Rating: " + movieInfo.rating;
+      //extraInfo.appendChild(document.createElement("br")); extraInfo.innerHTML += "Rating: " + movieInfo.rating;
       break;
     }
 
