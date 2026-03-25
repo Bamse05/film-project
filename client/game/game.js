@@ -3,9 +3,11 @@ let previousMovie;
 let currentMovie;
 let nextMovie;
 let currentScore = 0;
+let isGameOver = false;
 
 async function startGame(selectedGamemode) {
   removeTheCorn();
+  isGameOver = false;
 
   gamemode = selectedGamemode;
   gamemodeHeader = document.getElementById("selectedGamemode");
@@ -52,6 +54,7 @@ function fadeBoxes() {
 }
 
 function guessHigherOrLower(guess) {
+  if (isGameOver) return;
   let guessedRight = higherOrLower(guess);
 
   if (guessedRight) {
@@ -61,6 +64,7 @@ function guessHigherOrLower(guess) {
     nextRound();
   } else {
     // BOMBA SLUTA SPELET
+    isGameOver = true;
     handleGameOver(); // <-- New function call
   }
 }
