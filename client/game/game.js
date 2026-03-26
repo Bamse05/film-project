@@ -160,6 +160,7 @@ async function resetGame() {
   // Cycle movies so you get fresh matchups for the next game
   await nextRound();
 }
+
 function higherOrLower(guess) {
   switch (gamemode) {
     case "releaseYear": {
@@ -221,31 +222,6 @@ function calculatePopcornAmount(score) {
   } else {
     return 8;
   }
-}
-
-async function gameplayLoop(
-  gamemode,
-  leftMovieInfoBox,
-  leftInfo,
-  rightMovieInfoBox,
-  rightInfo,
-  leftMovie,
-  rightMovie,
-) {
-  let gameOver = false;
-  let score = 0;
-  while (!gameOver) {
-    leftInfo = rightInfo;
-    buildMovieBox(leftMovieInfoBox, rightInfo, gamemode, leftMovie);
-
-    rightInfo = await getRandomMovie();
-    buildMovieBox(rightMovieInfoBox, rightInfo, gamemode, rightMovie);
-
-    gameOver = await higherOrLower(gamemode, leftInfo, rightInfo);
-    if (gameOver) break;
-    score += 1;
-  }
-  return score;
 }
 
 async function getRandomMovie() {
@@ -322,49 +298,65 @@ async function createMovieBoxes() {
   let rightInfo = currentMovie;
   buildMovieBox(rightMovieInfoBox, rightInfo, rightMovie);
 
-  // How to get id of each movie from the already retrieved movies data
+  // --- LEFT MOVIE INFO BOX FIX ---
+  let leftInfoContainer = leftMovie.querySelector(".infoBox");
+  let leftInfoInner;
+  
+  // If the box doesn't exist yet, create it and attach the event listener
+  if (!leftInfoContainer) {
+    leftInfoContainer = document.createElement("div");
+    leftInfoContainer.className = "infoBox";
+    leftInfoContainer.style.display = "none"; // Fixed typo: changed === to =
+    
+    leftInfoInner = document.createElement("div");
+    leftInfoContainer.appendChild(leftInfoInner);
+    leftMovie.appendChild(leftInfoContainer);
 
-  const leftInfoButton = document.getElementById("infoLeft");
-  const rightInfoButton = document.getElementById("infoRight");
+    const leftInfoButton = document.getElementById("infoLeft");
+    leftInfoButton.addEventListener("click", () => {
+      if (leftInfoContainer.style.display === "block") {
+        leftInfoContainer.style.display = "none";
+      } else {
+        leftInfoContainer.style.display = "block";
+      }
+    });
+  } else {
+    // If it already exists, just clear out the old text so we can refill it
+    leftInfoInner = leftInfoContainer.querySelector("div");
+    leftInfoInner.innerHTML = ""; 
+  }
 
-  const leftInfoContainer = document.createElement("div");
-  leftInfoContainer.className = "infoBox";
-  // leftInfoContainer.style.display === "none";
-  const leftInfoInner = document.createElement("div");
-  leftInfoContainer.appendChild(leftInfoInner);
-  leftMovie.appendChild(leftInfoContainer);
+  // --- RIGHT MOVIE INFO BOX FIX ---
+  let rightInfoContainer = rightMovie.querySelector(".infoBox");
+  let rightInfoInner;
+  
+  if (!rightInfoContainer) {
+    rightInfoContainer = document.createElement("div");
+    rightInfoContainer.className = "infoBox";
+    rightInfoContainer.style.display = "none"; // Fixed typo: changed === to =
+    
+    rightInfoInner = document.createElement("div");
+    rightInfoContainer.appendChild(rightInfoInner);
+    rightMovie.appendChild(rightInfoContainer);
 
-  const rightInfoContainer = document.createElement("div");
-  rightInfoContainer.className = "infoBox";
-  // rightInfoContainer.style.display === "none";
-  const rightInfoInner = document.createElement("div");
-  rightInfoContainer.appendChild(rightInfoInner);
-  rightMovie.appendChild(rightInfoContainer);
+    const rightInfoButton = document.getElementById("infoRight");
+    rightInfoButton.addEventListener("click", () => {
+      if (rightInfoContainer.style.display === "block") {
+        rightInfoContainer.style.display = "none";
+      } else {
+        rightInfoContainer.style.display = "block";
+      }
+    });
+  } else {
+    // Clear out the old text 
+    rightInfoInner = rightInfoContainer.querySelector("div");
+    rightInfoInner.innerHTML = ""; 
+  }
 
-  leftInfoButton.addEventListener("click", () => {
-    // Implement a function call to get the movie id to find the movie information
-    if (leftInfoContainer.style.display === "block") {
-      leftInfoContainer.style.display === "none";
-    } else {
-      fillInfoBox(leftInfoInner, leftInfo, gamemode);
-      // Display is set to "none" by default
-      leftInfoContainer.style.display = "block";
-    }
-  });
-
-  rightInfoButton.addEventListener("click", () => {
-    // Display is set to "none" by default
-
-    if (rightInfoContainer.style.display === "block") {
-      rightInfoContainer.style.display === "none";
-    } else {
-      fillInfoBox(rightInfoInner, rightInfo, gamemode);
-      // Display is set to "none" by default
-      rightInfoContainer.style.display = "block";
-    }
-  });
+  // Fill the fresh boxes with the current round's data
+  fillInfoBox(leftInfoInner, leftInfo, gamemode);
+  fillInfoBox(rightInfoInner, rightInfo, gamemode);
 }
-
 document.addEventListener("DOMContentLoaded", async function () {
   console.log("HTML DOM tree loaded, and ready for manipulation.");
 

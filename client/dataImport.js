@@ -8,11 +8,6 @@ const placeholderImgUrl = "../../server/Images/PLACEHOLDER.jpg";
 
 let movieIdList = [];
 
-async function getIdList(dbCollectionImdb) {
-  const idList = await reqIdList(dbCollectionImdb);
-  return idList;
-}
-
 async function reqMovieData(id) {
   const response = await fetch(serverUrl + "/imdb/id/" + id, {
     method: "GET",
