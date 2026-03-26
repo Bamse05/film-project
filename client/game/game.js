@@ -19,7 +19,7 @@ async function startGame(selectedGamemode) {
       gamemodeHeader.textContent = "Rating";
       break;
     case "runtime":
-      gamemodeHeader.textContent = "Runcar snowpen";
+      gamemodeHeader.textContent = "Runtime";
       break;
     default:
       break;
