@@ -287,7 +287,7 @@ async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
     case "runtime": {
       extraInfo.innerHTML = "Release year: " + movieInfo.year;
       extraInfo.appendChild(document.createElement("br"));
-      extraInfo.innerHTML += "rating: " + movieInfo.rating;
+      extraInfo.innerHTML += "Rating: " + movieInfo.rating;
       if (movieBox.id === "leftMovieInfo") {
         extraInfo.appendChild(document.createElement("br"));
         extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
