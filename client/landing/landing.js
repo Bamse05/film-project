@@ -1,12 +1,12 @@
 
-// Run these functions when the page loads
 document.addEventListener("DOMContentLoaded", () => {
   loadLeaderboard();
   randomizeReelPosters();
 });
+
 let currentTopScores = [];
 let pendingPlayerScore = 0;
-// Fetch top 10 scores from the server
+
 async function loadLeaderboard() {
   const response = await fetch(serverUrl + "/leaderboard/top", {
     method: "GET",
@@ -17,29 +17,21 @@ async function loadLeaderboard() {
     currentTopScores = await response.json();
     const tbody = document.getElementById("leaderboardBody");
 
-    // Clear existing rows (innerHTML is still okay here just for emptying the container quickly)
-
-    // Populate table using appendChild
     currentTopScores.forEach((entry, index) => {
-      // 1. Create the table row
       const tr = document.createElement("tr");
 
-      // 2. Create and fill the Rank cell
       const rankTd = document.createElement("td");
       rankTd.textContent = index + 1;
       tr.appendChild(rankTd);
 
-      // 3. Create and fill the Name cell
       const nameTd = document.createElement("td");
       nameTd.textContent = entry.name;
       tr.appendChild(nameTd);
 
-      // 4. Create and fill the Score cell
       const scoreTd = document.createElement("td");
       scoreTd.textContent = entry.score;
       tr.appendChild(scoreTd);
 
-      // 5. Finally, append the finished row to the table body
       tbody.appendChild(tr);
     });
   }
@@ -78,7 +70,6 @@ async function randomizeReelPosters() {
         for (let j = 0; j < 4; j++) {
           if (posters[j] && posters[j + 6]) {
             posters[j + 6].src = posters[j].src;
-            // Ensure the clones also have the placeholder fallback
             posters[j + 6].onerror = function () {
               this.src = placeholderImgUrl;
             };
@@ -90,34 +81,24 @@ async function randomizeReelPosters() {
     console.error("Failed to randomize posters:", error);
   }
 }
-// --- NEW CURTAIN ANIMATION LOGIC ---
-
-// --- NEW CURTAIN ANIMATION LOGIC ---
-
-// --- NEW CURTAIN ANIMATION LOGIC ---
 
 function playGame(event) {
   event.preventDefault();
 
-  // Hide the landing page UI
   document.getElementById("left").style.display = "none";
   document.getElementById("right").style.display = "none";
   document.getElementById("center-content").style.display = "none";
   document.getElementById("mainBody").style.background = "none";
 
-  // Show the GIF container
   const animContainer = document.getElementById("curtain-animation-container");
   animContainer.style.display = "block";
   animContainer.style.opacity = "1";
 
-  // Force the GIF to start from frame 1
   const gifImage = document.getElementById("curtain-gif");
   gifImage.src = "../../server/Images/curtaingif.gif?t=" + new Date().getTime();
 
-  // The total time your sped-up GIF takes to play (e.g., 1200ms)
   const totalGifTime = 3000;
 
-  // Navigate to the game page the exact moment the GIF finishes!
   setTimeout(() => {
     window.location.href = "../game/game.html";
   }, totalGifTime);

@@ -69,8 +69,6 @@ function guessHigherOrLower(guess) {
   }
 }
 
-// --- NEW GAME OVER AND LEADERBOARD LOGIC ---
-
 async function handleGameOver() {
   // Hide the guess buttons and show game over container
   await popTheCorn();
@@ -122,7 +120,6 @@ async function submitScore() {
       body: JSON.stringify({ name: name, score: currentScore })
     });
 
-    // Hide the prompt once submitted
     document.getElementById("leaderboardPrompt").style.display = "none";
     nameInput.value = "";
 
@@ -284,7 +281,6 @@ async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
       extraInfo.innerHTML = "Release year: " + movieInfo.year;
       extraInfo.appendChild(document.createElement("br"));
       extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
-      //extraInfo.appendChild(document.createElement("br")); extraInfo.innerHTML += "Rating: " + movieInfo.rating;
       if (movieBox.id === "leftMovieInfo") {
         extraInfo.appendChild(document.createElement("br"));
         extraInfo.innerHTML += "Rating: " + movieInfo.rating;
@@ -327,15 +323,13 @@ async function createMovieBoxes() {
   let rightInfo = currentMovie;
   buildMovieBox(rightMovieInfoBox, rightInfo, rightMovie);
 
-  // --- LEFT MOVIE INFO BOX FIX ---
   let leftInfoContainer = leftMovie.querySelector(".infoBox");
   let leftInfoInner;
 
-  // If the box doesn't exist yet, create it and attach the event listener
   if (!leftInfoContainer) {
     leftInfoContainer = document.createElement("div");
     leftInfoContainer.className = "infoBox";
-    leftInfoContainer.style.display = "none"; // Fixed typo: changed === to =
+    leftInfoContainer.style.display = "none";
 
     leftInfoInner = document.createElement("div");
     leftInfoContainer.appendChild(leftInfoInner);
@@ -350,19 +344,17 @@ async function createMovieBoxes() {
       }
     });
   } else {
-    // If it already exists, just clear out the old text so we can refill it
     leftInfoInner = leftInfoContainer.querySelector("div");
     leftInfoInner.innerHTML = "";
   }
 
-  // --- RIGHT MOVIE INFO BOX FIX ---
   let rightInfoContainer = rightMovie.querySelector(".infoBox");
   let rightInfoInner;
 
   if (!rightInfoContainer) {
     rightInfoContainer = document.createElement("div");
     rightInfoContainer.className = "infoBox";
-    rightInfoContainer.style.display = "none"; // Fixed typo: changed === to =
+    rightInfoContainer.style.display = "none";
 
     rightInfoInner = document.createElement("div");
     rightInfoContainer.appendChild(rightInfoInner);
@@ -377,15 +369,14 @@ async function createMovieBoxes() {
       }
     });
   } else {
-    // Clear out the old text
     rightInfoInner = rightInfoContainer.querySelector("div");
     rightInfoInner.innerHTML = "";
   }
 
-  // Fill the fresh boxes with the current round's data
   fillInfoBox(leftInfoInner, leftInfo, gamemode);
   fillInfoBox(rightInfoInner, rightInfo, gamemode);
 }
+
 document.addEventListener("DOMContentLoaded", async function () {
   console.log("HTML DOM tree loaded, and ready for manipulation.");
 
@@ -458,6 +449,7 @@ function fillInfoBox(infoBox, movieInfo, gamemode) {
   description.innerHTML = "Description:\n" + movieInfo.description;
   infoBox.appendChild(description);
 }
+
 function goHome() {
   window.location.href = "../landing/index.html";
 }

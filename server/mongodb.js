@@ -32,7 +32,6 @@ const server = http.createServer((req, res) => {
     }
     route(res, pathComponents);
   } else if (req.method == "OPTIONS") {
-    // default preflight response: 204 (No Content); docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#successful_responses
     sendResponse(res, 204, null, null);
   } else if (req.method == "POST") {
     if (pathComponents[1] === "leaderboard" && pathComponents[2] === "add") {
@@ -68,19 +67,7 @@ function sendResponse(res, statusCode, contentType, data) {
   else res.end();
 }
 
-// USE THIS TO SEND BASIC DB REQUESTS
-async function requestDBJSON(findQuery, dbCollectionName) {
-  const db = dbClient.db(dbName);
-  const dbCollection = db.collection(dbCollectionName);
-
-  const artists = await dbCollection.find(findQuery).toArray();
-  const resultingJSON = JSON.stringify(artists);
-
-  return resultingJSON;
-}
-
 // ------ ROUTING FUNCTIONS ------
-
 async function route(res, pathComponents) {
   const dbCollectionName = pathComponents[1];
 
@@ -160,7 +147,6 @@ async function getTopLeaderboard(res) {
   const db = dbClient.db(dbName);
   const dbCollection = db.collection(dbCollectionLeaderboard);
 
-  // Sort by score descending (-1) and limit to top 10
   const result = await dbCollection
     .find()
     .sort({ score: -1 })
@@ -175,7 +161,6 @@ async function addScoreToLeaderboard(res, data) {
   const db = dbClient.db(dbName);
   const dbCollection = db.collection(dbCollectionLeaderboard);
 
-  // Make sure score is stored as a number so sorting works properly
   data.score = Number(data.score);
 
   await dbCollection.insertOne(data);
