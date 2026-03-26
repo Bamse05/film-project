@@ -182,9 +182,13 @@ function higherOrLower(guess) {
       return false;
     }
     case "runtime": {
+
+      let currRuntime = parseInt(currentMovie.runtime.split(" ")[0]);
+      let prevRuntime = parseInt(previousMovie.runtime.split(" ")[0]);
+
       if (
-        (guess === "h" && currentMovie.runtime >= previousMovie.runtime) ||
-        (guess === "l" && currentMovie.runtime <= previousMovie.runtime)
+        (guess === "h" && currRuntime >= prevRuntime) ||
+        (guess === "l" && currRuntime <= prevRuntime)
       ) {
         return true;
       }
@@ -480,7 +484,7 @@ function fillInfoBox(infoBox, movieInfo, gamemode) {
   const stars = document.createElement("p");
   stars.className = "infoStars";
   stars.innerHTML = "Stars: ";
-  if (movieInfo.genre != null) {
+  if (movieInfo.star != null) {
     for (let i = 0; i < movieInfo.star.length; i++) {
       stars.innerHTML += movieInfo.star[i];
       if (i != movieInfo.star.length - 1) {
