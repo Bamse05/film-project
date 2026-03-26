@@ -264,6 +264,11 @@ async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
       extraInfo.innerHTML = "Rating: " + movieInfo.rating;
       extraInfo.appendChild(document.createElement("br"));
       extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
+
+      if (movieBox.id === "leftMovieInfo") {
+        extraInfo.appendChild(document.createElement("br"));
+        extraInfo.innerHTML += "Release Year: " + movieInfo.year;
+      }
       break;
     }
 
@@ -272,6 +277,10 @@ async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
       extraInfo.appendChild(document.createElement("br"));
       extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
       //extraInfo.appendChild(document.createElement("br")); extraInfo.innerHTML += "Rating: " + movieInfo.rating;
+      if (movieBox.id === "leftMovieInfo") {
+        extraInfo.appendChild(document.createElement("br"));
+        extraInfo.innerHTML += "Rating: " + movieInfo.rating;
+      }
       break;
     }
 
@@ -279,6 +288,10 @@ async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
       extraInfo.innerHTML = "Release year: " + movieInfo.year;
       extraInfo.appendChild(document.createElement("br"));
       extraInfo.innerHTML += "rating: " + movieInfo.rating;
+      if (movieBox.id === "leftMovieInfo") {
+        extraInfo.appendChild(document.createElement("br"));
+        extraInfo.innerHTML += "Runtime: " + movieInfo.runtime;
+      }
       break;
     }
     default: {
