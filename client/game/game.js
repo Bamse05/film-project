@@ -278,7 +278,7 @@ async function buildMovieBox(movieBox, movieInfo, backgroundBox) {
     case "runtime": {
       extraInfo.innerHTML = "Release year: " + movieInfo.year;
       extraInfo.appendChild(document.createElement("br"));
-      extraInfo.innerHTML += "rating: " + movieInfo.rating;
+      extraInfo.innerHTML += "Rating: " + movieInfo.rating;
       break;
     }
     default: {
@@ -301,13 +301,13 @@ async function createMovieBoxes() {
   // --- LEFT MOVIE INFO BOX FIX ---
   let leftInfoContainer = leftMovie.querySelector(".infoBox");
   let leftInfoInner;
-  
+
   // If the box doesn't exist yet, create it and attach the event listener
   if (!leftInfoContainer) {
     leftInfoContainer = document.createElement("div");
     leftInfoContainer.className = "infoBox";
     leftInfoContainer.style.display = "none"; // Fixed typo: changed === to =
-    
+
     leftInfoInner = document.createElement("div");
     leftInfoContainer.appendChild(leftInfoInner);
     leftMovie.appendChild(leftInfoContainer);
@@ -323,18 +323,18 @@ async function createMovieBoxes() {
   } else {
     // If it already exists, just clear out the old text so we can refill it
     leftInfoInner = leftInfoContainer.querySelector("div");
-    leftInfoInner.innerHTML = ""; 
+    leftInfoInner.innerHTML = "";
   }
 
   // --- RIGHT MOVIE INFO BOX FIX ---
   let rightInfoContainer = rightMovie.querySelector(".infoBox");
   let rightInfoInner;
-  
+
   if (!rightInfoContainer) {
     rightInfoContainer = document.createElement("div");
     rightInfoContainer.className = "infoBox";
     rightInfoContainer.style.display = "none"; // Fixed typo: changed === to =
-    
+
     rightInfoInner = document.createElement("div");
     rightInfoContainer.appendChild(rightInfoInner);
     rightMovie.appendChild(rightInfoContainer);
@@ -348,9 +348,9 @@ async function createMovieBoxes() {
       }
     });
   } else {
-    // Clear out the old text 
+    // Clear out the old text
     rightInfoInner = rightInfoContainer.querySelector("div");
-    rightInfoInner.innerHTML = ""; 
+    rightInfoInner.innerHTML = "";
   }
 
   // Fill the fresh boxes with the current round's data
