@@ -423,47 +423,6 @@ function fillInfoBox(infoBox, movieInfo, gamemode) {
   director.innerHTML = "Director: " + movieInfo.director;
   infoBox.appendChild(director);
 
-  switch (gamemode) {
-    case "year": {
-      const rating = document.createElement("p");
-      rating.className = "infoRating";
-      year.innerHTML = "Rating: " + movieInfo.rating;
-      infoBox.appendChild(rating);
-
-      const runtime = document.createElement("p");
-      runtime.className = "infoRuntime";
-      runtime.innerHTML = "Runtime: " + movieInfo.runtime;
-      infoBox.appendChild(runtime);
-      break;
-    }
-    case "rating": {
-      const year = document.createElement("p");
-      year.className = "infoYear";
-      year.innerHTML = "Release year: " + movieInfo.year;
-      infoBox.appendChild(year);
-
-      const runtime = document.createElement("p");
-      runtime.className = "infoRuntime";
-      runtime.innerHTML = "Runtime: " + movieInfo.runtime;
-      infoBox.appendChild(runtime);
-      break;
-    }
-    case "runtime": {
-      const year = document.createElement("p");
-      year.className = "infoYear";
-      year.innerHTML = "Release year: " + movieInfo.year;
-      infoBox.appendChild(year);
-
-      const rating = document.createElement("p");
-      rating.className = "infoRating";
-      year.innerHTML = "Rating: " + movieInfo.rating;
-      infoBox.appendChild(rating);
-      break;
-    }
-    default: {
-    }
-  }
-
   const genre = document.createElement("p");
   genre.className = "infoGenre";
   genre.innerHTML = "Genre: ";
